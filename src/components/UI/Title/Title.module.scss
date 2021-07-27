@@ -1,0 +1,19 @@
+@import 'shared/scssVariables.scss';
+
+.Title {
+  color: $wetasphalt;
+  font-weight: bold;
+  padding-left: 10px;
+
+  &.Large {
+    font-size: 42px;
+  }
+
+  &.Medium {
+    font-size: 34px;
+  }
+
+  &.Small {
+    font-size: 27px;
+  }
+}
