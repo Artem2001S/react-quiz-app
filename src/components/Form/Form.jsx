@@ -7,8 +7,8 @@ import Button from 'components/UI/Button/Button';
 const Form = ({ submitBtnText, inputs, onInputChange, onSubmit }) => {
   return (
     <form className={classes.Form} onSubmit={onSubmit}>
-      {inputs?.map((input) => (
-        <Input key={input.key} onChange={onInputChange} {...input} />
+      {inputs?.map(({ validationData, ...input }) => (
+        <Input key={input.id} onChange={onInputChange} {...input} />
       ))}
 
       <Button type="button" onClick={onSubmit} className={classes.SubmitBtn}>
