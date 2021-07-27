@@ -1,0 +1,15 @@
+@import 'shared/scssVariables.scss';
+
+.Header {
+  border-bottom: 1px solid $wetasphalt;
+}
+
+.HeaderInner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.RightSide {
+  display: flex;
+  gap: 10px;
+}

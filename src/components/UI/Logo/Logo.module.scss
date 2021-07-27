@@ -1,0 +1,8 @@
+@import 'shared/scssVariables.scss';
+
+.Logo {
+  font-size: 30px;
+  font-weight: bold;
+  color: $wetasphalt;
+  user-select: none;
+}

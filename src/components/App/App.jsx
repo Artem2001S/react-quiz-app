@@ -11,6 +11,7 @@ import Dashboard from 'pages/Dashboard';
 import Registration from 'pages/Registration';
 import RedirectAuthorizedUserRoute from 'shared/RedirectAuthorizedUserRoute';
 import { checkIsAuthorized } from 'redux/userData/userDataSlice';
+import Header from 'components/Header/Header';
 
 function App() {
   const isLoading = useSelector(getIsLoadingSelector);
@@ -23,6 +24,8 @@ function App() {
 
   return (
     <Router>
+      <Header />
+
       <Switch>
         <Route path="/" exact>
           <HelloPage />

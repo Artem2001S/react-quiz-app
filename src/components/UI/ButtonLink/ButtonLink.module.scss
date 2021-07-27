@@ -3,10 +3,10 @@
 .ButtonLink {
   display: block;
   padding: 6px 15px;
-  min-width: 130px;
+  min-width: 100px;
   text-decoration: none;
 
-  border: 2px solid $lightBlue;
+  border: 2px solid $wetasphalt;
   background-color: transparent;
   font-size: 18px;
 
@@ -16,9 +16,9 @@
   outline: none;
   cursor: pointer;
 
-  transition: color 0.3s;
+  transition: background-color 0.3s;
 
   &:hover {
-    color: rgba($color: $wetasphalt, $alpha: 0.8);
+    background-color: rgba($color: $wetasphalt, $alpha: 0.1);
   }
 }
