@@ -15,7 +15,7 @@
   color: $wetasphalt;
   border: 1px solid $wetasphalt;
   outline: none;
-  border-radius: 10px;
+  border-radius: $borderRadius;
 
   &:focus {
     box-shadow: 0 0 10px rgba($color: $wetasphalt, $alpha: 0.4);
