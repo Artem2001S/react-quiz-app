@@ -1,9 +1,12 @@
 import React, { useState, useCallback } from 'react';
-import Form from 'components/Form/Form';
 import { nanoid } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 import Container from 'components/UI/Container/Container';
+import Form from 'components/Form/Form';
+import { userLogin } from 'redux/userData/userDataSlice';
 
 const LoginFormContainer = () => {
+  const dispatch = useDispatch();
   const [inputs, setInputs] = useState([
     {
       id: nanoid(),
@@ -32,12 +35,17 @@ const LoginFormContainer = () => {
     [inputs]
   );
 
+  const formSubmitHandler = useCallback(() => {
+    dispatch(userLogin());
+  }, [dispatch]);
+
   return (
     <Container centered fullScreen>
       <Form
         submitBtnText="Login"
         inputs={inputs}
         onInputChange={changeInputValue}
+        onSubmit={formSubmitHandler}
       />
     </Container>
   );
