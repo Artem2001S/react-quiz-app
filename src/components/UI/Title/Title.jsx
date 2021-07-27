@@ -23,4 +23,4 @@ Title.propTypes = {
   children: PropTypes.node,
 };
 
-export default Title;
+export default React.memo(Title);

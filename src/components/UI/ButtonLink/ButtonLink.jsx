@@ -12,4 +12,4 @@ const ButtonLink = ({ className, to, children, ...props }) => (
     {children}
   </Link>
 );
-export default ButtonLink;
+export default React.memo(ButtonLink);

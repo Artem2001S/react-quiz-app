@@ -3,4 +3,4 @@ import classes from './Loader.module.scss';
 
 const Loader = () => <div className={classes.Loader} />;
 
-export default Loader;
+export default React.memo(Loader);

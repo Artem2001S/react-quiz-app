@@ -43,4 +43,4 @@ const LoginFormContainer = () => {
   );
 };
 
-export default LoginFormContainer;
+export default React.memo(LoginFormContainer);

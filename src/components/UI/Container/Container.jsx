@@ -13,4 +13,4 @@ const Container = ({ fullScreen, centered, children }) => (
   </div>
 );
 
-export default Container;
+export default React.memo(Container);
