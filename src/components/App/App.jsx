@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIsLoadingSelector } from 'redux/userInterface/selectors';
 import Loader from 'components/UI/Loader/Loader';
 import Login from 'pages/LoginPage';
-import PrivateRoute from 'shared/PrivateRoute';
+import PrivateRoute from 'shared/components/PrivateRoute';
 import HelloPage from 'pages/HelloPage/HelloPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import Dashboard from 'pages/Dashboard';
 import Registration from 'pages/Registration';
-import RedirectAuthorizedUserRoute from 'shared/RedirectAuthorizedUserRoute';
+import RedirectAuthorizedUserRoute from 'shared/components/RedirectAuthorizedUserRoute';
 import { checkIsAuthorized } from 'redux/userData/userDataSlice';
 import Header from 'components/Header/Header';
 
