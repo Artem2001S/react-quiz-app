@@ -4,9 +4,8 @@ import { useSelector } from 'react-redux';
 import { getIsLoadingSelector } from 'redux/userInterface/selectors';
 import Loader from 'components/UI/Loader/Loader';
 import Login from 'pages/Login';
-import Home from 'pages/Home';
 import PrivateRoute from 'shared/PrivateRoute';
-import Button from 'components/UI/Button/Button';
+import HelloPage from 'pages/HelloPage/HelloPage';
 
 function App() {
   const isLoading = useSelector(getIsLoadingSelector);
@@ -14,12 +13,15 @@ function App() {
   return (
     <Router>
       <Switch>
-        <PrivateRoute path="/" exact>
-          <Home />
-        </PrivateRoute>
+        <Route path="/" exact>
+          <HelloPage />
+        </Route>
         <Route path="/login" exact>
           <Login />
         </Route>
+        <PrivateRoute path="/dashboard" exact>
+          Private
+        </PrivateRoute>
       </Switch>
 
       {isLoading && <Loader />}

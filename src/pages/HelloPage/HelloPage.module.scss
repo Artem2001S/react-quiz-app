@@ -1,0 +1,16 @@
+@import 'shared/scssVariables.scss';
+
+.Container {
+  min-width: 100w;
+  min-height: 100vh;
+  padding: 10%;
+}
+
+.Left {
+  align-self: flex-start;
+}
+
+.Link {
+  text-decoration: underline;
+  color: $wetasphalt;
+}
