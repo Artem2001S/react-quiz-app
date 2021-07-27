@@ -1,0 +1,29 @@
+@import 'shared/scssVariables.scss';
+
+.InputContainer {
+  padding: 5px;
+}
+
+.Input {
+  display: block;
+  width: 100%;
+  padding: 6px 10px;
+  max-width: 300px;
+
+  font-size: 19px;
+
+  color: $wetasphalt;
+  border: 1px solid $wetasphalt;
+  outline: none;
+  border-radius: 10px;
+
+  &:focus {
+    box-shadow: 0 0 10px rgba($color: $wetasphalt, $alpha: 0.4);
+  }
+}
+
+.InputLabelText {
+  color: $wetasphalt;
+  padding-left: 5px;
+  font-size: 17px;
+}
