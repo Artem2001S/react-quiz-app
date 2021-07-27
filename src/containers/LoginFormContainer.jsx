@@ -4,14 +4,16 @@ import { useDispatch } from 'react-redux';
 import Container from 'components/UI/Container/Container';
 import Form from 'components/Form/Form';
 import { userLogin } from 'redux/userData/userDataSlice';
+import { validateInputs } from 'shared/helpers';
 
 const LoginFormContainer = () => {
   const dispatch = useDispatch();
+  const [errors, setErrors] = useState([]);
   const [inputs, setInputs] = useState([
     {
       id: nanoid(),
       label: 'Username:',
-      name: 'userName',
+      name: 'username',
       value: '',
       validationData: { isRequired: true },
     },
@@ -36,14 +38,22 @@ const LoginFormContainer = () => {
   );
 
   const formSubmitHandler = useCallback(() => {
-    dispatch(userLogin());
-  }, [dispatch]);
+    const validationErrors = validateInputs(inputs);
+    if (validationErrors.length) {
+      setErrors(validationErrors);
+    } else {
+      setErrors([]);
+      dispatch(userLogin());
+    }
+  }, [dispatch, inputs]);
 
   return (
     <Container centered fullScreen>
       <Form
         submitBtnText="Login"
         inputs={inputs}
+        title="Sign in"
+        errors={errors}
         onInputChange={changeInputValue}
         onSubmit={formSubmitHandler}
       />
