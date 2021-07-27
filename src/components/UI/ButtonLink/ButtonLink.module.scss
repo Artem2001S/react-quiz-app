@@ -1,0 +1,24 @@
+@import 'shared/scssVariables.scss';
+
+.ButtonLink {
+  display: block;
+  padding: 6px 15px;
+  min-width: 130px;
+  text-decoration: none;
+
+  border: 2px solid $lightBlue;
+  background-color: transparent;
+  font-size: 18px;
+
+  color: $wetasphalt;
+  text-align: center;
+  border-radius: $borderRadius;
+  outline: none;
+  cursor: pointer;
+
+  transition: color 0.3s;
+
+  &:hover {
+    color: rgba($color: $wetasphalt, $alpha: 0.8);
+  }
+}
