@@ -1,0 +1,11 @@
+@import 'shared/scssVariables.scss';
+
+.UserBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.HelloUser {
+  color: $wetasphalt;
+}

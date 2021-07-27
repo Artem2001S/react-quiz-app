@@ -3,8 +3,12 @@ import {
   loadingFinished,
   loadingStarted,
 } from 'redux/userInterface/userInterfaceSlice';
-import { getCurrentUserRequest, userLoginRequest } from '../requests';
-import { userAuthorized } from '../userDataSlice';
+import {
+  getCurrentUserRequest,
+  userLoginRequest,
+  userLogoutRequest,
+} from '../requests';
+import { userAuthorized, userExited } from '../userDataSlice';
 
 export function* userLoginWorker({ payload }) {
   try {
@@ -28,6 +32,17 @@ export function* checkIsAuthorizedWorker() {
     const { data } = response;
 
     yield put(userAuthorized(data));
+  } catch (error) {
+  } finally {
+    yield put(loadingFinished());
+  }
+}
+
+export function* userLogoutWorker() {
+  try {
+    yield put(loadingStarted());
+    yield call(userLogoutRequest);
+    yield put(userExited());
   } catch (error) {
   } finally {
     yield put(loadingFinished());
