@@ -16,6 +16,7 @@ const userDataSlice = createSlice({
 });
 
 export const userLogin = createAction(`${name}/userLogin`);
+export const checkIsAuthorized = createAction(`${name}/checkIsAuthorized`);
 
 export const { userAuthorized } = userDataSlice.actions;
 export default userDataSlice.reducer;

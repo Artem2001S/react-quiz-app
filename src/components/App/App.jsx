@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getIsLoadingSelector } from 'redux/userInterface/selectors';
 import Loader from 'components/UI/Loader/Loader';
 import Login from 'pages/LoginPage';
@@ -10,9 +10,16 @@ import NotFoundPage from 'pages/NotFoundPage';
 import Dashboard from 'pages/Dashboard';
 import Registration from 'pages/Registration';
 import RedirectAuthorizedUserRoute from 'shared/RedirectAuthorizedUserRoute';
+import { checkIsAuthorized } from 'redux/userData/userDataSlice';
 
 function App() {
   const isLoading = useSelector(getIsLoadingSelector);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // get current user
+    dispatch(checkIsAuthorized());
+  }, [dispatch]);
 
   return (
     <Router>
