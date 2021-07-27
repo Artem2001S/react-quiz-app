@@ -51,7 +51,7 @@ const LoginFormContainer = () => {
   }, [dispatch, inputs]);
 
   return (
-    <Container centered fullScreen>
+    <Container centered>
       <Form
         submitBtnText="Login"
         inputs={inputs}

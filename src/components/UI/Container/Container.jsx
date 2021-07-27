@@ -1,13 +1,10 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
 import classes from './Container.module.scss';
 
-const Container = ({ fullScreen, centered, children }) => (
+const Container = ({ centered, children }) => (
   <div
-    className={classNames(
-      { [classes.Centered]: centered, [classes.FullScreen]: fullScreen },
-      classes.Container
-    )}
+    className={classNames({ [classes.Centered]: centered }, classes.Container)}
   >
     {children}
   </div>
