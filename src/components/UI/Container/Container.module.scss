@@ -3,4 +3,15 @@
   max-width: 1240px;
   padding: 20px;
   margin: auto;
+
+  &.Centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.FullScreen {
+    min-width: 100vw;
+    min-height: 100vh;
+  }
 }
