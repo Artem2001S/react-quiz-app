@@ -1,7 +1,11 @@
+import Loader from 'components/UI/Loader/Loader';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { getIsLoadingSelector } from 'redux/userInterface/selectors';
 
 function App() {
-  return <div>App</div>;
+  const isLoading = useSelector(getIsLoadingSelector);
+  return <div>{isLoading && <Loader />}App</div>;
 }
 
 export default App;

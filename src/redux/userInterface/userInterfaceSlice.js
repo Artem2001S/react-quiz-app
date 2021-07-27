@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const name = 'userInterface';
 const initialState = {
-  isLoading: false,
+  isLoading: true,
 };
 
 const userInterfaceSlice = createSlice({
@@ -12,6 +12,7 @@ const userInterfaceSlice = createSlice({
     loadingStarted: (state) => {
       state.isLoading = true;
     },
+
     loadingFinished: (state) => {
       state.isLoading = false;
     },
