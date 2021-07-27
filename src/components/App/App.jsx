@@ -6,6 +6,7 @@ import Loader from 'components/UI/Loader/Loader';
 import Login from 'pages/Login';
 import PrivateRoute from 'shared/PrivateRoute';
 import HelloPage from 'pages/HelloPage/HelloPage';
+import NotFoundPage from 'pages/NotFoundPage';
 
 function App() {
   const isLoading = useSelector(getIsLoadingSelector);
@@ -22,6 +23,7 @@ function App() {
         <PrivateRoute path="/dashboard" exact>
           Private
         </PrivateRoute>
+        <NotFoundPage />
       </Switch>
 
       {isLoading && <Loader />}
