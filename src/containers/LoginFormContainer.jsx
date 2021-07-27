@@ -39,11 +39,14 @@ const LoginFormContainer = () => {
 
   const formSubmitHandler = useCallback(() => {
     const validationErrors = validateInputs(inputs);
+
     if (validationErrors.length) {
       setErrors(validationErrors);
     } else {
+      const data = { username: inputs[0].value, password: inputs[1].value };
+      dispatch(userLogin(data));
+
       setErrors([]);
-      dispatch(userLogin());
     }
   }, [dispatch, inputs]);
 

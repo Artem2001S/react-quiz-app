@@ -17,8 +17,7 @@ const Form = ({
   return (
     <form className={classes.Form} onSubmit={onSubmit}>
       <Title medium centered>
-        {' '}
-        {title}{' '}
+        {title}
       </Title>
       {inputs?.map(({ validationData, ...input }) => (
         <Input key={input.id} onChange={onInputChange} {...input} />

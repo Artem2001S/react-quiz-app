@@ -20,4 +20,4 @@ const userInterfaceSlice = createSlice({
 });
 
 export default userInterfaceSlice.reducer;
-export const { loadingStarted, loadingFinished } = userInterfaceSlice;
+export const { loadingStarted, loadingFinished } = userInterfaceSlice.actions;

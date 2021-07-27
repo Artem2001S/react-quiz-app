@@ -9,7 +9,9 @@ const userDataSlice = createSlice({
   name,
   initialState,
   reducers: {
-    userAuthorized: (state, { payload }) => {},
+    userAuthorized: (state, { payload }) => {
+      state.user = payload;
+    },
   },
 });
 

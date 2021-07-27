@@ -9,6 +9,7 @@ import HelloPage from 'pages/HelloPage/HelloPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import Dashboard from 'pages/Dashboard';
 import Registration from 'pages/Registration';
+import RedirectAuthorizedUserRoute from 'shared/RedirectAuthorizedUserRoute';
 
 function App() {
   const isLoading = useSelector(getIsLoadingSelector);
@@ -19,12 +20,21 @@ function App() {
         <Route path="/" exact>
           <HelloPage />
         </Route>
-        <Route path="/login" exact>
+
+        <RedirectAuthorizedUserRoute
+          path="/login"
+          redirectTo="/dashboard"
+          exact
+        >
           <Login />
-        </Route>
-        <Route path="/signup" exact>
+        </RedirectAuthorizedUserRoute>
+        <RedirectAuthorizedUserRoute
+          path="/signup"
+          redirectTo="/dashboard"
+          exact
+        >
           <Registration />
-        </Route>
+        </RedirectAuthorizedUserRoute>
         <PrivateRoute path="/dashboard" exact>
           <Dashboard />
         </PrivateRoute>
