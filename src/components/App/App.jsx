@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsLoadingSelector } from 'redux/userInterface/selectors';
@@ -13,16 +13,14 @@ import RedirectAuthorizedUserRoute from 'shared/components/RedirectAuthorizedUse
 import { checkIsAuthorized } from 'redux/userData/userDataSlice';
 import Header from 'components/Header/Header';
 import { useAuth } from 'hooks/useAuth';
+import { useComponentDidMount } from 'hooks/useComponentDidMount';
 
 function App() {
   const isLoading = useSelector(getIsLoadingSelector);
   const { user, logout } = useAuth();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // get current user
-    dispatch(checkIsAuthorized());
-  }, [dispatch]);
+  useComponentDidMount(() => dispatch(checkIsAuthorized()));
 
   return (
     <Router>
