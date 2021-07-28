@@ -10,3 +10,6 @@ export const getIsUserAdminSelector = createSelector(
   getUserDataSelector,
   (user) => user?.is_admin
 );
+
+export const getIsUserAuthorizationCheckedSelector = (state) =>
+  state.userData.isUserAuthorizationChecked;

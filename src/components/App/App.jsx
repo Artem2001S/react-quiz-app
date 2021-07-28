@@ -20,6 +20,7 @@ import { useComponentDidMount } from 'hooks/useComponentDidMount';
 import Alert from 'components/UI/Alert/Alert';
 import { messageReceived } from 'redux/userInterface/userInterfaceSlice';
 import { useCallback } from 'react';
+import { getIsUserAuthorizationCheckedSelector } from 'redux/userData/selectors';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,10 @@ function App() {
   const { user, logout, isAdmin } = useAuth();
 
   const isLoading = useSelector(getIsLoadingSelector);
+  const isUserAuthorizationChecked = useSelector(
+    getIsUserAuthorizationCheckedSelector
+  );
+
   const message = useSelector(getMessageSelector);
   const closeMessage = useCallback(() => {
     dispatch(messageReceived({ message: '' }));
@@ -34,24 +39,35 @@ function App() {
 
   return (
     <Router>
-      <Header user={user} onLogout={logout} isAdmin={isAdmin} />
+      {isUserAuthorizationChecked && (
+        <>
+          <Header user={user} onLogout={logout} isAdmin={isAdmin} />
+          <Switch>
+            <Route path="/" exact>
+              <HelloPage />
+            </Route>
 
-      <Switch>
-        <Route path="/" exact>
-          <HelloPage />
-        </Route>
-
-        <RedirectAuthorizedUserRoute path="/login" redirectTo="/tests" exact>
-          <Login />
-        </RedirectAuthorizedUserRoute>
-        <RedirectAuthorizedUserRoute path="/signup" redirectTo="/tests" exact>
-          <RegistrationPage />
-        </RedirectAuthorizedUserRoute>
-        <PrivateRoute path="/tests" exact>
-          <TestsPage />
-        </PrivateRoute>
-        <NotFoundPage />
-      </Switch>
+            <RedirectAuthorizedUserRoute
+              path="/login"
+              redirectTo="/tests"
+              exact
+            >
+              <Login />
+            </RedirectAuthorizedUserRoute>
+            <RedirectAuthorizedUserRoute
+              path="/signup"
+              redirectTo="/tests"
+              exact
+            >
+              <RegistrationPage />
+            </RedirectAuthorizedUserRoute>
+            <PrivateRoute path="/tests" exact>
+              <TestsPage />
+            </PrivateRoute>
+            <NotFoundPage />
+          </Switch>
+        </>
+      )}
 
       {isLoading && <Loader />}
       {message && <Alert message={message} close={closeMessage} />}

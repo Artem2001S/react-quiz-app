@@ -10,7 +10,11 @@ import {
   userLogoutRequest,
   userSignUpRequest,
 } from '../requests';
-import { userAuthorized, userExited } from '../userDataSlice';
+import {
+  userAuthorizationChecked,
+  userAuthorized,
+  userExited,
+} from '../userDataSlice';
 
 export function* userLoginWorker({ payload }) {
   try {
@@ -37,6 +41,7 @@ export function* checkIsAuthorizedWorker() {
   } catch (error) {
   } finally {
     yield put(loadingFinished());
+    yield put(userAuthorizationChecked());
   }
 }
 
