@@ -21,6 +21,7 @@ import Alert from 'components/UI/Alert/Alert';
 import { messageReceived } from 'redux/userInterface/userInterfaceSlice';
 import { useCallback } from 'react';
 import { getIsUserAuthorizationCheckedSelector } from 'redux/userData/selectors';
+import TestPage from 'pages/TestPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,10 @@ function App() {
             <PrivateRoute path="/tests" exact>
               <TestsPage />
             </PrivateRoute>
+            <PrivateRoute path="/tests/:testId" exact>
+              <TestPage />
+            </PrivateRoute>
+
             <NotFoundPage />
           </Switch>
         </>
