@@ -2,6 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import {
   loadingFinished,
   loadingStarted,
+  messageReceived,
 } from 'redux/userInterface/userInterfaceSlice';
 import {
   getCurrentUserRequest,
@@ -19,7 +20,7 @@ export function* userLoginWorker({ payload }) {
 
     yield put(userAuthorized(userData));
   } catch (error) {
-    console.log('error ');
+    yield put(messageReceived({ message: 'Authorization error' }));
   } finally {
     yield put(loadingFinished());
   }

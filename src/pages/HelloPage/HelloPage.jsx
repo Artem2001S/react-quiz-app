@@ -21,7 +21,7 @@ const HelloPage = () => {
       ) : (
         <>
           <Title small>
-            A Have an account ?{' '}
+            Have an account ?{' '}
             <Link className={classes.Link} to="/login">
               Login
             </Link>

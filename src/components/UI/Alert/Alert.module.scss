@@ -1,0 +1,58 @@
+@import 'shared/scssVariables.scss';
+
+.Alert {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+
+  font-weight: 500;
+  background-color: $clouds;
+  color: $lightRed;
+  font-size: 20px;
+
+  padding: 25px 20px;
+  transform-origin: bottom;
+  animation: show 0.5s ease-out forwards;
+
+  &.Hide {
+    animation: hide 1.1s ease-out;
+  }
+}
+
+.CloseBtn {
+  cursor: pointer;
+  transform: scale(1.6);
+  transition: color 0.3s;
+
+  &:hover {
+    color: $darkRed;
+  }
+}
+
+@keyframes show {
+  0% {
+    transform: scaleY(0.4);
+    bottom: -20%;
+  }
+
+  100% {
+    transform: scaleY(1);
+    bottom: 0;
+  }
+}
+
+@keyframes hide {
+  0% {
+    transform: scaleY(1);
+    bottom: 0;
+  }
+
+  100% {
+    transform: scaleY(0.4);
+    bottom: -20%;
+  }
+}

@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsLoadingSelector } from 'redux/userInterface/selectors';
+import {
+  getIsLoadingSelector,
+  getMessageSelector,
+} from 'redux/userInterface/selectors';
 import Loader from 'components/UI/Loader/Loader';
 import Login from 'pages/LoginPage';
 import PrivateRoute from 'shared/components/PrivateRoute';
@@ -14,11 +17,18 @@ import { checkIsAuthorized } from 'redux/userData/userDataSlice';
 import Header from 'components/Header/Header';
 import { useAuth } from 'hooks/useAuth';
 import { useComponentDidMount } from 'hooks/useComponentDidMount';
+import Alert from 'components/UI/Alert/Alert';
+import { messageReceived } from 'redux/userInterface/userInterfaceSlice';
+import { useCallback } from 'react';
 
 function App() {
   const isLoading = useSelector(getIsLoadingSelector);
+  const message = useSelector(getMessageSelector);
   const { user, logout } = useAuth();
   const dispatch = useDispatch();
+  const closeMessage = useCallback(() => {
+    dispatch(messageReceived({ message: '' }));
+  }, [dispatch]);
 
   useComponentDidMount(() => dispatch(checkIsAuthorized()));
 
@@ -52,6 +62,7 @@ function App() {
       </Switch>
 
       {isLoading && <Loader />}
+      {message && <Alert message={message} close={closeMessage} />}
     </Router>
   );
 }
