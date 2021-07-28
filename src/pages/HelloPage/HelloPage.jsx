@@ -14,8 +14,8 @@ const HelloPage = () => {
       {isAuthorized ? (
         <Title small>
           You're authorized, go to{' '}
-          <Link className={classes.Link} to="/dashboard">
-            Dashboard
+          <Link className={classes.Link} to="/tests">
+            Tests
           </Link>
         </Title>
       ) : (

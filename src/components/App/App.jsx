@@ -10,8 +10,8 @@ import Login from 'pages/LoginPage';
 import PrivateRoute from 'shared/components/PrivateRoute';
 import HelloPage from 'pages/HelloPage/HelloPage';
 import NotFoundPage from 'pages/NotFoundPage';
-import Dashboard from 'pages/Dashboard';
-import Registration from 'pages/Registration';
+import TestsPage from 'pages/TestsPage';
+import RegistrationPage from 'pages/RegistrationPage';
 import RedirectAuthorizedUserRoute from 'shared/components/RedirectAuthorizedUserRoute';
 import { checkIsAuthorized } from 'redux/userData/userDataSlice';
 import Header from 'components/Header/Header';
@@ -41,22 +41,14 @@ function App() {
           <HelloPage />
         </Route>
 
-        <RedirectAuthorizedUserRoute
-          path="/login"
-          redirectTo="/dashboard"
-          exact
-        >
+        <RedirectAuthorizedUserRoute path="/login" redirectTo="/tests" exact>
           <Login />
         </RedirectAuthorizedUserRoute>
-        <RedirectAuthorizedUserRoute
-          path="/signup"
-          redirectTo="/dashboard"
-          exact
-        >
-          <Registration />
+        <RedirectAuthorizedUserRoute path="/signup" redirectTo="/tests" exact>
+          <RegistrationPage />
         </RedirectAuthorizedUserRoute>
-        <PrivateRoute path="/dashboard" exact>
-          <Dashboard />
+        <PrivateRoute path="/tests" exact>
+          <TestsPage />
         </PrivateRoute>
         <NotFoundPage />
       </Switch>
