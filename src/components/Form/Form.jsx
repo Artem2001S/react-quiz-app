@@ -5,6 +5,7 @@ import classes from './Form.module.scss';
 import Button from 'components/UI/Button/Button';
 import Errors from 'components/UI/Errors/Errors';
 import Title from 'components/UI/Title/Title';
+import Checkbox from 'components/UI/Checkbox/Checkbox';
 
 const Form = ({ submitBtnText, inputs, errors, title, onSubmit }) => {
   return (
@@ -12,9 +13,13 @@ const Form = ({ submitBtnText, inputs, errors, title, onSubmit }) => {
       <Title medium centered>
         {title}
       </Title>
-      {inputs?.map(({ validationData, ...input }) => (
-        <Input key={input.id} {...input} />
-      ))}
+      {inputs?.map(({ validationData, ...input }) => {
+        if (input.type === 'checkbox') {
+          return <Checkbox key={input.id} {...input} />;
+        } else {
+          return <Input key={input.id} {...input} />;
+        }
+      })}
 
       <Button type="button" onClick={onSubmit} className={classes.SubmitBtn}>
         {submitBtnText}

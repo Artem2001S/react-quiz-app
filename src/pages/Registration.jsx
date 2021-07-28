@@ -1,7 +1,6 @@
 import React from 'react';
+import RegistrationFormContainer from 'containers/RegistrationFormContainer';
 
-const Registration = () => {
-  return <div>Registration</div>;
-};
+const Registration = () => <RegistrationFormContainer />;
 
 export default React.memo(Registration);

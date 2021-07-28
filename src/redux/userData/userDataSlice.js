@@ -19,6 +19,7 @@ const userDataSlice = createSlice({
 });
 
 export const userLogin = createAction(`${name}/userLogin`);
+export const userSignUp = createAction(`${name}/userSignUp`);
 export const checkIsAuthorized = createAction(`${name}/checkIsAuthorized`);
 export const userLogout = createAction(`${name}/userLogout`);
 

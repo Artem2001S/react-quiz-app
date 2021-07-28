@@ -4,11 +4,17 @@ export const useInputs = (inputsArray) => {
   const [inputs, setInputs] = useState(inputsArray);
 
   const changeInputValue = (id, e) => {
-    setInputs(
-      inputs.map((input) =>
-        input.id === id ? { ...input, value: e.target.value } : input
-      )
-    );
+    e.target.type === 'checkbox'
+      ? setInputs(
+          inputs.map((input) =>
+            input.id === id ? { ...input, checked: e.target.checked } : input
+          )
+        )
+      : setInputs(
+          inputs.map((input) =>
+            input.id === id ? { ...input, value: e.target.value } : input
+          )
+        );
   };
 
   const inputsWithOnChangeFunc = inputs.map((input) => ({
