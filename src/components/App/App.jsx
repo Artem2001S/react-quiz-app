@@ -1,8 +1,7 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsLoadingSelector } from 'redux/userInterface/selectors';
-import { getUserDataSelector } from 'redux/userData/selectors';
 import Loader from 'components/UI/Loader/Loader';
 import Login from 'pages/LoginPage';
 import PrivateRoute from 'shared/components/PrivateRoute';
@@ -11,17 +10,14 @@ import NotFoundPage from 'pages/NotFoundPage';
 import Dashboard from 'pages/Dashboard';
 import Registration from 'pages/Registration';
 import RedirectAuthorizedUserRoute from 'shared/components/RedirectAuthorizedUserRoute';
-import { checkIsAuthorized, userLogout } from 'redux/userData/userDataSlice';
+import { checkIsAuthorized } from 'redux/userData/userDataSlice';
 import Header from 'components/Header/Header';
+import { useAuth } from 'hooks/useAuth';
 
 function App() {
   const isLoading = useSelector(getIsLoadingSelector);
-  const user = useSelector(getUserDataSelector);
+  const { user, logout } = useAuth();
   const dispatch = useDispatch();
-
-  const handleLogoutBtnClick = useCallback(() => {
-    dispatch(userLogout());
-  }, [dispatch]);
 
   useEffect(() => {
     // get current user
@@ -30,7 +26,7 @@ function App() {
 
   return (
     <Router>
-      <Header user={user} onLogout={handleLogoutBtnClick} />
+      <Header user={user} onLogout={logout} />
 
       <Switch>
         <Route path="/" exact>

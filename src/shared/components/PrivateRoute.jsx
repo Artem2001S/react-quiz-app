@@ -1,10 +1,9 @@
+import { useAuth } from 'hooks/useAuth';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
-import { getIsAuthorizedSelector } from 'redux/userData/selectors';
 
 function PrivateRoute({ children, ...props }) {
-  const isAuthorized = useSelector(getIsAuthorizedSelector);
+  const { isAuthorized } = useAuth();
 
   return (
     <Route {...props}>
