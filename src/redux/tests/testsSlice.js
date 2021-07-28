@@ -15,10 +15,14 @@ const testsSlice = createSlice({
       state.isFetched = true;
       state.tests = payload.tests;
     },
+    testCreated: (state, { payload }) => {
+      state.tests.unshift(payload.test);
+    },
   },
 });
 
 export const fetchTests = createAction(`${name}/fetchTests`);
+export const createNewTest = createAction(`${name}/createNewTest`);
 
-export const { testsLoaded } = testsSlice.actions;
+export const { testsLoaded, testCreated } = testsSlice.actions;
 export default testsSlice.reducer;

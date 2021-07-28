@@ -23,4 +23,4 @@ const TestsListItem = ({ id, title, createdAt, isAdmin }) => {
   );
 };
 
-export default TestsListItem;
+export default React.memo(TestsListItem);

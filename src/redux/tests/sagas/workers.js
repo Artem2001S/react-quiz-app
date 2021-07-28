@@ -2,9 +2,10 @@ import { call, put } from 'redux-saga/effects';
 import {
   loadingFinished,
   loadingStarted,
+  messageReceived,
 } from 'redux/userInterface/userInterfaceSlice';
-import { fetchTestsRequest } from '../requests';
-import { testsLoaded } from '../testsSlice';
+import { fetchTestsRequest, postTestRequest } from '../requests';
+import { testCreated, testsLoaded } from '../testsSlice';
 
 export function* fetchTestsWorker() {
   try {
@@ -16,6 +17,19 @@ export function* fetchTestsWorker() {
 
     yield put(testsLoaded({ tests: testsWithoutQuestions }));
   } catch (error) {
+    yield put(messageReceived('Fetching tests error.'));
+  } finally {
+    yield put(loadingFinished());
+  }
+}
+
+export function* createNewTestWorker({ payload }) {
+  try {
+    yield put(loadingStarted());
+    const { data } = yield call(postTestRequest, payload.title);
+    yield put(testCreated({ test: data }));
+  } catch (error) {
+    yield put(messageReceived('Create test server error.'));
   } finally {
     yield put(loadingFinished());
   }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export const useInputs = (inputsArray) => {
   const [inputs, setInputs] = useState(inputsArray);
@@ -22,7 +22,12 @@ export const useInputs = (inputsArray) => {
     onChange: (e) => changeInputValue(input.id, e),
   }));
 
+  const resetInputs = useCallback(() => {
+    setInputs(inputsArray);
+  }, [inputsArray]);
+
   return {
     inputs: inputsWithOnChangeFunc,
+    resetInputs,
   };
 };
