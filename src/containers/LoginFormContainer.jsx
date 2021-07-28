@@ -5,11 +5,12 @@ import Container from 'components/UI/Container/Container';
 import Form from 'components/Form/Form';
 import { userLogin } from 'redux/userData/userDataSlice';
 import { validateInputs } from 'shared/helpers';
+import { useInputs } from 'hooks/useInputs';
 
 const LoginFormContainer = () => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
-  const [inputs, setInputs] = useState([
+  const inputsArray = [
     {
       id: nanoid(),
       label: 'Username:',
@@ -26,16 +27,9 @@ const LoginFormContainer = () => {
       type: 'password',
       validationData: { isRequired: true },
     },
-  ]);
+  ];
 
-  const changeInputValue = useCallback(
-    (id, value) => {
-      setInputs(
-        inputs.map((input) => (input.id === id ? { ...input, value } : input))
-      );
-    },
-    [inputs]
-  );
+  const { inputs } = useInputs(inputsArray);
 
   const formSubmitHandler = useCallback(() => {
     const validationErrors = validateInputs(inputs);
@@ -57,7 +51,6 @@ const LoginFormContainer = () => {
         inputs={inputs}
         title="Sign in"
         errors={errors}
-        onInputChange={changeInputValue}
         onSubmit={formSubmitHandler}
       />
     </Container>
