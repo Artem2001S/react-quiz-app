@@ -3,4 +3,4 @@ import LoginFormContainer from 'containers/LoginFormContainer';
 
 const LoginPage = () => <LoginFormContainer />;
 
-export default LoginPage;
+export default React.memo(LoginPage);

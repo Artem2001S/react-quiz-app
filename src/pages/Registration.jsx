@@ -4,4 +4,4 @@ const Registration = () => {
   return <div>Registration</div>;
 };
 
-export default Registration;
+export default React.memo(Registration);

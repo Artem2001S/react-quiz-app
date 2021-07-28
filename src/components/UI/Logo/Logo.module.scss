@@ -5,4 +5,11 @@
   font-weight: bold;
   color: $wetasphalt;
   user-select: none;
+  text-decoration: none;
+
+  transition: 0.3s color linear;
+
+  &:hover {
+    color: rgba($wetasphalt, 0.8);
+  }
 }

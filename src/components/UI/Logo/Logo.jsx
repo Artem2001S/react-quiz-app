@@ -1,8 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import classes from './Logo.module.scss';
 
-const Logo = () => {
-  return <div className={classes.Logo}>Quiz</div>;
-};
+const Logo = () => (
+  <Link to="/" className={classes.Logo}>
+    Quiz
+  </Link>
+);
 
-export default Logo;
+export default React.memo(Logo);

@@ -6,7 +6,6 @@ import classes from './HelloPage.module.scss';
 
 const HelloPage = () => {
   const { isAuthorized } = useAuth();
-
   return (
     <div className={classes.Container}>
       <Title className={classes.Left} large>
@@ -22,7 +21,7 @@ const HelloPage = () => {
       ) : (
         <>
           <Title small>
-            Have an account ?{' '}
+            A Have an account ?{' '}
             <Link className={classes.Link} to="/login">
               Login
             </Link>
@@ -39,4 +38,4 @@ const HelloPage = () => {
   );
 };
 
-export default HelloPage;
+export default React.memo(HelloPage);

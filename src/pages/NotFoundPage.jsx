@@ -15,4 +15,4 @@ const NotFoundPage = () => (
   </Container>
 );
 
-export default NotFoundPage;
+export default React.memo(NotFoundPage);

@@ -13,4 +13,4 @@ const UserBar = ({ userName, onLogout }) => {
   );
 };
 
-export default UserBar;
+export default React.memo(UserBar);
