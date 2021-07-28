@@ -56,7 +56,7 @@ const TestsListContainer = () => {
     [dispatch]
   );
 
-  return (
+  return isFetched ? (
     <>
       <Container centered>
         {isAdmin && (
@@ -69,15 +69,13 @@ const TestsListContainer = () => {
           />
         )}
       </Container>
-      {isFetched ? (
-        <TestsList
-          tests={tests}
-          isAdmin={isAdmin}
-          onDelete={handleDeleteTestBtnClick}
-        />
-      ) : null}
+      <TestsList
+        tests={tests}
+        isAdmin={isAdmin}
+        onDelete={handleDeleteTestBtnClick}
+      />
     </>
-  );
+  ) : null;
 };
 
 export default React.memo(TestsListContainer);

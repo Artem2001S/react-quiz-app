@@ -22,15 +22,15 @@ import { messageReceived } from 'redux/userInterface/userInterfaceSlice';
 import { useCallback } from 'react';
 
 function App() {
+  const dispatch = useDispatch();
+  useComponentDidMount(() => dispatch(checkIsAuthorized()));
+  const { user, logout, isAdmin } = useAuth();
+
   const isLoading = useSelector(getIsLoadingSelector);
   const message = useSelector(getMessageSelector);
-  const { user, logout, isAdmin } = useAuth();
-  const dispatch = useDispatch();
   const closeMessage = useCallback(() => {
     dispatch(messageReceived({ message: '' }));
   }, [dispatch]);
-
-  useComponentDidMount(() => dispatch(checkIsAuthorized()));
 
   return (
     <Router>
