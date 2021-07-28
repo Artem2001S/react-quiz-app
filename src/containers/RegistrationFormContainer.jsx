@@ -51,7 +51,7 @@ const RegistrationFormContainer = () => {
     (e) => {
       e.preventDefault();
       const [
-        { value: userName },
+        { value: username },
         { value: password },
         { value: passwordRepeat },
         { checked: isAdmin },
@@ -70,7 +70,7 @@ const RegistrationFormContainer = () => {
           setErrors([]);
         }
 
-        dispatch(userSignUp({}));
+        dispatch(userSignUp({ username, password, isAdmin }));
       }
     },
     [dispatch, errors, inputs]

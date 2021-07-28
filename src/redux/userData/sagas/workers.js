@@ -8,6 +8,7 @@ import {
   getCurrentUserRequest,
   userLoginRequest,
   userLogoutRequest,
+  userSignUpRequest,
 } from '../requests';
 import { userAuthorized, userExited } from '../userDataSlice';
 
@@ -45,6 +46,20 @@ export function* userLogoutWorker() {
     yield call(userLogoutRequest);
     yield put(userExited());
   } catch (error) {
+  } finally {
+    yield put(loadingFinished());
+  }
+}
+
+export function* userSignUpWorker({ payload }) {
+  try {
+    yield put(loadingStarted());
+    const response = yield call(userSignUpRequest, payload);
+    const data = response.data;
+
+    yield put(userAuthorized(data));
+  } catch (error) {
+    yield put(messageReceived({ message: 'Registration error.' }));
   } finally {
     yield put(loadingFinished());
   }
