@@ -4,8 +4,12 @@ import {
   loadingStarted,
   messageReceived,
 } from 'redux/userInterface/userInterfaceSlice';
-import { fetchTestsRequest, postTestRequest } from '../requests';
-import { testCreated, testsLoaded } from '../testsSlice';
+import {
+  deleteTestRequest,
+  fetchTestsRequest,
+  postTestRequest,
+} from '../requests';
+import { testCreated, testRemoved, testsLoaded } from '../testsSlice';
 
 export function* fetchTestsWorker() {
   try {
@@ -28,6 +32,20 @@ export function* createNewTestWorker({ payload }) {
     yield put(loadingStarted());
     const { data } = yield call(postTestRequest, payload.title);
     yield put(testCreated({ test: data }));
+  } catch (error) {
+    yield put(messageReceived('Create test server error.'));
+  } finally {
+    yield put(loadingFinished());
+  }
+}
+
+export function* deleteTestWorker({ payload }) {
+  try {
+    yield put(loadingStarted());
+    const { id } = payload;
+
+    yield call(deleteTestRequest, id);
+    yield put(testRemoved({ id }));
   } catch (error) {
     yield put(messageReceived('Create test server error.'));
   } finally {

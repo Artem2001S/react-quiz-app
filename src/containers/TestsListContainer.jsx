@@ -6,7 +6,7 @@ import {
 } from 'redux/tests/selectors';
 import TestsList from 'components/TestsList/TestsList';
 import { useComponentDidMount } from 'hooks/useComponentDidMount';
-import { createNewTest, fetchTests } from 'redux/tests/testsSlice';
+import { createNewTest, deleteTest, fetchTests } from 'redux/tests/testsSlice';
 import { useAuth } from 'hooks/useAuth';
 import { useInputs } from 'hooks/useInputs';
 import { nanoid } from '@reduxjs/toolkit';
@@ -49,6 +49,13 @@ const TestsListContainer = () => {
     [dispatch, inputs, resetInputs]
   );
 
+  const handleDeleteTestBtnClick = useCallback(
+    (id) => {
+      dispatch(deleteTest({ id }));
+    },
+    [dispatch]
+  );
+
   return (
     <>
       <Container centered>
@@ -62,7 +69,13 @@ const TestsListContainer = () => {
           />
         )}
       </Container>
-      {isFetched ? <TestsList tests={tests} isAdmin={isAdmin} /> : null}
+      {isFetched ? (
+        <TestsList
+          tests={tests}
+          isAdmin={isAdmin}
+          onDelete={handleDeleteTestBtnClick}
+        />
+      ) : null}
     </>
   );
 };

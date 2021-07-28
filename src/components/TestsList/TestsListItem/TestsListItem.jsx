@@ -3,8 +3,11 @@ import classes from './TestsListItem.module.scss';
 import Title from 'components/UI/Title/Title';
 import Button from 'components/UI/Button/Button';
 import ButtonLink from 'components/UI/ButtonLink/ButtonLink';
+import { useCallback } from 'react';
 
-const TestsListItem = ({ id, title, createdAt, isAdmin }) => {
+const TestsListItem = ({ id, title, createdAt, isAdmin, onDelete }) => {
+  const handleDeleteBtnClick = useCallback(() => onDelete(id), [id, onDelete]);
+
   return (
     <div className={classes.TestsListItem}>
       <div className={classes.Title}>
@@ -12,7 +15,7 @@ const TestsListItem = ({ id, title, createdAt, isAdmin }) => {
       </div>
       <div className={classes.Actions}>
         {isAdmin && (
-          <Button danger small>
+          <Button danger small onClick={handleDeleteBtnClick}>
             &times;
           </Button>
         )}

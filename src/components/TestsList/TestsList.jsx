@@ -4,7 +4,7 @@ import Title from 'components/UI/Title/Title';
 import TestsListItem from './TestsListItem/TestsListItem';
 import classes from './TestsList.module.scss';
 
-const TestsList = ({ tests, isAdmin }) => {
+const TestsList = ({ tests, isAdmin, onDelete }) => {
   return (
     <Container>
       <Title large>Tests</Title>
@@ -15,7 +15,12 @@ const TestsList = ({ tests, isAdmin }) => {
       )}
       <div className={classes.TestsList}>
         {tests.map((test) => (
-          <TestsListItem isAdmin={isAdmin} key={test.id} {...test} />
+          <TestsListItem
+            isAdmin={isAdmin}
+            key={test.id}
+            {...test}
+            onDelete={onDelete}
+          />
         ))}
       </div>
     </Container>

@@ -18,11 +18,15 @@ const testsSlice = createSlice({
     testCreated: (state, { payload }) => {
       state.tests.unshift(payload.test);
     },
+    testRemoved: (state, { payload }) => {
+      state.tests = state.tests.filter((test) => test.id !== payload.id);
+    },
   },
 });
 
 export const fetchTests = createAction(`${name}/fetchTests`);
 export const createNewTest = createAction(`${name}/createNewTest`);
+export const deleteTest = createAction(`${name}/deleteTest`);
 
-export const { testsLoaded, testCreated } = testsSlice.actions;
+export const { testsLoaded, testCreated, testRemoved } = testsSlice.actions;
 export default testsSlice.reducer;
