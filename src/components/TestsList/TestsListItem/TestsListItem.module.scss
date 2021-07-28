@@ -1,0 +1,16 @@
+@import 'shared/scssVariables.scss';
+
+.TestsListItem {
+  display: flex;
+  justify-content: space-between;
+
+  border: 2px solid $wetasphalt;
+  border-radius: $borderRadius;
+  padding: 10px 20px;
+  user-select: none;
+}
+
+.Actions {
+  display: flex;
+  gap: 10px;
+}

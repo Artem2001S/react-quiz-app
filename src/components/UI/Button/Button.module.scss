@@ -19,4 +19,16 @@
   &:hover {
     background-color: $darkBlue;
   }
+
+  &.Danger {
+    background-color: $lightRed;
+
+    &:hover {
+      background-color: $darkRed;
+    }
+  }
+
+  &.Small {
+    min-width: initial;
+  }
 }

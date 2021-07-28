@@ -1,7 +1,9 @@
 @import 'shared/scssVariables.scss';
 
 .ButtonLink {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 6px 15px;
   min-width: 100px;
   text-decoration: none;

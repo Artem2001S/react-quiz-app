@@ -1,7 +1,8 @@
+import TestsListContainer from 'containers/TestsListContainer';
 import React from 'react';
 
 const TestsPage = () => {
-  return <div>Test</div>;
+  return <TestsListContainer />;
 };
 
 export default React.memo(TestsPage);

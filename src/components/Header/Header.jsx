@@ -5,7 +5,7 @@ import React from 'react';
 import classes from './Header.module.scss';
 import UserBar from './UserBar/UserBar';
 
-const Header = ({ user, onLogout }) => {
+const Header = ({ user, isAdmin, onLogout }) => {
   return (
     <div className={classes.Header}>
       <Container>
@@ -13,7 +13,11 @@ const Header = ({ user, onLogout }) => {
           <Logo />
           <div className={classes.RightSide}>
             {user ? (
-              <UserBar userName={user.username} onLogout={onLogout} />
+              <UserBar
+                userName={user.username}
+                onLogout={onLogout}
+                isAdmin={isAdmin}
+              />
             ) : (
               <>
                 <ButtonLink to="/login">Sign in</ButtonLink>

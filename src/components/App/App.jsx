@@ -24,7 +24,7 @@ import { useCallback } from 'react';
 function App() {
   const isLoading = useSelector(getIsLoadingSelector);
   const message = useSelector(getMessageSelector);
-  const { user, logout } = useAuth();
+  const { user, logout, isAdmin } = useAuth();
   const dispatch = useDispatch();
   const closeMessage = useCallback(() => {
     dispatch(messageReceived({ message: '' }));
@@ -34,7 +34,7 @@ function App() {
 
   return (
     <Router>
-      <Header user={user} onLogout={logout} />
+      <Header user={user} onLogout={logout} isAdmin={isAdmin} />
 
       <Switch>
         <Route path="/" exact>

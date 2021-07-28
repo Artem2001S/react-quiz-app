@@ -5,3 +5,8 @@ export const getIsAuthorizedSelector = createSelector(
   getUserDataSelector,
   (user) => user !== null
 );
+
+export const getIsUserAdminSelector = createSelector(
+  getUserDataSelector,
+  (user) => user?.is_admin
+);
