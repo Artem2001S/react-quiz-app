@@ -1,0 +1,25 @@
+@import 'shared/scssVariables.scss';
+
+.Header {
+  display: flex;
+  align-items: center;
+}
+
+.ToggleBtn {
+  font-size: 20px;
+  padding: 5px;
+  cursor: pointer;
+  color: $wetasphalt;
+  border: 1px solid $wetasphalt;
+  border-radius: $borderRadius;
+
+  transition: background-color 0.3s;
+
+  &.ContentVisible {
+    transform: rotate(90deg);
+  }
+
+  &:hover {
+    background-color: $clouds;
+  }
+}

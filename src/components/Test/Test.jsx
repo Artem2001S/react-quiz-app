@@ -5,6 +5,7 @@ import Title from 'components/UI/Title/Title';
 import classes from './Test.module.scss';
 import Button from 'components/UI/Button/Button';
 import Input from 'components/UI/Input/Input';
+import Questions from './Questions/Questions';
 
 const Test = ({
   test,
@@ -33,6 +34,7 @@ const Test = ({
           </>
         )}
       </div>
+      <Questions questions={test.questions} />
     </Container>
   );
 };

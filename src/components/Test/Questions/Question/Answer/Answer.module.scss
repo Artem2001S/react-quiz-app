@@ -1,0 +1,27 @@
+@import 'shared/scssVariables.scss';
+
+.Answer {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 50px;
+  padding: 5px 0;
+  border-bottom: 2px solid $wetasphalt;
+}
+
+.Text {
+  color: $wetasphalt;
+  font-size: 20px;
+}
+
+.Actions {
+  display: flex;
+  gap: 5px;
+}
+
+.RightAnswerToggleBtn {
+  opacity: 1;
+}
+
+.NotRightAnswerToggleBtn {
+  opacity: 0.4;
+}
