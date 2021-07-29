@@ -6,6 +6,7 @@ import classes from './Test.module.scss';
 import Button from 'components/UI/Button/Button';
 import Input from 'components/UI/Input/Input';
 import Questions from './Questions/Questions';
+import { TestContextProvider } from './TestContext';
 
 const Test = ({
   test,
@@ -13,29 +14,32 @@ const Test = ({
   input,
   onEditModeChanged,
   onSaveTitleBtnClick,
+  onAnswerDelete,
 }) => {
   const { isAdmin } = useAuth();
 
   return (
-    <Container>
-      <div className={classes.TestHeader}>
-        <Title large>{test?.title}</Title>
-        {isAdmin && (
-          <>
-            <Button onClick={onEditModeChanged}>
-              {!isEditMode ? 'Edit' : 'Cancel'}
-            </Button>
-            {isEditMode && (
-              <>
-                <Input {...input} />
-                <Button onClick={onSaveTitleBtnClick}>Save</Button>
-              </>
-            )}
-          </>
-        )}
-      </div>
-      <Questions questions={test.questions} />
-    </Container>
+    <TestContextProvider onAnswerDelete={onAnswerDelete}>
+      <Container>
+        <div className={classes.TestHeader}>
+          <Title large>{test?.title}</Title>
+          {isAdmin && (
+            <>
+              <Button onClick={onEditModeChanged}>
+                {!isEditMode ? 'Edit' : 'Cancel'}
+              </Button>
+              {isEditMode && (
+                <>
+                  <Input {...input} />
+                  <Button onClick={onSaveTitleBtnClick}>Save</Button>
+                </>
+              )}
+            </>
+          )}
+        </div>
+        <Questions questions={test.questions} />
+      </Container>
+    </TestContextProvider>
   );
 };
 

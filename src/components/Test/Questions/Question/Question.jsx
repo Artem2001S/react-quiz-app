@@ -23,7 +23,11 @@ const Question = ({ question, testId }) => {
             <div>{question.answer}</div>
           ) : (
             question.answers.map((answer) => (
-              <Answer key={answer.id} answer={answer} />
+              <Answer
+                key={answer.id}
+                answer={answer}
+                questionId={question.id}
+              />
             ))
           )}
         </div>

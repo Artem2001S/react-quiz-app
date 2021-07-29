@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTest, patchTest } from 'redux/currentTest/currentTestSlice';
+import {
+  deleteAnswer as deleteAnswerAction,
+  fetchTest,
+  patchTest,
+} from 'redux/currentTest/currentTestSlice';
 import { useComponentDidMount } from 'hooks/useComponentDidMount';
 import {
   getCurrentTestSelector,
@@ -47,6 +51,13 @@ const TestContainer = ({ testId }) => {
     }
   }, [dispatch, resetInputs, testId, titleInput]);
 
+  const deleteAnswer = useCallback(
+    (answerId, questionId) => {
+      dispatch(deleteAnswerAction({ answerId, questionId }));
+    },
+    [dispatch]
+  );
+
   return isTestFetched ? (
     <>
       {currentTest && isTestFetched ? (
@@ -56,6 +67,7 @@ const TestContainer = ({ testId }) => {
           input={titleInput}
           onEditModeChanged={changeEditMode}
           onSaveTitleBtnClick={saveTitleBtnClickHandler}
+          onAnswerDelete={deleteAnswer}
         />
       ) : (
         <Container>
