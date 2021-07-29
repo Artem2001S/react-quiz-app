@@ -21,7 +21,7 @@ export function* fetchTestsWorker() {
 
     yield put(testsLoaded({ tests: testsWithoutQuestions }));
   } catch (error) {
-    yield put(messageReceived('Fetching tests error.'));
+    yield put(messageReceived({ message: 'Fetching tests error.' }));
   } finally {
     yield put(loadingFinished());
   }
@@ -33,7 +33,7 @@ export function* createNewTestWorker({ payload }) {
     const { data } = yield call(postTestRequest, payload.title);
     yield put(testCreated({ test: data }));
   } catch (error) {
-    yield put(messageReceived('Create test server error.'));
+    yield put(messageReceived({ message: 'Create test server error.' }));
   } finally {
     yield put(loadingFinished());
   }
@@ -47,7 +47,7 @@ export function* deleteTestWorker({ payload }) {
     yield call(deleteTestRequest, id);
     yield put(testRemoved({ id }));
   } catch (error) {
-    yield put(messageReceived('Create test server error.'));
+    yield put(messageReceived({ message: 'Create test server error.' }));
   } finally {
     yield put(loadingFinished());
   }

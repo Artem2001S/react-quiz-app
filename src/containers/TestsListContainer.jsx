@@ -20,8 +20,8 @@ const TestsListContainer = () => {
 
   const isFetched = useSelector(getTestsIsFetchedSelector);
   const tests = useSelector(getTestsListSelector);
-  const { isAdmin } = useAuth();
-
+  const { isAdmin, user } = useAuth();
+  console.log(user);
   const [errors, setErrors] = useState([]);
   const { inputs, resetInputs } = useInputs([
     {
