@@ -6,3 +6,6 @@ export const patchTestRequest = (testId, title) =>
 
 export const deleteAnswerRequest = (answerId) =>
   instance.delete(`/answers/${answerId}`);
+
+export const patchAnswerRequest = (answerId, data) =>
+  instance.patch(`/answers/${answerId}`, data);

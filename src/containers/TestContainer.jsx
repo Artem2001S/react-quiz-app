@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   deleteAnswer as deleteAnswerAction,
   fetchTest,
+  patchAnswer,
   patchTest,
 } from 'redux/currentTest/currentTestSlice';
 import { useComponentDidMount } from 'hooks/useComponentDidMount';
@@ -58,6 +59,15 @@ const TestContainer = ({ testId }) => {
     [dispatch]
   );
 
+  const toggleAnswerIsRight = useCallback(
+    (answerId, answer) => {
+      dispatch(
+        patchAnswer({ answerId, is_right: !answer.is_right, text: answer.text })
+      );
+    },
+    [dispatch]
+  );
+
   return isTestFetched ? (
     <>
       {currentTest && isTestFetched ? (
@@ -68,6 +78,7 @@ const TestContainer = ({ testId }) => {
           onEditModeChanged={changeEditMode}
           onSaveTitleBtnClick={saveTitleBtnClickHandler}
           onAnswerDelete={deleteAnswer}
+          onAnswerIsRightToggle={toggleAnswerIsRight}
         />
       ) : (
         <Container>

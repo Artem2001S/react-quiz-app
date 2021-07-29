@@ -29,13 +29,22 @@ const currentTestSlice = createSlice({
         (answerId) => answerId !== payload.answerId
       );
     },
+
+    answerUpdated: (state, { payload }) => {
+      const answer = state.entities.answers[payload.answerId];
+      state.entities.answers[payload.answerId] = {
+        ...answer,
+        ...payload.changes,
+      };
+    },
   },
 });
 
 export const fetchTest = createAction(`${name}/fetchTest`);
 export const patchTest = createAction(`${name}/patchTest`);
 export const deleteAnswer = createAction(`${name}/deleteAnswer`);
+export const patchAnswer = createAction(`${name}/patchAnswer`);
 
-export const { testFetched, testTitleChanged, answerDeleted } =
+export const { testFetched, testTitleChanged, answerDeleted, answerUpdated } =
   currentTestSlice.actions;
 export default currentTestSlice.reducer;

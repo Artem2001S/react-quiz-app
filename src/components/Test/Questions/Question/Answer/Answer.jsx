@@ -8,11 +8,15 @@ import classes from './Answer.module.scss';
 
 const Answers = ({ answer, questionId }) => {
   const { isAdmin } = useAuth();
-  const { onAnswerDelete } = useTestCtx();
+  const { onAnswerDelete, onAnswerIsRightToggle } = useTestCtx();
 
   const handleDeleteBtnClick = useCallback(() => {
     onAnswerDelete(answer.id, questionId);
   }, [answer, onAnswerDelete, questionId]);
+
+  const handleToggleIsRightBtnClick = useCallback(() => {
+    onAnswerIsRightToggle(answer.id, answer);
+  }, [answer, onAnswerIsRightToggle]);
 
   return (
     <div className={classes.Answer}>
@@ -26,6 +30,7 @@ const Answers = ({ answer, questionId }) => {
             })}
             title="Toggle is answer right"
             small
+            onClick={handleToggleIsRightBtnClick}
           >
             &#10003;
           </Button>

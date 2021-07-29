@@ -15,11 +15,15 @@ const Test = ({
   onEditModeChanged,
   onSaveTitleBtnClick,
   onAnswerDelete,
+  onAnswerIsRightToggle,
 }) => {
   const { isAdmin } = useAuth();
 
   return (
-    <TestContextProvider onAnswerDelete={onAnswerDelete}>
+    <TestContextProvider
+      onAnswerDelete={onAnswerDelete}
+      onAnswerIsRightToggle={onAnswerIsRightToggle}
+    >
       <Container>
         <div className={classes.TestHeader}>
           <Title large>{test?.title}</Title>
