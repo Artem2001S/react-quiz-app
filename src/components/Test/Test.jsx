@@ -16,6 +16,7 @@ const Test = ({
   onSaveTitleBtnClick,
   onAnswerDelete,
   onAnswerIsRightToggle,
+  onQuestionTitleUpdate,
 }) => {
   const { isAdmin } = useAuth();
 
@@ -23,6 +24,7 @@ const Test = ({
     <TestContextProvider
       onAnswerDelete={onAnswerDelete}
       onAnswerIsRightToggle={onAnswerIsRightToggle}
+      onQuestionTitleUpdate={onQuestionTitleUpdate}
     >
       <Container>
         <div className={classes.TestHeader}>

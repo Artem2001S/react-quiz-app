@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Answer from './Answer/Answer';
 import classes from './Question.module.scss';
 import EditableInput from 'components/UI/EditableInput/EditableInput';
 import { useAuth } from 'hooks/useAuth';
 import Title from 'components/UI/Title/Title';
+import { useTestCtx } from 'components/Test/TestContext';
 
 const Question = ({ question, testId }) => {
   const [isAnswersVisible, setIsAnswersVisible] = useState(false);
   const { isAdmin } = useAuth();
+
+  const { onQuestionTitleUpdate } = useTestCtx();
+
+  const handleTitleUpdate = useCallback(
+    (newTitle) => {
+      onQuestionTitleUpdate(question.id, newTitle, question.question_type);
+    },
+    [onQuestionTitleUpdate, question]
+  );
 
   return (
     <div className={classes.Question}>
@@ -22,7 +32,7 @@ const Question = ({ question, testId }) => {
           <EditableInput
             className={classes.QuestionTitle}
             initialValue={question.title}
-            onSubmit={() => {}}
+            onSubmit={handleTitleUpdate}
           />
         ) : (
           <Title small>{question.title}</Title>

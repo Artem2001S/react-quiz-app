@@ -9,3 +9,6 @@ export const deleteAnswerRequest = (answerId) =>
 
 export const patchAnswerRequest = (answerId, data) =>
   instance.patch(`/answers/${answerId}`, data);
+
+export const patchQuestionRequest = (questionId, data) =>
+  instance.patch(`/questions/${questionId}`, data);

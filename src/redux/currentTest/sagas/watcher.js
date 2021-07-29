@@ -3,9 +3,11 @@ import {
   deleteAnswer,
   fetchTest,
   patchAnswer,
+  patchQuestion,
   patchTest,
 } from '../currentTestSlice';
 import { deleteAnswerWorker, patchAnswerWorker } from './answerWorkers';
+import { patchQuestionWorker } from './questionWorkers';
 import { fetchTestWorker, patchTestWorker } from './testWorkers';
 
 export function* watchCurrentTest() {
@@ -14,4 +16,5 @@ export function* watchCurrentTest() {
 
   yield takeLatest(deleteAnswer.type, deleteAnswerWorker);
   yield takeLatest(patchAnswer.type, patchAnswerWorker);
+  yield takeLatest(patchQuestion.type, patchQuestionWorker);
 }

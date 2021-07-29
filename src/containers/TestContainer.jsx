@@ -4,6 +4,7 @@ import {
   deleteAnswer as deleteAnswerAction,
   fetchTest,
   patchAnswer,
+  patchQuestion,
   patchTest,
 } from 'redux/currentTest/currentTestSlice';
 import { useComponentDidMount } from 'hooks/useComponentDidMount';
@@ -68,6 +69,15 @@ const TestContainer = ({ testId }) => {
     [dispatch]
   );
 
+  const updateQuestionTitle = useCallback(
+    (questionId, title, questionType) => {
+      dispatch(
+        patchQuestion({ questionId, title, question_type: questionType })
+      );
+    },
+    [dispatch]
+  );
+
   return isTestFetched ? (
     <>
       {currentTest && isTestFetched ? (
@@ -79,6 +89,7 @@ const TestContainer = ({ testId }) => {
           onSaveTitleBtnClick={saveTitleBtnClickHandler}
           onAnswerDelete={deleteAnswer}
           onAnswerIsRightToggle={toggleAnswerIsRight}
+          onQuestionTitleUpdate={updateQuestionTitle}
         />
       ) : (
         <Container>
