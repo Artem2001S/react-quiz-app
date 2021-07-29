@@ -6,7 +6,7 @@ import React from 'react';
 import { useCallback } from 'react';
 import classes from './Answer.module.scss';
 
-const Answers = ({ answer, questionId }) => {
+const Answer = ({ answer, questionId }) => {
   const { isAdmin } = useAuth();
   const { onAnswerDelete, onAnswerIsRightToggle } = useTestCtx();
 
@@ -48,4 +48,4 @@ const Answers = ({ answer, questionId }) => {
   );
 };
 
-export default React.memo(Answers);
+export default React.memo(Answer);

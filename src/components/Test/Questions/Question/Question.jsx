@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import Answer from './Answer/Answer';
-import classes from './Question.module.scss';
-import EditableInput from 'components/UI/EditableInput/EditableInput';
 import { useAuth } from 'hooks/useAuth';
-import Title from 'components/UI/Title/Title';
 import { useTestCtx } from 'components/Test/TestContext';
+import EditableInput from 'components/UI/EditableInput/EditableInput';
+import Title from 'components/UI/Title/Title';
 import Button from 'components/UI/Button/Button';
+import Answers from './Answers/Answers';
+import classes from './Question.module.scss';
 
 const Question = ({ question, testId }) => {
   const [isAnswersVisible, setIsAnswersVisible] = useState(false);
@@ -49,19 +49,12 @@ const Question = ({ question, testId }) => {
         )}
       </div>
       {isAnswersVisible && (
-        <div className={classes.Answers}>
-          {question.question_type === 'number' ? (
-            <div>{question.answer}</div>
-          ) : (
-            question.answers.map((answer) => (
-              <Answer
-                key={answer.id}
-                answer={answer}
-                questionId={question.id}
-              />
-            ))
-          )}
-        </div>
+        <Answers
+          questionId={question.id}
+          questionType={question.question_type}
+          answers={question.answers}
+          answer={question.answer}
+        />
       )}
     </div>
   );

@@ -2,11 +2,11 @@ import React from 'react';
 import { useAuth } from 'hooks/useAuth';
 import Container from 'components/UI/Container/Container';
 import Title from 'components/UI/Title/Title';
-import classes from './Test.module.scss';
 import Button from 'components/UI/Button/Button';
 import Input from 'components/UI/Input/Input';
 import Questions from './Questions/Questions';
 import { TestContextProvider } from './TestContext';
+import classes from './Test.module.scss';
 
 const Test = ({
   test,
