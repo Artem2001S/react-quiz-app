@@ -1,7 +1,8 @@
 import { takeLatest } from 'redux-saga/effects';
-import { fetchTest } from '../currentTestSlice';
-import { fetchTestWorker } from './workers';
+import { fetchTest, patchTest } from '../currentTestSlice';
+import { fetchTestWorker, patchTestWorker } from './workers';
 
 export function* watchCurrentTest() {
   yield takeLatest(fetchTest.type, fetchTestWorker);
+  yield takeLatest(patchTest.type, patchTestWorker);
 }

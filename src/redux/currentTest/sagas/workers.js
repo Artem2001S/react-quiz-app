@@ -4,8 +4,8 @@ import {
   loadingStarted,
   messageReceived,
 } from 'redux/userInterface/userInterfaceSlice';
-import { testFetched } from '../currentTestSlice';
-import { fetchTestRequest } from '../requests';
+import { testFetched, testTitleChanged } from '../currentTestSlice';
+import { fetchTestRequest, patchTestRequest } from '../requests';
 import { normalizeTest } from '../normalize/normalizing';
 
 export function* fetchTestWorker({ payload }) {
@@ -23,6 +23,21 @@ export function* fetchTestWorker({ payload }) {
     } else {
       yield put(messageReceived({ message: 'Test loading server error.' }));
     }
+  } finally {
+    yield put(loadingFinished());
+  }
+}
+
+export function* patchTestWorker({ payload }) {
+  try {
+    yield put(loadingStarted());
+    const { testId, title } = payload;
+
+    yield call(patchTestRequest, testId, title);
+
+    yield put(testTitleChanged({ title }));
+  } catch (error) {
+    yield put(messageReceived({ message: 'Test patching server error.' }));
   } finally {
     yield put(loadingFinished());
   }
