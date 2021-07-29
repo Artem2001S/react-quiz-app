@@ -17,6 +17,7 @@ const Test = ({
   onAnswerDelete,
   onAnswerIsRightToggle,
   onQuestionTitleUpdate,
+  onQuestionDelete,
 }) => {
   const { isAdmin } = useAuth();
 
@@ -25,6 +26,7 @@ const Test = ({
       onAnswerDelete={onAnswerDelete}
       onAnswerIsRightToggle={onAnswerIsRightToggle}
       onQuestionTitleUpdate={onQuestionTitleUpdate}
+      onQuestionDelete={onQuestionDelete}
     >
       <Container>
         <div className={classes.TestHeader}>

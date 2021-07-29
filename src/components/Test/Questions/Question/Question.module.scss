@@ -6,6 +6,12 @@
   width: 100%;
 }
 
+.HeaderContent {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
 .ToggleBtn {
   font-size: 20px;
   padding: 5px;

@@ -5,12 +5,13 @@ import EditableInput from 'components/UI/EditableInput/EditableInput';
 import { useAuth } from 'hooks/useAuth';
 import Title from 'components/UI/Title/Title';
 import { useTestCtx } from 'components/Test/TestContext';
+import Button from 'components/UI/Button/Button';
 
 const Question = ({ question, testId }) => {
   const [isAnswersVisible, setIsAnswersVisible] = useState(false);
   const { isAdmin } = useAuth();
 
-  const { onQuestionTitleUpdate } = useTestCtx();
+  const { onQuestionTitleUpdate, onQuestionDelete } = useTestCtx();
 
   const handleTitleUpdate = useCallback(
     (newTitle) => {
@@ -18,6 +19,10 @@ const Question = ({ question, testId }) => {
     },
     [onQuestionTitleUpdate, question]
   );
+
+  const handleQuestionDelete = useCallback(() => {
+    onQuestionDelete(question.id);
+  }, [onQuestionDelete, question]);
 
   return (
     <div className={classes.Question}>
@@ -29,11 +34,16 @@ const Question = ({ question, testId }) => {
           {isAnswersVisible ? '⮝' : '⮟'}
         </div>
         {isAdmin ? (
-          <EditableInput
-            className={classes.QuestionTitle}
-            initialValue={question.title}
-            onSubmit={handleTitleUpdate}
-          />
+          <div className={classes.HeaderContent}>
+            <EditableInput
+              className={classes.QuestionTitle}
+              initialValue={question.title}
+              onSubmit={handleTitleUpdate}
+            />
+            <Button small danger onClick={handleQuestionDelete}>
+              &times;
+            </Button>
+          </div>
         ) : (
           <Title small>{question.title}</Title>
         )}

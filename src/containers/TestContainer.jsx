@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   deleteAnswer as deleteAnswerAction,
+  deleteQuestion as deleteQuestionAction,
   fetchTest,
   patchAnswer,
   patchQuestion,
@@ -78,6 +79,13 @@ const TestContainer = ({ testId }) => {
     [dispatch]
   );
 
+  const deleteQuestion = useCallback(
+    (questionId) => {
+      dispatch(deleteQuestionAction({ questionId }));
+    },
+    [dispatch]
+  );
+
   return isTestFetched ? (
     <>
       {currentTest && isTestFetched ? (
@@ -90,6 +98,7 @@ const TestContainer = ({ testId }) => {
           onAnswerDelete={deleteAnswer}
           onAnswerIsRightToggle={toggleAnswerIsRight}
           onQuestionTitleUpdate={updateQuestionTitle}
+          onQuestionDelete={deleteQuestion}
         />
       ) : (
         <Container>
