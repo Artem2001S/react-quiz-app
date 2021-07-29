@@ -1,0 +1,17 @@
+@import 'shared/scssVariables.scss';
+
+.Input:read-only {
+  background-color: $clouds;
+  border-radius: 0;
+  border: none;
+  cursor: initial;
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.EditableInputContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

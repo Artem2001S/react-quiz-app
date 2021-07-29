@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import Answer from './Answer/Answer';
-import Title from 'components/UI/Title/Title';
 import classes from './Question.module.scss';
+import EditableInput from 'components/UI/EditableInput/EditableInput';
+import { useAuth } from 'hooks/useAuth';
+import Title from 'components/UI/Title/Title';
 
 const Question = ({ question, testId }) => {
   const [isAnswersVisible, setIsAnswersVisible] = useState(false);
+  const { isAdmin } = useAuth();
 
   return (
     <div className={classes.Question}>
@@ -15,7 +18,15 @@ const Question = ({ question, testId }) => {
         >
           {isAnswersVisible ? '⮝' : '⮟'}
         </div>
-        <Title small>{question.title}</Title>
+        {isAdmin ? (
+          <EditableInput
+            className={classes.QuestionTitle}
+            initialValue={question.title}
+            onSubmit={() => {}}
+          />
+        ) : (
+          <Title small>{question.title}</Title>
+        )}
       </div>
       {isAnswersVisible && (
         <div className={classes.Answers}>

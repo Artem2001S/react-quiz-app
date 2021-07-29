@@ -70,7 +70,6 @@ function App() {
           </Switch>
         </>
       )}
-
       {isLoading && <Loader />}
       {message && <Alert message={message} close={closeMessage} />}
     </Router>

@@ -3,6 +3,7 @@
 .Header {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .ToggleBtn {
@@ -22,4 +23,8 @@
   &:hover {
     background-color: $clouds;
   }
+}
+
+.QuestionTitle {
+  width: 100%;
 }

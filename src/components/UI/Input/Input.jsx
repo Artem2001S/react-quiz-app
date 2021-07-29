@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './Input.module.scss';
+import classNames from 'classnames';
 
-const Input = ({ id, label, ...props }) => (
+const Input = ({ id, label, className, ...props }) => (
   <div className={classes.InputContainer}>
     <label htmlFor={id}>
-      <span className={classes.InputLabelText}>{label}</span>
-      <input className={classes.Input} id={id} type="text" {...props} />
+      {label && <span className={classes.InputLabelText}>{label}</span>}
+
+      <input
+        className={classNames(classes.Input, className)}
+        id={id}
+        type="text"
+        {...props}
+      />
     </label>
   </div>
 );
