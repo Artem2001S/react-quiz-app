@@ -1,11 +1,14 @@
 import ButtonLink from 'components/UI/ButtonLink/ButtonLink';
 import Container from 'components/UI/Container/Container';
 import Logo from 'components/UI/Logo/Logo';
+import { useAuth } from 'hooks/useAuth';
 import React from 'react';
 import classes from './Header.module.scss';
 import UserBar from './UserBar/UserBar';
 
-const Header = ({ user, isAdmin, onLogout }) => {
+const Header = () => {
+  const { user, logout, isAdmin } = useAuth();
+
   return (
     <div className={classes.Header}>
       <Container>
@@ -15,7 +18,7 @@ const Header = ({ user, isAdmin, onLogout }) => {
             {user ? (
               <UserBar
                 userName={user.username}
-                onLogout={onLogout}
+                onLogout={logout}
                 isAdmin={isAdmin}
               />
             ) : (
