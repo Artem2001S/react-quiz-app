@@ -7,6 +7,7 @@ import {
   patchAnswer,
   patchQuestion,
   patchTest,
+  postQuestion,
 } from 'redux/currentTest/currentTestSlice';
 import { useComponentDidMount } from 'hooks/useComponentDidMount';
 import {
@@ -86,6 +87,17 @@ const TestContainer = ({ testId }) => {
     [dispatch]
   );
 
+  const createQuestion = useCallback(
+    (testId, question) => {
+      if (!question.title) {
+        dispatch(messageReceived({ message: 'Enter question title.' }));
+      } else {
+        dispatch(postQuestion({ testId, question }));
+      }
+    },
+    [dispatch]
+  );
+
   return isTestFetched ? (
     <>
       {currentTest && isTestFetched ? (
@@ -99,6 +111,7 @@ const TestContainer = ({ testId }) => {
           onAnswerIsRightToggle={toggleAnswerIsRight}
           onQuestionTitleUpdate={updateQuestionTitle}
           onQuestionDelete={deleteQuestion}
+          onNewQuestionFormSubmit={createQuestion}
         />
       ) : (
         <Container>

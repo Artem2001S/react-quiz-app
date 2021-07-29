@@ -6,9 +6,14 @@ import {
   patchAnswer,
   patchQuestion,
   patchTest,
+  postQuestion,
 } from '../currentTestSlice';
 import { deleteAnswerWorker, patchAnswerWorker } from './answerWorkers';
-import { deleteQuestionWorker, patchQuestionWorker } from './questionWorkers';
+import {
+  deleteQuestionWorker,
+  patchQuestionWorker,
+  postQuestionWorker,
+} from './questionWorkers';
 import { fetchTestWorker, patchTestWorker } from './testWorkers';
 
 export function* watchCurrentTest() {
@@ -17,6 +22,7 @@ export function* watchCurrentTest() {
 
   yield takeLatest(patchQuestion.type, patchQuestionWorker);
   yield takeLatest(deleteQuestion.type, deleteQuestionWorker);
+  yield takeLatest(postQuestion.type, postQuestionWorker);
 
   yield takeLatest(deleteAnswer.type, deleteAnswerWorker);
   yield takeLatest(patchAnswer.type, patchAnswerWorker);

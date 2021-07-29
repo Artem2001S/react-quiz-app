@@ -4,8 +4,16 @@ import {
   loadingStarted,
   messageReceived,
 } from 'redux/userInterface/userInterfaceSlice';
-import { questionDeleted, questionUpdated } from '../currentTestSlice';
-import { deleteQuestionRequest, patchQuestionRequest } from '../requests';
+import {
+  questionCreated,
+  questionDeleted,
+  questionUpdated,
+} from '../currentTestSlice';
+import {
+  deleteQuestionRequest,
+  patchQuestionRequest,
+  postQuestionRequest,
+} from '../requests';
 
 export function* patchQuestionWorker({ payload }) {
   try {
@@ -31,6 +39,20 @@ export function* deleteQuestionWorker({ payload }) {
     yield put(questionDeleted({ questionId }));
   } catch (error) {
     yield put(messageReceived({ message: 'Question deleting server error.' }));
+  } finally {
+    yield put(loadingFinished());
+  }
+}
+
+export function* postQuestionWorker({ payload }) {
+  try {
+    yield put(loadingStarted());
+    const { testId, question } = payload;
+    const { data } = yield call(postQuestionRequest, testId, question);
+
+    yield put(questionCreated(data));
+  } catch (error) {
+    yield put(messageReceived({ message: 'Question posting server error.' }));
   } finally {
     yield put(loadingFinished());
   }

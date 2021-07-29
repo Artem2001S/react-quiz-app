@@ -1,0 +1,11 @@
+@import 'shared/scssVariables.scss';
+
+.RadioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-color: $clouds;
+  padding: 15px 20px;
+  border-radius: $borderRadius;
+  color: $wetasphalt;
+}

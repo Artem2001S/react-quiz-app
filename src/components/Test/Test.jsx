@@ -7,6 +7,7 @@ import Input from 'components/UI/Input/Input';
 import Questions from './Questions/Questions';
 import { TestContextProvider } from './TestContext';
 import classes from './Test.module.scss';
+import NewQuestionForm from './NewQuestionForm/NewQuestionForm';
 
 const Test = ({
   test,
@@ -18,6 +19,7 @@ const Test = ({
   onAnswerIsRightToggle,
   onQuestionTitleUpdate,
   onQuestionDelete,
+  onNewQuestionFormSubmit,
 }) => {
   const { isAdmin } = useAuth();
 
@@ -45,6 +47,7 @@ const Test = ({
             </>
           )}
         </div>
+        <NewQuestionForm testId={test.id} onSubmit={onNewQuestionFormSubmit} />
         <Questions questions={test.questions} />
       </Container>
     </TestContextProvider>
