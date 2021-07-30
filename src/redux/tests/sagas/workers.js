@@ -22,6 +22,7 @@ export function* fetchTestsWorker() {
     yield put(testsLoaded({ tests: testsWithoutQuestions }));
   } catch (error) {
     yield put(messageReceived({ message: 'Fetching tests error.' }));
+    yield put(testsLoaded({ tests: [] }));
   } finally {
     yield put(loadingFinished());
   }

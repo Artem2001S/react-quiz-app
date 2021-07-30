@@ -10,6 +10,7 @@ const EditableInput = ({
   label,
   initialValue,
   type = 'text',
+  children,
   onSubmit,
 }) => {
   const [inputValue, setInputValue] = useState(initialValue);
@@ -46,17 +47,28 @@ const EditableInput = ({
   );
 
   const inputClasses = classNames(classes.Input, className);
+  const containerClasses = classNames(
+    { [classes.EditMode]: isEditMode },
+    classes.EditableInputContainer
+  );
+
   return (
-    <div className={classes.EditableInputContainer}>
-      <Input
-        className={inputClasses}
-        label={label}
-        type={type}
-        value={inputValue}
-        onChange={inputChangeHandler}
-        readOnly={!isEditMode}
-        onKeyPress={inputKeyPressHandler}
-      />
+    <div className={containerClasses}>
+      {isEditMode ? (
+        <Input
+          className={inputClasses}
+          label={label}
+          type={type}
+          value={inputValue}
+          autoFocus={true}
+          onChange={inputChangeHandler}
+          readOnly={!isEditMode}
+          onKeyPress={inputKeyPressHandler}
+        />
+      ) : (
+        children
+      )}
+
       <Button small onClick={editBtnClickHandler}>
         {isEditMode ? 'Save' : 'Edit'}
       </Button>

@@ -39,7 +39,9 @@ const Question = ({ question, testId }) => {
               className={classes.QuestionTitle}
               initialValue={question.title}
               onSubmit={handleTitleUpdate}
-            />
+            >
+              <Title small>{question.title}</Title>
+            </EditableInput>
             <Button small danger onClick={handleQuestionDelete}>
               &times;
             </Button>
