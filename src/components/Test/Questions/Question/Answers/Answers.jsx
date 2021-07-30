@@ -3,8 +3,15 @@ import React from 'react';
 import Answer from './Answer/Answer';
 import classes from './Answers.module.scss';
 import NewAnswerForm from './NewAnswerForm/NewAnswerForm';
+import AnswerTypeNumber from './AnswerTypeNumber/AnswerTypeNumber';
 
-const Answers = ({ questionId, questionType, answers, answer }) => {
+const Answers = ({
+  questionId,
+  questionType,
+  questionTitle,
+  answers,
+  answer,
+}) => {
   const isQuestionTypeNumber = questionType === 'number';
   const { isAdmin } = useAuth();
 
@@ -15,7 +22,12 @@ const Answers = ({ questionId, questionType, answers, answer }) => {
       )}
 
       {isQuestionTypeNumber ? (
-        <div>{answer}</div>
+        <AnswerTypeNumber
+          questionId={questionId}
+          questionTitle={questionTitle}
+          questionType={questionType}
+          answer={answer}
+        />
       ) : (
         answers.map((answer) => (
           <Answer key={answer.id} answer={answer} questionId={questionId} />

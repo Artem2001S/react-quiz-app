@@ -90,6 +90,20 @@ const TestContainer = ({ testId }) => {
     [dispatch]
   );
 
+  const updateQuestionAnswer = useCallback(
+    (questionId, title, questionType, answer) => {
+      dispatch(
+        patchQuestion({
+          questionId,
+          title,
+          question_type: questionType,
+          answer,
+        })
+      );
+    },
+    [dispatch]
+  );
+
   const deleteQuestion = useCallback(
     (questionId) => {
       dispatch(deleteQuestionAction({ questionId }));
@@ -135,6 +149,7 @@ const TestContainer = ({ testId }) => {
           onAnswerTextChanged={updateAnswerText}
           onQuestionTitleUpdate={updateQuestionTitle}
           onQuestionDelete={deleteQuestion}
+          onQuestionAnswerUpdate={updateQuestionAnswer}
           onNewQuestionFormSubmit={createQuestion}
         />
       ) : (

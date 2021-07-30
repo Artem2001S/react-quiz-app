@@ -54,6 +54,7 @@ const Question = ({ question, testId }) => {
         <Answers
           questionId={question.id}
           questionType={question.question_type}
+          questionTitle={question.title}
           answers={question.answers}
           answer={question.answer}
         />

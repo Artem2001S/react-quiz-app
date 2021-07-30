@@ -22,6 +22,7 @@ const Test = ({
   onNewQuestionFormSubmit,
   onNewAnswerFormSubmit,
   onAnswerTextChanged,
+  onQuestionAnswerUpdate,
 }) => {
   const { isAdmin } = useAuth();
 
@@ -31,6 +32,7 @@ const Test = ({
       onAnswerIsRightToggle={onAnswerIsRightToggle}
       onQuestionTitleUpdate={onQuestionTitleUpdate}
       onQuestionDelete={onQuestionDelete}
+      onQuestionAnswerUpdate={onQuestionAnswerUpdate}
       onNewAnswerFormSubmit={onNewAnswerFormSubmit}
       onAnswerTextChanged={onAnswerTextChanged}
     >

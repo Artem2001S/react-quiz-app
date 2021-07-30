@@ -18,10 +18,14 @@ import {
 export function* patchQuestionWorker({ payload }) {
   try {
     yield put(loadingStarted());
-    const { questionId, title, question_type } = payload;
-    yield call(patchQuestionRequest, questionId, { title, question_type });
+    const { questionId, title, question_type, answer } = payload;
+    yield call(patchQuestionRequest, questionId, {
+      title,
+      question_type,
+      answer,
+    });
 
-    yield put(questionUpdated({ questionId, changes: { title } }));
+    yield put(questionUpdated({ questionId, changes: { title, answer } }));
   } catch (error) {
     yield put(messageReceived({ message: 'Question patching server error.' }));
   } finally {
