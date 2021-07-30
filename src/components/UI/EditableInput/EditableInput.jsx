@@ -65,6 +65,7 @@ const EditableInput = ({
           onChange={inputChangeHandler}
           readOnly={!isEditMode}
           onKeyPress={inputKeyPressHandler}
+          onBlur={editBtnClickHandler}
         />
       ) : (
         children
