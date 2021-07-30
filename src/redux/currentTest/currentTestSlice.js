@@ -23,7 +23,9 @@ const currentTestSlice = createSlice({
 
     questionCreated: (state, { payload }) => {
       const { id, ...question } = payload;
-      state.entities.questions[id] = { id, ...question };
+      state.entities.questions
+        ? (state.entities.questions[id] = { id, ...question })
+        : (state.entities.questions = { [id]: { id, ...question } });
 
       state.entities.test[state.result].questions.push(id);
     },
@@ -65,7 +67,10 @@ const currentTestSlice = createSlice({
 
     answerCreated: (state, { payload }) => {
       const { questionId, answer } = payload;
-      state.entities.answers[answer.id] = answer;
+      state.entities.answers
+        ? (state.entities.answers[answer.id] = answer)
+        : (state.entities.answers = { [answer.id]: answer });
+
       state.entities.questions[questionId].answers.push(answer.id);
     },
   },
