@@ -21,14 +21,14 @@ const EditableInput = ({
   }, []);
 
   const submit = useCallback(() => {
-    const trimmedValue = inputValue.trim();
+    const trimmedValue = type === 'text' ? inputValue.trim() : +inputValue;
 
     trimmedValue !== '' &&
-      inputValue.trim() !== initialValue &&
+      trimmedValue !== initialValue &&
       onSubmit(trimmedValue);
 
     setInputValue(trimmedValue || initialValue);
-  }, [initialValue, inputValue, onSubmit]);
+  }, [initialValue, inputValue, onSubmit, type]);
 
   const editBtnClickHandler = useCallback(() => {
     setIsEditMode(!isEditMode);
