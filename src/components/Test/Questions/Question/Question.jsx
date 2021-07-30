@@ -50,15 +50,7 @@ const Question = ({ question, testId }) => {
           <Title small>{question.title}</Title>
         )}
       </div>
-      {isAnswersVisible && (
-        <Answers
-          questionId={question.id}
-          questionType={question.question_type}
-          questionTitle={question.title}
-          answers={question.answers}
-          answer={question.answer}
-        />
-      )}
+      {isAnswersVisible && <Answers question={question} />}
     </div>
   );
 };
