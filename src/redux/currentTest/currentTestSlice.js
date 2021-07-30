@@ -55,10 +55,11 @@ const currentTestSlice = createSlice({
     },
 
     answerUpdated: (state, { payload }) => {
+      const { changes } = payload;
       const answer = state.entities.answers[payload.answerId];
       state.entities.answers[payload.answerId] = {
         ...answer,
-        ...payload.changes,
+        ...changes,
       };
     },
 

@@ -3,8 +3,11 @@
 .Answer {
   display: flex;
   justify-content: space-between;
-  padding: 5px 0;
-  border-bottom: 2px solid $wetasphalt;
+  align-items: center;
+  padding: 10px;
+  border: 2px solid $wetasphalt;
+  border-radius: $borderRadius;
+  gap: 5px;
 }
 
 .Text {

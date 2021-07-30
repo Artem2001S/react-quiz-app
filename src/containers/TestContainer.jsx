@@ -72,6 +72,15 @@ const TestContainer = ({ testId }) => {
     [dispatch]
   );
 
+  const updateAnswerText = useCallback(
+    (answerId, answer, newText) => {
+      dispatch(
+        patchAnswer({ answerId, is_right: answer.is_right, text: newText })
+      );
+    },
+    [dispatch]
+  );
+
   const updateQuestionTitle = useCallback(
     (questionId, title, questionType) => {
       dispatch(
@@ -122,10 +131,11 @@ const TestContainer = ({ testId }) => {
           onSaveTitleBtnClick={saveTitleBtnClickHandler}
           onAnswerDelete={deleteAnswer}
           onAnswerIsRightToggle={toggleAnswerIsRight}
+          onNewAnswerFormSubmit={createAnswer}
+          onAnswerTextChanged={updateAnswerText}
           onQuestionTitleUpdate={updateQuestionTitle}
           onQuestionDelete={deleteQuestion}
           onNewQuestionFormSubmit={createQuestion}
-          onNewAnswerFormSubmit={createAnswer}
         />
       ) : (
         <Container>

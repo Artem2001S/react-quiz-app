@@ -35,7 +35,7 @@ export function* patchAnswerWorker({ payload }) {
     const { answerId, is_right, text } = payload;
     yield call(patchAnswerRequest, answerId, { is_right, text });
 
-    yield put(answerUpdated({ answerId, changes: { is_right } }));
+    yield put(answerUpdated({ answerId, changes: { is_right, text } }));
   } catch (error) {
     yield put(messageReceived({ message: 'Answer patching server error' }));
   } finally {
