@@ -1,6 +1,14 @@
+@import 'shared/scssVariables.scss';
+
 .Answers {
   display: flex;
   flex-direction: column;
   gap: 5px;
   padding-left: 40px;
+  border: 2px solid $wetasphalt;
+  border-top: none;
+  border-right: none;
+  border-bottom-left-radius: $borderRadius;
+
+  padding-bottom: 10px;
 }

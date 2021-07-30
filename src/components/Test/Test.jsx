@@ -1,20 +1,16 @@
 import React from 'react';
 import { useAuth } from 'hooks/useAuth';
+import { TestContextProvider } from './TestContext';
 import Container from 'components/UI/Container/Container';
 import Title from 'components/UI/Title/Title';
-import Button from 'components/UI/Button/Button';
-import Input from 'components/UI/Input/Input';
 import Questions from './Questions/Questions';
-import { TestContextProvider } from './TestContext';
-import classes from './Test.module.scss';
 import NewQuestionForm from './NewQuestionForm/NewQuestionForm';
+import EditableInput from 'components/UI/EditableInput/EditableInput';
+import classes from './Test.module.scss';
 
 const Test = ({
   test,
-  isEditMode,
-  input,
-  onEditModeChanged,
-  onSaveTitleBtnClick,
+  onTestTitleUpdate,
   onAnswerDelete,
   onAnswerIsRightToggle,
   onQuestionTitleUpdate,
@@ -38,19 +34,19 @@ const Test = ({
     >
       <Container>
         <div className={classes.TestHeader}>
-          <Title large>{test?.title}</Title>
-          {isAdmin && (
-            <>
-              <Button onClick={onEditModeChanged}>
-                {!isEditMode ? 'Edit' : 'Cancel'}
-              </Button>
-              {isEditMode && (
-                <>
-                  <Input {...input} />
-                  <Button onClick={onSaveTitleBtnClick}>Save</Button>
-                </>
-              )}
-            </>
+          {isAdmin ? (
+            <EditableInput
+              initialValue={test.title}
+              onSubmit={onTestTitleUpdate}
+            >
+              <Title large centered>
+                {test.title}
+              </Title>
+            </EditableInput>
+          ) : (
+            <Title large centered>
+              {test.title}
+            </Title>
           )}
         </div>
         <NewQuestionForm testId={test.id} onSubmit={onNewQuestionFormSubmit} />

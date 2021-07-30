@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   deleteAnswer as deleteAnswerAction,
@@ -19,42 +19,21 @@ import Test from 'components/Test/Test';
 import Title from 'components/UI/Title/Title';
 import Container from 'components/UI/Container/Container';
 import { useCallback } from 'react';
-import { useInputs } from 'hooks/useInputs';
-import { nanoid } from '@reduxjs/toolkit';
 import { messageReceived } from 'redux/userInterface/userInterfaceSlice';
 
 const TestContainer = ({ testId }) => {
   const dispatch = useDispatch();
-  const [isEditMode, setIsEditMode] = useState(false);
   const currentTest = useSelector(getCurrentTestSelector);
   const isTestFetched = useSelector(getIsCurrentTestFetchedSelector);
+
   useComponentDidMount(() => dispatch(fetchTest({ testId })));
 
-  const { inputs, resetInputs } = useInputs([
-    {
-      id: nanoid(),
-      label: 'New title:',
-      name: 'title',
-      value: '',
+  const patchTestTitle = useCallback(
+    (newTitle) => {
+      dispatch(patchTest({ testId, title: newTitle }));
     },
-  ]);
-
-  const [titleInput] = inputs;
-
-  const changeEditMode = useCallback(() => {
-    setIsEditMode(!isEditMode);
-  }, [isEditMode]);
-
-  const saveTitleBtnClickHandler = useCallback(() => {
-    if (!titleInput.value) {
-      dispatch(messageReceived({ message: 'Enter title.' }));
-      return;
-    } else {
-      dispatch(patchTest({ testId, title: titleInput.value }));
-      setIsEditMode(false);
-      resetInputs();
-    }
-  }, [dispatch, resetInputs, testId, titleInput]);
+    [dispatch, testId]
+  );
 
   const deleteAnswer = useCallback(
     (answerId, questionId) => {
@@ -139,10 +118,7 @@ const TestContainer = ({ testId }) => {
       {currentTest && isTestFetched ? (
         <Test
           test={currentTest}
-          isEditMode={isEditMode}
-          input={titleInput}
-          onEditModeChanged={changeEditMode}
-          onSaveTitleBtnClick={saveTitleBtnClickHandler}
+          onTestTitleUpdate={patchTestTitle}
           onAnswerDelete={deleteAnswer}
           onAnswerIsRightToggle={toggleAnswerIsRight}
           onNewAnswerFormSubmit={createAnswer}
