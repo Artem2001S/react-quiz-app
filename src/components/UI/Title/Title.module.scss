@@ -4,19 +4,63 @@
   color: $wetasphalt;
   font-weight: bold;
   padding-left: 10px;
-
+  word-break: break-all;
   margin: 5px 0;
+
+  @include mediaTablet {
+    padding-left: 5px;
+  }
 
   &.Large {
     font-size: 42px;
+
+    @include mediaTablet {
+      font-size: 38px;
+    }
+
+    @include mediaMobileL {
+      font-size: 34px;
+    }
+
+    @include mediaMobileM {
+      font-size: 32px;
+    }
+
+    @include mediaMobileS {
+      font-size: 30px;
+    }
   }
 
   &.Medium {
     font-size: 34px;
+
+    @include mediaTablet {
+      font-size: 30px;
+    }
+
+    @include mediaMobileL {
+      font-size: 27px;
+    }
+
+    @include mediaMobileM {
+      font-size: 25px;
+    }
   }
 
   &.Small {
     font-size: 27px;
+
+    @include mediaTablet {
+      font-size: 25px;
+    }
+
+    @include mediaMobileL {
+      font-size: 23px;
+    }
+
+    @include mediaMobileM {
+      font-size: 20px;
+    }
   }
 
   &.Centered {

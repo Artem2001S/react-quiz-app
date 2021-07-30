@@ -8,11 +8,24 @@
   border: 2px solid $wetasphalt;
   border-radius: $borderRadius;
   gap: 5px;
+  @include mediaMobileM {
+    flex-direction: column;
+    align-items: flex-end;
+  }
 }
 
 .Text {
   color: $wetasphalt;
+  word-break: break-all;
   font-size: 20px;
+
+  @include mediaTablet {
+    font-size: 18px;
+  }
+
+  @include mediaMobileM {
+    font-size: 16px;
+  }
 }
 
 .Actions {

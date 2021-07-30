@@ -2,6 +2,10 @@
 
 .Container {
   padding: 10%;
+
+  @include mediaMobileL {
+    padding: 8%;
+  }
 }
 
 .Left {

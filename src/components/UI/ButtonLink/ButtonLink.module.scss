@@ -23,4 +23,14 @@
   &:hover {
     background-color: rgba($color: $wetasphalt, $alpha: 0.1);
   }
+
+  @include mediaTablet {
+    font-size: 17px;
+  }
+
+  @include mediaMobileL {
+    font-size: 15px;
+    padding: 6px 8px;
+    min-width: 80px;
+  }
 }

@@ -10,3 +10,39 @@ $lightGreen: #2ecc71;
 $darkGreen: #27ae60;
 
 $borderRadius: 10px;
+
+$laptopWidth: 1024px;
+$tabletWidth: 768px;
+$mobileLWidth: 425px;
+$mobileMWidth: 375px;
+$mobileSWidth: 325px;
+
+@mixin mediaLaptop() {
+  @media screen and (max-width: $laptopWidth) {
+    @content;
+  }
+}
+
+@mixin mediaTablet() {
+  @media screen and (max-width: $tabletWidth) {
+    @content;
+  }
+}
+
+@mixin mediaMobileL() {
+  @media screen and (max-width: $mobileLWidth) {
+    @content;
+  }
+}
+
+@mixin mediaMobileM() {
+  @media screen and (max-width: $mobileMWidth) {
+    @content;
+  }
+}
+
+@mixin mediaMobileS() {
+  @media screen and (max-width: $mobileSWidth) {
+    @content;
+  }
+}

@@ -7,6 +7,8 @@
 .HeaderInner {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  align-content: center;
 }
 
 .RightSide {
