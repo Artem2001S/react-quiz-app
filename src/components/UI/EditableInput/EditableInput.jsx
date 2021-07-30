@@ -24,6 +24,7 @@ const EditableInput = ({
     if (!inputValue) {
       setInputValue(initialValue);
     }
+
     if (inputValue && inputValue !== initialValue) {
       onSubmit(inputValue);
     }

@@ -20,6 +20,7 @@ const Test = ({
   onQuestionTitleUpdate,
   onQuestionDelete,
   onNewQuestionFormSubmit,
+  onNewAnswerFormSubmit,
 }) => {
   const { isAdmin } = useAuth();
 
@@ -29,6 +30,7 @@ const Test = ({
       onAnswerIsRightToggle={onAnswerIsRightToggle}
       onQuestionTitleUpdate={onQuestionTitleUpdate}
       onQuestionDelete={onQuestionDelete}
+      onNewAnswerFormSubmit={onNewAnswerFormSubmit}
     >
       <Container>
         <div className={classes.TestHeader}>

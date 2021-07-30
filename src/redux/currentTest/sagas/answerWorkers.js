@@ -4,8 +4,16 @@ import {
   loadingStarted,
   messageReceived,
 } from 'redux/userInterface/userInterfaceSlice';
-import { answerDeleted, answerUpdated } from '../currentTestSlice';
-import { deleteAnswerRequest, patchAnswerRequest } from '../requests';
+import {
+  answerCreated,
+  answerDeleted,
+  answerUpdated,
+} from '../currentTestSlice';
+import {
+  deleteAnswerRequest,
+  patchAnswerRequest,
+  postAnswerRequest,
+} from '../requests';
 
 export function* deleteAnswerWorker({ payload }) {
   try {
@@ -30,6 +38,20 @@ export function* patchAnswerWorker({ payload }) {
     yield put(answerUpdated({ answerId, changes: { is_right } }));
   } catch (error) {
     yield put(messageReceived({ message: 'Answer patching server error' }));
+  } finally {
+    yield put(loadingFinished());
+  }
+}
+
+export function* postAnswerWorker({ payload }) {
+  try {
+    yield put(loadingStarted());
+    const { questionId, answer } = payload;
+    const { data } = yield call(postAnswerRequest, questionId, answer);
+
+    yield put(answerCreated({ questionId, answer: data }));
+  } catch (error) {
+    yield put(messageReceived({ message: 'Answer posting server error' }));
   } finally {
     yield put(loadingFinished());
   }

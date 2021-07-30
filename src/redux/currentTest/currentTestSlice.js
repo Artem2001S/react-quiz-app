@@ -61,6 +61,12 @@ const currentTestSlice = createSlice({
         ...payload.changes,
       };
     },
+
+    answerCreated: (state, { payload }) => {
+      const { questionId, answer } = payload;
+      state.entities.answers[answer.id] = answer;
+      state.entities.questions[questionId].answers.push(answer.id);
+    },
   },
 });
 
@@ -73,6 +79,7 @@ export const postQuestion = createAction(`${name}/postQuestion`);
 
 export const deleteAnswer = createAction(`${name}/deleteAnswer`);
 export const patchAnswer = createAction(`${name}/patchAnswer`);
+export const postAnswer = createAction(`${name}/postAnswer`);
 
 export const {
   testFetched,
@@ -82,5 +89,6 @@ export const {
   questionDeleted,
   answerDeleted,
   answerUpdated,
+  answerCreated,
 } = currentTestSlice.actions;
 export default currentTestSlice.reducer;

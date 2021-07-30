@@ -11,6 +11,8 @@ export const deleteQuestionRequest = (questionId) =>
 export const postQuestionRequest = (testId, question) =>
   instance.post(`/tests/${testId}/questions`, question);
 
+export const postAnswerRequest = (questionId, answer) =>
+  instance.post(`/questions/${questionId}/answers`, answer);
 export const deleteAnswerRequest = (answerId) =>
   instance.delete(`/answers/${answerId}`);
 export const patchAnswerRequest = (answerId, data) =>

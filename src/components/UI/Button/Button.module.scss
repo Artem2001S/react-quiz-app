@@ -28,6 +28,14 @@
     }
   }
 
+  &.Green {
+    background-color: $lightGreen;
+
+    &:hover {
+      background-color: $darkGreen;
+    }
+  }
+
   &.Small {
     min-width: initial;
   }
