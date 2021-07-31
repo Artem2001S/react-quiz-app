@@ -1,13 +1,17 @@
+import React, { useMemo } from 'react';
+import { getQuestionWarnings } from 'shared/helpers';
 import { useAuth } from 'hooks/useAuth';
-import React from 'react';
-import Answer from './Answer/Answer';
-import classes from './Answers.module.scss';
 import NewAnswerForm from './NewAnswerForm/NewAnswerForm';
+import Answer from './Answer/Answer';
 import AnswerTypeNumber from './AnswerTypeNumber/AnswerTypeNumber';
+import Warnings from './Warnings/Warnings';
+import classes from './Answers.module.scss';
 
 const Answers = ({ question }) => {
   const isQuestionTypeNumber = question.question_type === 'number';
   const { isAdmin } = useAuth();
+
+  const warnings = useMemo(() => getQuestionWarnings(question), [question]);
 
   return (
     <div className={classes.Answers}>
@@ -15,20 +19,13 @@ const Answers = ({ question }) => {
         <NewAnswerForm questionId={question.id} />
       )}
 
+      {warnings.length > 0 && <Warnings warnings={warnings} />}
+
       {isQuestionTypeNumber ? (
-        <AnswerTypeNumber
-          questionId={question.id}
-          questionTitle={question.title}
-          questionType={question.question_type}
-          answer={question.answer}
-        />
+        <AnswerTypeNumber question={question} answer={question.answer} />
       ) : (
         question.answers.map((answer) => (
-          <Answer
-            key={answer.id}
-            answer={answer}
-            questionId={question.questionId}
-          />
+          <Answer key={answer.id} answer={answer} questionId={question.id} />
         ))
       )}
     </div>

@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
+import { useTestCtx } from 'components/Test/TestContext';
 import { nanoid } from 'nanoid';
 import Input from 'components/UI/Input/Input';
 import Button from 'components/UI/Button/Button';
 import classes from './NewAnswerForm.module.scss';
-import { useTestCtx } from 'components/Test/TestContext';
 
 const NewAnswerForm = ({ questionId }) => {
   const { onNewAnswerFormSubmit } = useTestCtx();
@@ -24,6 +24,7 @@ const NewAnswerForm = ({ questionId }) => {
   const submitFormHandler = useCallback(
     (e) => {
       e.preventDefault();
+
       const answerText = input.value.trim();
       answerText && onNewAnswerFormSubmit(questionId, answerText);
       setInput({ ...input, value: '' });

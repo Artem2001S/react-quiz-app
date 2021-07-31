@@ -32,3 +32,24 @@ export const getValidQuestions = (questions) => {
       question.question_type === questionTypes.number
   );
 };
+
+export const getQuestionWarnings = (question) => {
+  const errors = [];
+
+  if (question.question_type === questionTypes.number) return [];
+
+  question.answers.length < 2 &&
+    errors.push('The question should have at least 2 answers');
+  const rightAnswersCount = question.answers.filter(
+    (answer) => answer.is_right
+  ).length;
+
+  rightAnswersCount === 0 &&
+    errors.push('The question should have at least 1 right answer');
+
+  rightAnswersCount > 1 &&
+    question.question_type === questionTypes.single &&
+    errors.push('Single question should have only one right answer');
+
+  return errors;
+};

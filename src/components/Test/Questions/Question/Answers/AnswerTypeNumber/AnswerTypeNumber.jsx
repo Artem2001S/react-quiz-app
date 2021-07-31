@@ -5,25 +5,20 @@ import Title from 'components/UI/Title/Title';
 import EditableInput from 'components/UI/EditableInput/EditableInput';
 import classes from './AnswerTypeNumber.module.scss';
 
-const AnswerTypeNumber = ({
-  questionId,
-  questionType,
-  questionTitle,
-  answer,
-}) => {
+const AnswerTypeNumber = ({ question, answer }) => {
   const { isAdmin } = useAuth();
   const { onQuestionAnswerUpdate } = useTestCtx();
 
   const handleInputSubmit = useCallback(
     (newAnswerValue) => {
       onQuestionAnswerUpdate(
-        questionId,
-        questionTitle,
-        questionType,
+        question.id,
+        question.title,
+        question.question_type,
         newAnswerValue
       );
     },
-    [onQuestionAnswerUpdate, questionId, questionTitle, questionType]
+    [onQuestionAnswerUpdate, question]
   );
 
   return (

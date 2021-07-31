@@ -4,6 +4,26 @@
   display: flex;
   align-items: center;
   width: 100%;
+
+  &.WithWarnings {
+    background-color: rgba($color: $orange, $alpha: 0.2);
+    border-radius: $borderRadius;
+    animation: pulse 3s infinite linear;
+
+    @keyframes pulse {
+      from {
+        background-color: rgba($color: $orange, $alpha: 0.2);
+      }
+
+      50% {
+        background-color: rgba($color: $orange, $alpha: 0);
+      }
+
+      to {
+        background-color: rgba($color: $orange, $alpha: 0.2);
+      }
+    }
+  }
 }
 
 .HeaderContent {
@@ -23,6 +43,7 @@
   border-radius: $borderRadius;
 
   transition: background-color 0.3s;
+  user-select: none;
 
   &.ContentVisible {
     transform: rotate(90deg);
@@ -35,4 +56,16 @@
 
 .QuestionTitle {
   width: 100%;
+}
+
+.QuestionType {
+  margin-left: 5px;
+  padding: 4px 7px;
+  background-color: $darkBlue;
+  font-size: 13px;
+  font-weight: 400;
+  color: $white;
+  border-radius: $borderRadius;
+  user-select: none;
+  word-break: initial;
 }

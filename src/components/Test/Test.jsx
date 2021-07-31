@@ -34,6 +34,9 @@ const Test = ({
       onAnswerTextChanged={onAnswerTextChanged}
     >
       <Container>
+        <ButtonLink className={classes.BackBtn} to="/tests">
+          &#129044; Tests
+        </ButtonLink>
         <div className={classes.TestHeader}>
           {isAdmin ? (
             <EditableInput
@@ -53,7 +56,12 @@ const Test = ({
         <ButtonLink className={classes.StartQuizBtn} to={`/quiz/${test.id}`}>
           Start quiz
         </ButtonLink>
-        <NewQuestionForm testId={test.id} onSubmit={onNewQuestionFormSubmit} />
+        {isAdmin && (
+          <NewQuestionForm
+            testId={test.id}
+            onSubmit={onNewQuestionFormSubmit}
+          />
+        )}
         <Questions questions={test.questions} />
       </Container>
     </TestContextProvider>
