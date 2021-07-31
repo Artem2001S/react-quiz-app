@@ -1,0 +1,24 @@
+@import 'shared/scssVariables.scss';
+
+.SelectItem {
+  color: $wetasphalt;
+  font-weight: 500;
+  padding: 10px 20px;
+  background-color: $clouds;
+  border: 1px solid $black;
+  border-radius: $borderRadius;
+
+  cursor: pointer;
+
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: rgba($color: $clouds, $alpha: 0.2);
+  }
+
+  &.Selected {
+    background-color: $lightBlue;
+    color: $white;
+    border-color: $lightBlue;
+  }
+}

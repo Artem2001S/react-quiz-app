@@ -7,6 +7,7 @@ import Questions from './Questions/Questions';
 import NewQuestionForm from './NewQuestionForm/NewQuestionForm';
 import EditableInput from 'components/UI/EditableInput/EditableInput';
 import classes from './Test.module.scss';
+import ButtonLink from 'components/UI/ButtonLink/ButtonLink';
 
 const Test = ({
   test,
@@ -49,6 +50,9 @@ const Test = ({
             </Title>
           )}
         </div>
+        <ButtonLink className={classes.StartQuizBtn} to={`/quiz/${test.id}`}>
+          Start quiz
+        </ButtonLink>
         <NewQuestionForm testId={test.id} onSubmit={onNewQuestionFormSubmit} />
         <Questions questions={test.questions} />
       </Container>

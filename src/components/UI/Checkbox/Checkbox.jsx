@@ -16,4 +16,4 @@ const Checkbox = ({ id, label, ...props }) => {
   );
 };
 
-export default Checkbox;
+export default React.memo(Checkbox);

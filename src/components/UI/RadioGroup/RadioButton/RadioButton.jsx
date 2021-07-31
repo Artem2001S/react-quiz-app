@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import classes from './RadioButton.module.scss';
 
-const RadioButton = ({ id, label, value, index, isSelected, onSelect }) => {
+const RadioButton = ({ id, label, index, isSelected, onSelect }) => {
   const handleCheckedChanged = useCallback(
     () => onSelect(index),
     [index, onSelect]

@@ -1,5 +1,13 @@
 @import 'shared/scssVariables.scss';
 
+.RadioContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 34px;
+  min-height: 30px;
+}
+
 .RadioContent {
   display: inline-flex;
   align-items: center;
@@ -17,14 +25,16 @@
 }
 
 .RadioIcon {
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 50%;
   width: 25px;
   height: 25px;
   background-color: $white;
 
   border-radius: 50%;
   border: 1px solid $wetasphalt;
-
+  transform: translateY(-50%);
   &::after {
     position: absolute;
     left: 50%;

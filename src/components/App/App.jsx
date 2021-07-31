@@ -20,6 +20,7 @@ import RedirectAuthorizedUserRoute from 'shared/components/RedirectAuthorizedUse
 import Alert from 'components/UI/Alert/Alert';
 import Header from 'components/Header/Header';
 import TestPage from 'pages/TestPage';
+import QuizPage from 'pages/QuizPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,10 @@ function App() {
             </PrivateRoute>
             <PrivateRoute path="/tests/:testId" exact>
               <TestPage />
+            </PrivateRoute>
+
+            <PrivateRoute path="/quiz/:testId" exact>
+              <QuizPage />
             </PrivateRoute>
 
             <NotFoundPage />
