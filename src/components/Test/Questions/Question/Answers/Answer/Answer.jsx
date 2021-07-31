@@ -7,7 +7,16 @@ import React from 'react';
 import { useCallback } from 'react';
 import classes from './Answer.module.scss';
 
-const Answer = ({ answer, questionId }) => {
+const Answer = ({
+  answer,
+  index,
+  questionId,
+  onDragStart,
+  onDragEnd,
+  onDragLeave,
+  onDragOver,
+  onDrop,
+}) => {
   const { isAdmin } = useAuth();
   const { onAnswerDelete, onAnswerIsRightToggle, onAnswerTextChanged } =
     useTestCtx();
@@ -32,8 +41,23 @@ const Answer = ({ answer, questionId }) => {
     [answer, onAnswerTextChanged]
   );
 
+  const handleDragStart = useCallback(
+    (e) => onDragStart(e, answer, index),
+    [answer, index, onDragStart]
+  );
+
+  const handleDrop = useCallback((e) => onDrop(e, index), [index, onDrop]);
+
   return (
-    <div className={classes.Answer}>
+    <div
+      className={classes.Answer}
+      draggable={true}
+      onDragStart={handleDragStart}
+      onDragLeave={onDragLeave}
+      onDragOver={onDragOver}
+      onDragEnd={onDragEnd}
+      onDrop={handleDrop}
+    >
       {isAdmin ? (
         <EditableInput
           initialValue={answer.text}

@@ -1,5 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
 import {
+  changeAnswerPosition,
   deleteAnswer,
   deleteQuestion,
   fetchTest,
@@ -10,6 +11,7 @@ import {
   postQuestion,
 } from '../currentTestSlice';
 import {
+  changeAnswerPositionWorker,
   deleteAnswerWorker,
   patchAnswerWorker,
   postAnswerWorker,
@@ -32,4 +34,5 @@ export function* watchCurrentTest() {
   yield takeLatest(deleteAnswer.type, deleteAnswerWorker);
   yield takeLatest(patchAnswer.type, patchAnswerWorker);
   yield takeLatest(postAnswer.type, postAnswerWorker);
+  yield takeLatest(changeAnswerPosition.type, changeAnswerPositionWorker);
 }

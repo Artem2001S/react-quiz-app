@@ -19,6 +19,7 @@ const Test = ({
   onNewQuestionFormSubmit,
   onNewAnswerFormSubmit,
   onAnswerTextChanged,
+  onAnswerPositionChanged,
   onQuestionAnswerUpdate,
 }) => {
   const { isAdmin } = useAuth();
@@ -32,6 +33,7 @@ const Test = ({
       onQuestionAnswerUpdate={onQuestionAnswerUpdate}
       onNewAnswerFormSubmit={onNewAnswerFormSubmit}
       onAnswerTextChanged={onAnswerTextChanged}
+      onAnswerPositionChanged={onAnswerPositionChanged}
     >
       <Container>
         <ButtonLink className={classes.BackBtn} to="/tests">

@@ -8,6 +8,9 @@
   border: 2px solid $wetasphalt;
   border-radius: $borderRadius;
   gap: 5px;
+
+  cursor: grab;
+
   @include mediaMobileM {
     flex-direction: column;
     align-items: flex-end;

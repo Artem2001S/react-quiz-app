@@ -73,6 +73,15 @@ const currentTestSlice = createSlice({
 
       state.entities.questions[questionId].answers.push(answer.id);
     },
+
+    answerMoved: (state, { payload }) => {
+      const { newPosition, answerId, questionId } = payload;
+      const { answers } = state.entities.questions[questionId];
+      const fromIndex = answers.findIndex((id) => answerId === id);
+
+      answers.splice(fromIndex, 1);
+      answers.splice(newPosition, 0, answerId);
+    },
   },
 });
 
@@ -86,6 +95,9 @@ export const postQuestion = createAction(`${name}/postQuestion`);
 export const deleteAnswer = createAction(`${name}/deleteAnswer`);
 export const patchAnswer = createAction(`${name}/patchAnswer`);
 export const postAnswer = createAction(`${name}/postAnswer`);
+export const changeAnswerPosition = createAction(
+  `${name}/changeAnswerPosition`
+);
 
 export const {
   testFetched,
@@ -96,5 +108,6 @@ export const {
   answerDeleted,
   answerUpdated,
   answerCreated,
+  answerMoved,
 } = currentTestSlice.actions;
 export default currentTestSlice.reducer;

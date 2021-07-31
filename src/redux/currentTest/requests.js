@@ -17,3 +17,5 @@ export const deleteAnswerRequest = (answerId) =>
   instance.delete(`/answers/${answerId}`);
 export const patchAnswerRequest = (answerId, data) =>
   instance.patch(`/answers/${answerId}`, data);
+export const moveAnswerRequest = (answerId, newPosition) =>
+  instance.patch(`/answers/${answerId}/insert_at/${newPosition}`);

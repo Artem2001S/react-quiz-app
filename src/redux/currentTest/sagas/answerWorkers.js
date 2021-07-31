@@ -7,10 +7,12 @@ import {
 import {
   answerCreated,
   answerDeleted,
+  answerMoved,
   answerUpdated,
 } from '../currentTestSlice';
 import {
   deleteAnswerRequest,
+  moveAnswerRequest,
   patchAnswerRequest,
   postAnswerRequest,
 } from '../requests';
@@ -52,6 +54,22 @@ export function* postAnswerWorker({ payload }) {
     yield put(answerCreated({ questionId, answer: data }));
   } catch (error) {
     yield put(messageReceived({ message: 'Answer posting server error' }));
+  } finally {
+    yield put(loadingFinished());
+  }
+}
+
+export function* changeAnswerPositionWorker({ payload }) {
+  try {
+    yield put(loadingStarted());
+    const { newPosition, answerId, questionId } = payload;
+    yield call(moveAnswerRequest, answerId, newPosition);
+
+    yield put(answerMoved({ newPosition, answerId, questionId }));
+  } catch (error) {
+    yield put(
+      messageReceived({ message: 'Changing answer position server error.' })
+    );
   } finally {
     yield put(loadingFinished());
   }

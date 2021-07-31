@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  changeAnswerPosition,
   deleteAnswer as deleteAnswerAction,
   deleteQuestion as deleteQuestionAction,
   fetchTest,
@@ -113,6 +114,12 @@ const TestContainer = ({ testId }) => {
     [dispatch]
   );
 
+  const moveAnswer = useCallback(
+    (newPosition, answerId, questionId) =>
+      dispatch(changeAnswerPosition({ newPosition, answerId, questionId })),
+    [dispatch]
+  );
+
   return isTestFetched ? (
     <>
       {currentTest && isTestFetched ? (
@@ -126,6 +133,7 @@ const TestContainer = ({ testId }) => {
           onQuestionTitleUpdate={updateQuestionTitle}
           onQuestionDelete={deleteQuestion}
           onQuestionAnswerUpdate={updateQuestionAnswer}
+          onAnswerPositionChanged={moveAnswer}
           onNewQuestionFormSubmit={createQuestion}
         />
       ) : (
