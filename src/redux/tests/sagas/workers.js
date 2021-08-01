@@ -9,17 +9,24 @@ import {
   fetchTestsRequest,
   postTestRequest,
 } from '../requests';
-import { testCreated, testRemoved, testsLoaded } from '../testsSlice';
+import { testsLoaded } from '../testsSlice';
 
-export function* fetchTestsWorker() {
+export function* fetchTestsWorker({ payload }) {
   try {
     yield put(loadingStarted());
-    const { data } = yield call(fetchTestsRequest);
+    const page = payload?.page || 1;
+
+    const { data } = yield call(fetchTestsRequest, page);
     const testsWithoutQuestions = data.tests.map(
       ({ questions, ...test }) => test
     );
 
-    yield put(testsLoaded({ tests: testsWithoutQuestions }));
+    yield put(
+      testsLoaded({
+        tests: testsWithoutQuestions,
+        meta: { ...data.meta, currentPage: page },
+      })
+    );
   } catch (error) {
     yield put(messageReceived({ message: 'Fetching tests error.' }));
     yield put(testsLoaded({ tests: [] }));
@@ -31,8 +38,21 @@ export function* fetchTestsWorker() {
 export function* createNewTestWorker({ payload }) {
   try {
     yield put(loadingStarted());
-    const { data } = yield call(postTestRequest, payload.title);
-    yield put(testCreated({ test: data }));
+    const { currentPage, title } = payload;
+
+    yield call(postTestRequest, title);
+
+    const { data } = yield call(fetchTestsRequest, currentPage);
+    const testsWithoutQuestions = data.tests.map(
+      ({ questions, ...test }) => test
+    );
+
+    yield put(
+      testsLoaded({
+        tests: testsWithoutQuestions,
+        meta: { ...data.meta, currentPage },
+      })
+    );
   } catch (error) {
     yield put(messageReceived({ message: 'Create test server error.' }));
   } finally {
@@ -43,10 +63,21 @@ export function* createNewTestWorker({ payload }) {
 export function* deleteTestWorker({ payload }) {
   try {
     yield put(loadingStarted());
-    const { id } = payload;
+    const { id, currentPage } = payload;
 
     yield call(deleteTestRequest, id);
-    yield put(testRemoved({ id }));
+
+    const { data } = yield call(fetchTestsRequest, currentPage);
+    const testsWithoutQuestions = data.tests.map(
+      ({ questions, ...test }) => test
+    );
+
+    yield put(
+      testsLoaded({
+        tests: testsWithoutQuestions,
+        meta: { ...data.meta, currentPage },
+      })
+    );
   } catch (error) {
     yield put(messageReceived({ message: 'Create test server error.' }));
   } finally {

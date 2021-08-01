@@ -41,9 +41,8 @@ const Answers = ({ question }) => {
 
       e.currentTarget.classList.remove(classes.Grabbing);
 
-      if (newIndex !== currentAnswerData.index) {
+      newIndex !== currentAnswerData.index &&
         onAnswerPositionChanged(newIndex, currentAnswerData.id, question.id);
-      }
     },
     [currentAnswerData, onAnswerPositionChanged, question]
   );

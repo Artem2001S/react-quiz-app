@@ -21,6 +21,10 @@
     background-color: $darkBlue;
   }
 
+  &:disabled {
+    cursor: not-allowed;
+  }
+
   @include mediaTablet {
     font-size: 17px;
   }

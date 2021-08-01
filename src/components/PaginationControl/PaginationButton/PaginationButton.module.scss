@@ -1,0 +1,16 @@
+@import 'shared/scssVariables.scss';
+
+.PaginationButton {
+  background-color: $white;
+  border: 2px solid $lightBlue;
+  color: $lightBlue;
+
+  &:hover {
+    background-color: $clouds;
+  }
+
+  &.ActivePage {
+    background-color: $lightBlue;
+    color: $clouds;
+  }
+}
