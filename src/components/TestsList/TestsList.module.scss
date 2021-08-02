@@ -1,5 +1,13 @@
+@import 'shared/scssVariables.scss';
+
 .TestsList {
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.TestsCount {
+  color: $darkBlue;
+  margin-bottom: 10px;
+  text-align: right;
 }

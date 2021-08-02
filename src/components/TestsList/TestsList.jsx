@@ -4,10 +4,11 @@ import Title from 'components/UI/Title/Title';
 import TestsListItem from './TestsListItem/TestsListItem';
 import classes from './TestsList.module.scss';
 
-const TestsList = ({ tests, isAdmin, onDelete }) => {
+const TestsList = ({ tests, isAdmin, testsCount, onDelete }) => {
   return (
     <Container>
       <Title large>Tests</Title>
+      <div className={classes.TestsCount}>Tests count: {testsCount}</div>
       {!tests?.length && (
         <Title centered medium>
           Tests not found
