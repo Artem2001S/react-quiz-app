@@ -8,7 +8,7 @@ import Input from 'components/UI/Input/Input';
 import { useEffect } from 'react';
 
 const NewQuestionForm = ({ testId, onSubmit }) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedRadioIndex, setSelectedRadioIndex] = useState(0);
 
   const [titleInput, setTitleInput] = useState({
     id: nanoid(),
@@ -20,7 +20,7 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
   const [answerInput, setAnswerInput] = useState(null);
 
   useEffect(() => {
-    selectedIndex === questionTypeNumberIndex
+    selectedRadioIndex === questionTypeNumberIndex
       ? setAnswerInput({
           id: nanoid(),
           label: 'Answer:',
@@ -28,7 +28,7 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
           value: 0,
         })
       : setAnswerInput(null);
-  }, [selectedIndex]);
+  }, [selectedRadioIndex]);
 
   const answerInputChangeHandler = useCallback(
     (e) => {
@@ -51,7 +51,7 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
   ]);
 
   const selectedIndexChanged = useCallback((index) => {
-    setSelectedIndex(index);
+    setSelectedRadioIndex(index);
   }, []);
 
   const resetInputs = useCallback(() => {
@@ -64,19 +64,19 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
       e.preventDefault();
       onSubmit(testId, {
         title: titleInput.value,
-        question_type: questionTypeRadioButtons[selectedIndex].value,
+        question_type: questionTypeRadioButtons[selectedRadioIndex].value,
         answer: answerInput ? Number(answerInput.value) : null,
       });
       resetInputs();
     },
     [
       onSubmit,
-      resetInputs,
       testId,
       titleInput,
       questionTypeRadioButtons,
-      selectedIndex,
+      selectedRadioIndex,
       answerInput,
+      resetInputs,
     ]
   );
 
@@ -92,7 +92,7 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
         <RadioGroup
           label="Choose question type:"
           radioButtons={questionTypeRadioButtons}
-          selectedIndex={selectedIndex}
+          selectedIndex={selectedRadioIndex}
           selectedIndexChanged={selectedIndexChanged}
         />
       </form>
