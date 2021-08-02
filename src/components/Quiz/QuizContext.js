@@ -34,13 +34,12 @@ export const QuizContextProvider = ({ children, test }) => {
                 : rightAnswersIndexes,
             []
           );
-
           isArraysEqual(selectedIndexes, rightAnswersIndexes) &&
             setCorrectAnswersCount(correctAnswersCount + 1);
           break;
         case questionTypes.number:
           const correctAnswer = currentQuestion.answer;
-          correctAnswer === answer &&
+          correctAnswer === Number(answer) &&
             setCorrectAnswersCount(correctAnswersCount + 1);
           break;
         default:
