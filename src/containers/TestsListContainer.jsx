@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getTestsCountSelector,
@@ -9,16 +9,11 @@ import {
   getTestsSortTypeSelector,
   getTotalPagesSelector,
 } from 'redux/tests/selectors';
-import { validateInputs } from 'shared/helpers';
 import { useComponentDidMount } from 'hooks/useComponentDidMount';
 import { createNewTest, deleteTest, fetchTests } from 'redux/tests/testsSlice';
 import { useAuth } from 'hooks/useAuth';
-import { useInputs } from 'hooks/useInputs';
-import { nanoid } from '@reduxjs/toolkit';
 import { testsListSortTypes } from 'shared/constants';
 import TestsList from 'components/TestsList/TestsList';
-import Form from 'components/Form/Form';
-import Container from 'components/UI/Container/Container';
 import PaginationControl from 'components/PaginationControl/PaginationControl';
 
 const TestsListContainer = () => {
@@ -37,38 +32,21 @@ const TestsListContainer = () => {
   );
 
   const { isAdmin } = useAuth();
-  const [errors, setErrors] = useState([]);
-  const { inputs, resetInputs } = useInputs([
-    {
-      id: nanoid(),
-      label: 'Title:',
-      name: 'title',
-      value: '',
-      validationData: { isRequired: true },
-    },
-  ]);
 
   const newTestFormSubmitHandler = useCallback(
-    (e) => {
-      e.preventDefault();
-      const validationErrors = validateInputs(inputs);
-      if (validationErrors.length) {
-        setErrors(validationErrors);
-      } else {
-        setErrors([]);
-        const [{ value: testTitle }] = inputs;
+    (title) => {
+      if (title) {
         dispatch(
           createNewTest({
-            title: testTitle,
+            title,
             currentPage,
             sort: sortType,
             searchValue,
           })
         );
-        resetInputs();
       }
     },
-    [currentPage, dispatch, inputs, resetInputs, searchValue, sortType]
+    [currentPage, dispatch, searchValue, sortType]
   );
 
   const handleDeleteTestBtnClick = useCallback(
@@ -113,17 +91,6 @@ const TestsListContainer = () => {
 
   return isFetched ? (
     <>
-      <Container centered>
-        {isAdmin && (
-          <Form
-            title="New test"
-            inputs={inputs}
-            errors={errors}
-            submitBtnText="Create test"
-            onSubmit={newTestFormSubmitHandler}
-          />
-        )}
-      </Container>
       <TestsList
         tests={tests}
         testsCount={testsCount}
@@ -131,6 +98,7 @@ const TestsListContainer = () => {
         onDelete={handleDeleteTestBtnClick}
         onSortChange={handleToggleSortBtnClick}
         onSearchFormSubmit={onSearchFormSubmit}
+        onNewTestFormSubmit={newTestFormSubmitHandler}
       />
       {tests.length > 0 && (
         <PaginationControl

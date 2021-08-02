@@ -6,6 +6,7 @@ import classes from './TestsList.module.scss';
 import sortIconSrc from './sort.svg';
 import Button from 'components/UI/Button/Button';
 import SearchTestsForm from './SearchTestsForm/SearchTestsForm';
+import NewTestForm from './NewTestForm/NewTestForm';
 
 const TestsList = ({
   tests,
@@ -14,9 +15,11 @@ const TestsList = ({
   onDelete,
   onSortChange,
   onSearchFormSubmit,
+  onNewTestFormSubmit,
 }) => {
   return (
     <Container>
+      {isAdmin && <NewTestForm onSubmit={onNewTestFormSubmit} />}
       <div className={classes.Header}>
         <Title large>Tests</Title>
         <Button
