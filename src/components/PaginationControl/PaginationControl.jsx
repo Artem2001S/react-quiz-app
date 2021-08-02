@@ -1,5 +1,6 @@
 import React from 'react';
 import PaginationButton from './PaginationButton/PaginationButton';
+import PropTypes from 'prop-types';
 import classes from './PaginationControl.module.scss';
 
 const PaginationControl = ({
@@ -18,5 +19,11 @@ const PaginationControl = ({
     ))}
   </div>
 );
+
+PaginationControl.propTypes = {
+  currentPage: PropTypes.number,
+  pagesCount: PropTypes.number,
+  onPaginationChanged: PropTypes.func,
+};
 
 export default React.memo(PaginationControl);

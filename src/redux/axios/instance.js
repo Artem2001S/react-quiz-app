@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseURL = 'https://snp-tests.herokuapp.com/api/v1/';
-const scopeKey = 'y=vMr{N%e,8$*3^1';
+const scopeKey = 'y=vMr{N%e,8$*3^';
 
 const instance = axios.create({
   baseURL,

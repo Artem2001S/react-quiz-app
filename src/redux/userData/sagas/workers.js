@@ -64,7 +64,11 @@ export function* userSignUpWorker({ payload }) {
 
     yield put(userAuthorized(data));
   } catch (error) {
-    yield put(messageReceived({ message: 'Registration error.' }));
+    yield put(
+      messageReceived({
+        message: 'Registration error. Try to changing username',
+      })
+    );
   } finally {
     yield put(loadingFinished());
   }

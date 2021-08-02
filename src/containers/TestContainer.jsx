@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeAnswerPosition,
@@ -12,6 +12,7 @@ import {
   postQuestion,
 } from 'redux/currentTest/currentTestSlice';
 import { useComponentDidMount } from 'hooks/useComponentDidMount';
+import { messageReceived } from 'redux/userInterface/userInterfaceSlice';
 import {
   getCurrentTestSelector,
   getIsCurrentTestFetchedSelector,
@@ -19,8 +20,6 @@ import {
 import Test from 'components/Test/Test';
 import Title from 'components/UI/Title/Title';
 import Container from 'components/UI/Container/Container';
-import { useCallback } from 'react';
-import { messageReceived } from 'redux/userInterface/userInterfaceSlice';
 
 const TestContainer = ({ testId }) => {
   const dispatch = useDispatch();
@@ -30,48 +29,42 @@ const TestContainer = ({ testId }) => {
   useComponentDidMount(() => dispatch(fetchTest({ testId })));
 
   const patchTestTitle = useCallback(
-    (newTitle) => {
-      dispatch(patchTest({ testId, title: newTitle }));
-    },
+    (newTitle) => dispatch(patchTest({ testId, title: newTitle })),
     [dispatch, testId]
   );
 
   const deleteAnswer = useCallback(
-    (answerId, questionId) => {
-      dispatch(deleteAnswerAction({ answerId, questionId }));
-    },
+    (answerId, questionId) =>
+      dispatch(deleteAnswerAction({ answerId, questionId })),
     [dispatch]
   );
 
   const toggleAnswerIsRight = useCallback(
-    (answerId, answer) => {
+    (answerId, answer) =>
       dispatch(
         patchAnswer({ answerId, is_right: !answer.is_right, text: answer.text })
-      );
-    },
+      ),
     [dispatch]
   );
 
   const updateAnswerText = useCallback(
-    (answerId, answer, newText) => {
+    (answerId, answer, newText) =>
       dispatch(
         patchAnswer({ answerId, is_right: answer.is_right, text: newText })
-      );
-    },
+      ),
     [dispatch]
   );
 
   const updateQuestionTitle = useCallback(
-    (questionId, title, questionType) => {
+    (questionId, title, questionType) =>
       dispatch(
         patchQuestion({ questionId, title, question_type: questionType })
-      );
-    },
+      ),
     [dispatch]
   );
 
   const updateQuestionAnswer = useCallback(
-    (questionId, title, questionType, answer) => {
+    (questionId, title, questionType, answer) =>
       dispatch(
         patchQuestion({
           questionId,
@@ -79,38 +72,31 @@ const TestContainer = ({ testId }) => {
           question_type: questionType,
           answer,
         })
-      );
-    },
+      ),
     [dispatch]
   );
 
   const deleteQuestion = useCallback(
-    (questionId) => {
-      dispatch(deleteQuestionAction({ questionId }));
-    },
+    (questionId) => dispatch(deleteQuestionAction({ questionId })),
     [dispatch]
   );
 
   const createQuestion = useCallback(
-    (testId, question) => {
-      if (!question.title) {
-        dispatch(messageReceived({ message: 'Enter question title.' }));
-      } else {
-        dispatch(postQuestion({ testId, question }));
-      }
-    },
+    (testId, question) =>
+      !question.title
+        ? dispatch(messageReceived({ message: 'Enter question title.' }))
+        : dispatch(postQuestion({ testId, question })),
     [dispatch]
   );
 
   const createAnswer = useCallback(
-    (questionId, answerText) => {
+    (questionId, answerText) =>
       dispatch(
         postAnswer({
           questionId,
           answer: { text: answerText, is_right: false },
         })
-      );
-    },
+      ),
     [dispatch]
   );
 

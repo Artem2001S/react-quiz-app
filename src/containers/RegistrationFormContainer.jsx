@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import Form from 'components/Form/Form';
-import Container from 'components/UI/Container/Container';
 import { nanoid } from '@reduxjs/toolkit';
 import { useInputs } from 'hooks/useInputs';
 import { validateInputs } from 'shared/helpers';
 import { useDispatch } from 'react-redux';
 import { userSignUp } from 'redux/userData/userDataSlice';
+import Form from 'components/Form/Form';
+import Container from 'components/UI/Container/Container';
 
 const RegistrationFormContainer = () => {
   const dispatch = useDispatch();

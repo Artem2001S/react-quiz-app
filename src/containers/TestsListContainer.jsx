@@ -45,16 +45,13 @@ const TestsListContainer = () => {
   );
 
   const handleDeleteTestBtnClick = useCallback(
-    (id) => {
-      dispatch(deleteTest({ id }));
-    },
+    (id) => dispatch(deleteTest({ id })),
     [dispatch]
   );
 
   const handlePaginationChanged = useCallback(
-    (pageNum) => {
-      dispatch(fetchTests({ page: pageNum, sort: sortType, searchValue }));
-    },
+    (pageNum) =>
+      dispatch(fetchTests({ page: pageNum, sort: sortType, searchValue })),
     [dispatch, searchValue, sortType]
   );
 

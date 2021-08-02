@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import Container from 'components/UI/Container/Container';
-import Form from 'components/Form/Form';
 import { userLogin } from 'redux/userData/userDataSlice';
 import { validateInputs } from 'shared/helpers';
 import { useInputs } from 'hooks/useInputs';
+import Container from 'components/UI/Container/Container';
+import Form from 'components/Form/Form';
 
 const LoginFormContainer = () => {
   const dispatch = useDispatch();

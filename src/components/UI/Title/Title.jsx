@@ -14,12 +14,14 @@ const Title = ({ small, medium, large, children, centered, className }) => {
     classes.Title,
     className
   );
+
   return <div className={titleClasses}>{children}</div>;
 };
 
 Title.propTypes = {
   small: PropTypes.bool,
   medium: PropTypes.bool,
+  centered: PropTypes.bool,
   large: PropTypes.bool,
   children: PropTypes.node,
 };

@@ -1,12 +1,12 @@
-import Quiz from 'components/Quiz/Quiz';
-import { useComponentDidMount } from 'hooks/useComponentDidMount';
 import React from 'react';
+import { useComponentDidMount } from 'hooks/useComponentDidMount';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTest } from 'redux/currentTest/currentTestSlice';
 import {
   getCurrentTestSelector,
   getIsCurrentTestFetchedSelector,
 } from 'redux/currentTest/selectors';
+import Quiz from 'components/Quiz/Quiz';
 
 const QuizContainer = ({ testId }) => {
   const dispatch = useDispatch();

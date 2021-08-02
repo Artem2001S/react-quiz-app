@@ -1,6 +1,6 @@
+import React from 'react';
 import Title from 'components/UI/Title/Title';
 import { useAuth } from 'hooks/useAuth';
-import React from 'react';
 import { Link } from 'react-router-dom';
 import classes from './HelloPage.module.scss';
 

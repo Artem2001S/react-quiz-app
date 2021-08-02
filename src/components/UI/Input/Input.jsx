@@ -20,8 +20,8 @@ const Input = ({ id, label, className, ...props }) => (
 
 Input.propTypes = {
   id: PropTypes.string,
-  onChange: PropTypes.func,
   label: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 export default React.memo(Input);

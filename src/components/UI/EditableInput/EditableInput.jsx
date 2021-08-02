@@ -1,6 +1,5 @@
+import React, { useState, useCallback } from 'react';
 import classNames from 'classnames';
-import React, { useState } from 'react';
-import { useCallback } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import classes from './EditableInput.module.scss';
@@ -16,9 +15,10 @@ const EditableInput = ({
   const [inputValue, setInputValue] = useState(initialValue);
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const inputChangeHandler = useCallback((e) => {
-    setInputValue(e.target.value);
-  }, []);
+  const inputChangeHandler = useCallback(
+    (e) => setInputValue(e.target.value),
+    []
+  );
 
   const submit = useCallback(() => {
     const trimmedValue = type === 'text' ? inputValue.trim() : +inputValue;
@@ -32,9 +32,7 @@ const EditableInput = ({
 
   const editBtnClickHandler = useCallback(() => {
     setIsEditMode(!isEditMode);
-    if (isEditMode) {
-      submit();
-    }
+    isEditMode && submit();
   }, [isEditMode, submit]);
 
   const inputKeyPressHandler = useCallback(
