@@ -11,12 +11,11 @@ import classes from './Quiz.module.scss';
 
 const Quiz = ({ test }) => {
   const [quizStarted, setQuizStarted] = useState(false);
-
   const startQuizBtnClickHandler = useCallback(() => setQuizStarted(true), []);
   const validQuestionsCount = useMemo(
-    () => getValidQuestions(test.questions),
+    () => test && getValidQuestions(test.questions),
     [test]
-  ).length;
+  )?.length;
 
   if (!test) {
     return (
