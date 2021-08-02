@@ -21,6 +21,8 @@
   &.Hide {
     animation: hide 1.1s ease-out;
   }
+
+  transform: translateZ(0);
 }
 
 .CloseBtn {

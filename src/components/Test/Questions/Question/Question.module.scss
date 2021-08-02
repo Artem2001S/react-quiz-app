@@ -35,8 +35,9 @@
 }
 
 .ToggleBtn {
+  position: relative;
   font-size: 20px;
-  padding: 5px;
+  padding: 15px;
   cursor: pointer;
   color: $wetasphalt;
   border: 1px solid $wetasphalt;
@@ -51,6 +52,23 @@
 
   &:hover {
     background-color: $clouds;
+  }
+
+  &::after {
+    content: '<';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s linear;
+  }
+
+  &.Closed::after {
+    transform: translate(-50%, -50%) rotate(270deg);
+  }
+
+  &.Opened::after {
+    transform: translate(-50%, -50%) rotate(90deg);
   }
 }
 

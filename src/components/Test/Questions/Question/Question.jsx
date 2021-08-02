@@ -41,12 +41,17 @@ const Question = ({ question, testId }) => {
     classes.Header
   );
 
+  const toggleBtnClasses = classNames(
+    { [classes.Closed]: !isAnswersVisible },
+    { [classes.Opened]: isAnswersVisible },
+    classes.ToggleBtn
+  );
+
   return (
     <div className={classes.Question}>
       <div className={headerClasses}>
-        <div className={classes.ToggleBtn} onClick={toggleAnswersVisible}>
-          {isAnswersVisible ? '⮝' : '⮟'}
-        </div>
+        <div className={toggleBtnClasses} onClick={toggleAnswersVisible} />
+
         {isAdmin ? (
           <div className={classes.HeaderContent}>
             <EditableInput

@@ -12,4 +12,4 @@ const Alert = ({ message, close }) => {
   return <div className={classes.Alert}>{message}</div>;
 };
 
-export default Alert;
+export default React.memo(Alert);

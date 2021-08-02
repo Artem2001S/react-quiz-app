@@ -37,7 +37,7 @@ const Test = ({
     >
       <Container>
         <ButtonLink className={classes.BackBtn} to="/tests">
-          &#129044; Tests
+          {'<'} Tests
         </ButtonLink>
         <div className={classes.TestHeader}>
           {isAdmin ? (
