@@ -4,8 +4,16 @@ import {
   loadingStarted,
   messageReceived,
 } from 'redux/userInterface/userInterfaceSlice';
-import { testFetched, testTitleChanged } from '../currentTestSlice';
-import { fetchTestRequest, patchTestRequest } from '../requests';
+import {
+  testDeleted,
+  testFetched,
+  testTitleChanged,
+} from '../currentTestSlice';
+import {
+  deleteTestRequest,
+  fetchTestRequest,
+  patchTestRequest,
+} from '../requests';
 import { normalizeTest } from '../normalize/normalizing';
 
 export function* fetchTestWorker({ payload }) {
@@ -38,6 +46,19 @@ export function* patchTestWorker({ payload }) {
     yield put(testTitleChanged({ title }));
   } catch (error) {
     yield put(messageReceived({ message: 'Test patching server error.' }));
+  } finally {
+    yield put(loadingFinished());
+  }
+}
+
+export function* deleteTestWorker({ payload }) {
+  try {
+    yield put(loadingStarted());
+    const { id } = payload;
+    yield call(deleteTestRequest, id);
+    yield put(testDeleted());
+  } catch (error) {
+    yield put(messageReceived({ message: 'Delete test server error.' }));
   } finally {
     yield put(loadingFinished());
   }

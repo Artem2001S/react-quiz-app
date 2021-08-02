@@ -37,7 +37,6 @@ const testsSlice = createSlice({
 
 export const fetchTests = createAction(`${name}/fetchTests`);
 export const createNewTest = createAction(`${name}/createNewTest`);
-export const deleteTest = createAction(`${name}/deleteTest`);
 
 export const { testsLoaded } = testsSlice.actions;
 export default testsSlice.reducer;

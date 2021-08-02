@@ -4,11 +4,7 @@ import {
   loadingStarted,
   messageReceived,
 } from 'redux/userInterface/userInterfaceSlice';
-import {
-  deleteTestRequest,
-  fetchTestsRequest,
-  postTestRequest,
-} from '../requests';
+import { fetchTestsRequest, postTestRequest } from '../requests';
 import {
   getTestsCurrentPageSelector,
   getTestsSearchValue,
@@ -52,41 +48,6 @@ export function* createNewTestWorker({ payload }) {
     const searchValue = yield select(getTestsSearchValue);
 
     yield call(postTestRequest, title);
-
-    const { data } = yield call(
-      fetchTestsRequest,
-      currentPage,
-      sort,
-      searchValue
-    );
-
-    const testsWithoutQuestions = data.tests.map(
-      ({ questions, ...test }) => test
-    );
-
-    yield put(
-      testsLoaded({
-        tests: testsWithoutQuestions,
-        meta: { ...data.meta, currentPage, sort, searchValue },
-      })
-    );
-  } catch (error) {
-    yield put(messageReceived({ message: 'Create test server error.' }));
-  } finally {
-    yield put(loadingFinished());
-  }
-}
-
-export function* deleteTestWorker({ payload }) {
-  try {
-    yield put(loadingStarted());
-    const { id } = payload;
-
-    const currentPage = yield select(getTestsCurrentPageSelector);
-    const sort = yield select(getTestsSortTypeSelector);
-    const searchValue = yield select(getTestsSearchValue);
-
-    yield call(deleteTestRequest, id);
 
     const { data } = yield call(
       fetchTestsRequest,

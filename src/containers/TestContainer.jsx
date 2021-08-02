@@ -4,6 +4,7 @@ import {
   changeAnswerPosition,
   deleteAnswer as deleteAnswerAction,
   deleteQuestion as deleteQuestionAction,
+  deleteTest,
   fetchTest,
   patchAnswer,
   patchQuestion,
@@ -20,6 +21,7 @@ import {
 import Test from 'components/Test/Test';
 import Title from 'components/UI/Title/Title';
 import Container from 'components/UI/Container/Container';
+import ButtonLink from 'components/UI/ButtonLink/ButtonLink';
 
 const TestContainer = ({ testId }) => {
   const dispatch = useDispatch();
@@ -27,6 +29,11 @@ const TestContainer = ({ testId }) => {
   const isTestFetched = useSelector(getIsCurrentTestFetchedSelector);
 
   useComponentDidMount(() => dispatch(fetchTest({ testId })));
+
+  const handleDeleteTestBtnClick = useCallback(
+    () => dispatch(deleteTest({ id: testId })),
+    [dispatch, testId]
+  );
 
   const patchTestTitle = useCallback(
     (newTitle) => dispatch(patchTest({ testId, title: newTitle })),
@@ -121,10 +128,12 @@ const TestContainer = ({ testId }) => {
           onQuestionAnswerUpdate={updateQuestionAnswer}
           onAnswerPositionChanged={moveAnswer}
           onNewQuestionFormSubmit={createQuestion}
+          onDeleteTestBtnClick={handleDeleteTestBtnClick}
         />
       ) : (
-        <Container>
+        <Container centered>
           <Title large>Test not found</Title>
+          <ButtonLink to="/tests">Go to tests</ButtonLink>
         </Container>
       )}
     </>

@@ -3,6 +3,7 @@ import {
   changeAnswerPosition,
   deleteAnswer,
   deleteQuestion,
+  deleteTest,
   fetchTest,
   patchAnswer,
   patchQuestion,
@@ -21,11 +22,16 @@ import {
   patchQuestionWorker,
   postQuestionWorker,
 } from './questionWorkers';
-import { fetchTestWorker, patchTestWorker } from './testWorkers';
+import {
+  deleteTestWorker,
+  fetchTestWorker,
+  patchTestWorker,
+} from './testWorkers';
 
 export function* watchCurrentTest() {
   yield takeLatest(fetchTest.type, fetchTestWorker);
   yield takeLatest(patchTest.type, patchTestWorker);
+  yield takeLatest(deleteTest.type, deleteTestWorker);
 
   yield takeLatest(patchQuestion.type, patchQuestionWorker);
   yield takeLatest(deleteQuestion.type, deleteQuestionWorker);

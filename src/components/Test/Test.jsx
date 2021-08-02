@@ -8,6 +8,7 @@ import NewQuestionForm from './NewQuestionForm/NewQuestionForm';
 import EditableInput from 'components/UI/EditableInput/EditableInput';
 import classes from './Test.module.scss';
 import ButtonLink from 'components/UI/ButtonLink/ButtonLink';
+import Button from 'components/UI/Button/Button';
 
 const Test = ({
   test,
@@ -20,6 +21,7 @@ const Test = ({
   onNewAnswerFormSubmit,
   onAnswerTextChanged,
   onAnswerPositionChanged,
+  onDeleteTestBtnClick,
   onQuestionAnswerUpdate,
 }) => {
   const { isAdmin } = useAuth();
@@ -41,14 +43,24 @@ const Test = ({
         </ButtonLink>
         <div className={classes.TestHeader}>
           {isAdmin ? (
-            <EditableInput
-              initialValue={test.title}
-              onSubmit={onTestTitleUpdate}
-            >
-              <Title large centered>
-                {test.title}
-              </Title>
-            </EditableInput>
+            <>
+              <EditableInput
+                initialValue={test.title}
+                onSubmit={onTestTitleUpdate}
+              >
+                <Title large centered>
+                  {test.title}
+                </Title>
+              </EditableInput>
+              <Button
+                onClick={onDeleteTestBtnClick}
+                className={classes.Delete}
+                danger
+                small
+              >
+                Delete
+              </Button>
+            </>
           ) : (
             <Title large centered>
               {test.title}

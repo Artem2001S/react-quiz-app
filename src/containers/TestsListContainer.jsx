@@ -10,7 +10,7 @@ import {
   getTotalPagesSelector,
 } from 'redux/tests/selectors';
 import { useComponentDidMount } from 'hooks/useComponentDidMount';
-import { createNewTest, deleteTest, fetchTests } from 'redux/tests/testsSlice';
+import { createNewTest, fetchTests } from 'redux/tests/testsSlice';
 import { useAuth } from 'hooks/useAuth';
 import { testsListSortTypes } from 'shared/constants';
 import TestsList from 'components/TestsList/TestsList';
@@ -41,11 +41,6 @@ const TestsListContainer = () => {
           title,
         })
       ),
-    [dispatch]
-  );
-
-  const handleDeleteTestBtnClick = useCallback(
-    (id) => dispatch(deleteTest({ id })),
     [dispatch]
   );
 
@@ -88,7 +83,6 @@ const TestsListContainer = () => {
         tests={tests}
         testsCount={testsCount}
         isAdmin={isAdmin}
-        onDelete={handleDeleteTestBtnClick}
         onSortChange={handleToggleSortBtnClick}
         onSearchFormSubmit={onSearchFormSubmit}
         onNewTestFormSubmit={newTestFormSubmitHandler}

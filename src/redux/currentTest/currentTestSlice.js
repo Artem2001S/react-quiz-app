@@ -17,6 +17,10 @@ const currentTestSlice = createSlice({
       state.result = payload.result;
     },
 
+    testDeleted: (state) => {
+      state.entities.test = {};
+    },
+
     testTitleChanged: (state, { payload }) => {
       state.entities.test[state.result].title = payload.title;
     },
@@ -87,6 +91,7 @@ const currentTestSlice = createSlice({
 
 export const fetchTest = createAction(`${name}/fetchTest`);
 export const patchTest = createAction(`${name}/patchTest`);
+export const deleteTest = createAction(`${name}/deleteTest`);
 
 export const patchQuestion = createAction(`${name}/patchQuestion`);
 export const deleteQuestion = createAction(`${name}/deleteQuestion`);
@@ -101,6 +106,7 @@ export const changeAnswerPosition = createAction(
 
 export const {
   testFetched,
+  testDeleted,
   testTitleChanged,
   questionCreated,
   questionUpdated,

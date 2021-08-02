@@ -12,7 +12,6 @@ const TestsList = ({
   tests,
   isAdmin,
   testsCount,
-  onDelete,
   onSortChange,
   onSearchFormSubmit,
   onNewTestFormSubmit,
@@ -40,12 +39,7 @@ const TestsList = ({
       )}
       <div className={classes.TestsList}>
         {tests.map((test) => (
-          <TestsListItem
-            isAdmin={isAdmin}
-            key={test.id}
-            {...test}
-            onDelete={onDelete}
-          />
+          <TestsListItem key={test.id} {...test} />
         ))}
       </div>
     </Container>
