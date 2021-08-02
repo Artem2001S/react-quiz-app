@@ -16,8 +16,9 @@ export function* fetchTestsWorker({ payload }) {
     yield put(loadingStarted());
     const page = payload?.page;
     const sort = payload?.sort;
+    const searchValue = payload?.searchValue;
 
-    const { data } = yield call(fetchTestsRequest, page, sort);
+    const { data } = yield call(fetchTestsRequest, page, sort, searchValue);
     const testsWithoutQuestions = data.tests.map(
       ({ questions, ...test }) => test
     );
@@ -25,7 +26,7 @@ export function* fetchTestsWorker({ payload }) {
     yield put(
       testsLoaded({
         tests: testsWithoutQuestions,
-        meta: { ...data.meta, currentPage: page, sort },
+        meta: { ...data.meta, currentPage: page, sort, searchValue },
       })
     );
   } catch (error) {
@@ -39,11 +40,17 @@ export function* fetchTestsWorker({ payload }) {
 export function* createNewTestWorker({ payload }) {
   try {
     yield put(loadingStarted());
-    const { currentPage, sort, title } = payload;
+    const { currentPage, sort, title, searchValue } = payload;
 
     yield call(postTestRequest, title);
 
-    const { data } = yield call(fetchTestsRequest, currentPage, sort);
+    const { data } = yield call(
+      fetchTestsRequest,
+      currentPage,
+      sort,
+      searchValue
+    );
+
     const testsWithoutQuestions = data.tests.map(
       ({ questions, ...test }) => test
     );
@@ -51,7 +58,7 @@ export function* createNewTestWorker({ payload }) {
     yield put(
       testsLoaded({
         tests: testsWithoutQuestions,
-        meta: { ...data.meta, currentPage, sort },
+        meta: { ...data.meta, currentPage, sort, searchValue },
       })
     );
   } catch (error) {
@@ -64,11 +71,17 @@ export function* createNewTestWorker({ payload }) {
 export function* deleteTestWorker({ payload }) {
   try {
     yield put(loadingStarted());
-    const { id, currentPage, sort } = payload;
+    const { id, currentPage, sort, searchValue } = payload;
 
     yield call(deleteTestRequest, id);
 
-    const { data } = yield call(fetchTestsRequest, currentPage, sort);
+    const { data } = yield call(
+      fetchTestsRequest,
+      currentPage,
+      sort,
+      searchValue
+    );
+
     const testsWithoutQuestions = data.tests.map(
       ({ questions, ...test }) => test
     );
@@ -76,7 +89,7 @@ export function* deleteTestWorker({ payload }) {
     yield put(
       testsLoaded({
         tests: testsWithoutQuestions,
-        meta: { ...data.meta, currentPage, sort },
+        meta: { ...data.meta, currentPage, sort, searchValue },
       })
     );
   } catch (error) {

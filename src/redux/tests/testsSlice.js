@@ -11,6 +11,7 @@ const initialState = {
     totalPages: 0,
     currentPage: 1,
     sort: testsListSortTypes.default,
+    searchValue: '',
   },
 };
 
@@ -28,6 +29,7 @@ const testsSlice = createSlice({
         totalPages: meta.total_pages,
         currentPage: meta.currentPage || 1,
         sort: meta.sort,
+        searchValue: meta.searchValue,
       };
     },
   },

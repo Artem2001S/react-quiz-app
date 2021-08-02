@@ -5,8 +5,16 @@ import TestsListItem from './TestsListItem/TestsListItem';
 import classes from './TestsList.module.scss';
 import sortIconSrc from './sort.svg';
 import Button from 'components/UI/Button/Button';
+import SearchTestsForm from './SearchTestsForm/SearchTestsForm';
 
-const TestsList = ({ tests, isAdmin, testsCount, onDelete, onSortChange }) => {
+const TestsList = ({
+  tests,
+  isAdmin,
+  testsCount,
+  onDelete,
+  onSortChange,
+  onSearchFormSubmit,
+}) => {
   return (
     <Container>
       <div className={classes.Header}>
@@ -20,6 +28,7 @@ const TestsList = ({ tests, isAdmin, testsCount, onDelete, onSortChange }) => {
           <img src={sortIconSrc} width="30" alt="Toggle sort" />
         </Button>
       </div>
+      <SearchTestsForm onSubmit={onSearchFormSubmit} />
       <div className={classes.TestsCount}>Tests count: {testsCount}</div>
       {!tests?.length && (
         <Title centered medium>
