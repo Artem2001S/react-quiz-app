@@ -1,14 +1,14 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
-import RadioGroup from 'components/UI/RadioGroup/RadioGroup';
+import { questionTypes } from 'shared/constants';
 import Button from 'components/UI/Button/Button';
-import classes from './NewQuestionForm.module.scss';
 import Title from 'components/UI/Title/Title';
 import Input from 'components/UI/Input/Input';
-import { useEffect } from 'react';
+import DropDown from 'components/UI/DropDown/DropDown';
+import classes from './NewQuestionForm.module.scss';
 
 const NewQuestionForm = ({ testId, onSubmit }) => {
-  const [selectedRadioIndex, setSelectedRadioIndex] = useState(0);
+  const [selectedQuestionTypeIndex, setSelectedQuestionTypeIndex] = useState(0);
 
   const [titleInput, setTitleInput] = useState({
     id: nanoid(),
@@ -20,15 +20,14 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
   const [answerInput, setAnswerInput] = useState(null);
 
   useEffect(() => {
-    selectedRadioIndex === questionTypeNumberIndex
+    selectedQuestionTypeIndex === questionTypeNumberIndex
       ? setAnswerInput({
           id: nanoid(),
-          label: 'Answer:',
           type: 'number',
           value: 0,
         })
       : setAnswerInput(null);
-  }, [selectedRadioIndex]);
+  }, [selectedQuestionTypeIndex]);
 
   const answerInputChangeHandler = useCallback(
     (e) => {
@@ -44,14 +43,14 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
     [titleInput]
   );
 
-  const [questionTypeRadioButtons] = useState([
-    { id: nanoid(), label: 'Single', value: 'single' },
-    { id: nanoid(), label: 'Multiple', value: 'multiple' },
-    { id: nanoid(), label: 'Number', value: 'number' },
+  const [questionTypesArray] = useState([
+    { title: questionTypes.single },
+    { title: questionTypes.multiple },
+    { title: questionTypes.number },
   ]);
 
   const selectedIndexChanged = useCallback((index) => {
-    setSelectedRadioIndex(index);
+    setSelectedQuestionTypeIndex(index);
   }, []);
 
   const resetInputs = useCallback(() => {
@@ -64,19 +63,19 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
       e.preventDefault();
       onSubmit(testId, {
         title: titleInput.value,
-        question_type: questionTypeRadioButtons[selectedRadioIndex].value,
+        question_type: questionTypesArray[selectedQuestionTypeIndex].title,
         answer: answerInput ? Number(answerInput.value) : null,
       });
       resetInputs();
     },
     [
+      answerInput,
       onSubmit,
+      questionTypesArray,
+      resetInputs,
+      selectedQuestionTypeIndex,
       testId,
       titleInput,
-      questionTypeRadioButtons,
-      selectedRadioIndex,
-      answerInput,
-      resetInputs,
     ]
   );
 
@@ -88,12 +87,11 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
         {answerInput && (
           <Input {...answerInput} onChange={answerInputChangeHandler} />
         )}
-
-        <RadioGroup
+        <DropDown
           label="Choose question type:"
-          radioButtons={questionTypeRadioButtons}
-          selectedIndex={selectedRadioIndex}
-          selectedIndexChanged={selectedIndexChanged}
+          items={questionTypesArray}
+          selectedItemIndex={selectedQuestionTypeIndex}
+          onSelectedItemChanged={selectedIndexChanged}
         />
       </form>
 

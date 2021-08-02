@@ -1,0 +1,43 @@
+@import 'shared/scssVariables.scss';
+
+.DropDown {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  max-width: 250px;
+}
+
+.Header {
+  position: relative;
+  cursor: pointer;
+  border: 2px solid $lightBlue;
+
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: $clouds;
+  }
+}
+
+.DropDownBtn {
+  padding: 8px 20px;
+  cursor: pointer;
+  color: $black;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.DropIcon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.Label {
+  text-align: left;
+}
+
+.Content {
+  position: absolute;
+  width: 100%;
+}

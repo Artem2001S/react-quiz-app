@@ -1,0 +1,24 @@
+@import 'shared/scssVariables.scss';
+
+.DropDownItem {
+  padding: 8px 20px;
+  cursor: pointer;
+  color: $black;
+  font-weight: 400;
+  font-size: 18px;
+  border: 2px solid $lightBlue;
+  border-top: none;
+
+  transition: 0.3s background-color;
+
+  background-color: $white;
+
+  &:hover {
+    background-color: $clouds;
+  }
+
+  &.Active {
+    background-color: $clouds;
+    cursor: initial;
+  }
+}
