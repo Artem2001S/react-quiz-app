@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import {
   loadingFinished,
   loadingStarted,
@@ -9,6 +9,11 @@ import {
   fetchTestsRequest,
   postTestRequest,
 } from '../requests';
+import {
+  getTestsCurrentPageSelector,
+  getTestsSearchValue,
+  getTestsSortTypeSelector,
+} from '../selectors';
 import { testsLoaded } from '../testsSlice';
 
 export function* fetchTestsWorker({ payload }) {
@@ -40,7 +45,11 @@ export function* fetchTestsWorker({ payload }) {
 export function* createNewTestWorker({ payload }) {
   try {
     yield put(loadingStarted());
-    const { currentPage, sort, title, searchValue } = payload;
+    const { title } = payload;
+
+    const currentPage = yield select(getTestsCurrentPageSelector);
+    const sort = yield select(getTestsSortTypeSelector);
+    const searchValue = yield select(getTestsSearchValue);
 
     yield call(postTestRequest, title);
 
@@ -71,7 +80,11 @@ export function* createNewTestWorker({ payload }) {
 export function* deleteTestWorker({ payload }) {
   try {
     yield put(loadingStarted());
-    const { id, currentPage, sort, searchValue } = payload;
+    const { id } = payload;
+
+    const currentPage = yield select(getTestsCurrentPageSelector);
+    const sort = yield select(getTestsSortTypeSelector);
+    const searchValue = yield select(getTestsSearchValue);
 
     yield call(deleteTestRequest, id);
 

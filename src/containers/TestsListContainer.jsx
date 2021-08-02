@@ -34,26 +34,21 @@ const TestsListContainer = () => {
   const { isAdmin } = useAuth();
 
   const newTestFormSubmitHandler = useCallback(
-    (title) => {
-      if (title) {
-        dispatch(
-          createNewTest({
-            title,
-            currentPage,
-            sort: sortType,
-            searchValue,
-          })
-        );
-      }
-    },
-    [currentPage, dispatch, searchValue, sortType]
+    (title) =>
+      title &&
+      dispatch(
+        createNewTest({
+          title,
+        })
+      ),
+    [dispatch]
   );
 
   const handleDeleteTestBtnClick = useCallback(
     (id) => {
-      dispatch(deleteTest({ id, currentPage, sort: sortType, searchValue }));
+      dispatch(deleteTest({ id }));
     },
-    [dispatch, currentPage, sortType, searchValue]
+    [dispatch]
   );
 
   const handlePaginationChanged = useCallback(
@@ -63,29 +58,30 @@ const TestsListContainer = () => {
     [dispatch, searchValue, sortType]
   );
 
-  const handleToggleSortBtnClick = useCallback(() => {
-    dispatch(
-      fetchTests({
-        page: currentPage,
-        searchValue,
-        sort:
-          sortType === testsListSortTypes.createdAtAsc
-            ? testsListSortTypes.createdAtDesc
-            : testsListSortTypes.createdAtAsc,
-      })
-    );
-  }, [currentPage, dispatch, searchValue, sortType]);
+  const handleToggleSortBtnClick = useCallback(
+    () =>
+      dispatch(
+        fetchTests({
+          page: currentPage,
+          searchValue,
+          sort:
+            sortType === testsListSortTypes.createdAtAsc
+              ? testsListSortTypes.createdAtDesc
+              : testsListSortTypes.createdAtAsc,
+        })
+      ),
+    [currentPage, dispatch, searchValue, sortType]
+  );
 
   const onSearchFormSubmit = useCallback(
-    (newSearchValue) => {
+    (newSearchValue) =>
       dispatch(
         fetchTests({
           page: currentPage,
           sort: sortType,
           searchValue: newSearchValue,
         })
-      );
-    },
+      ),
     [currentPage, dispatch, sortType]
   );
 
