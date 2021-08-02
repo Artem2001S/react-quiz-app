@@ -1,11 +1,17 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
+import { testsListSortTypes } from 'shared/constants';
 
 const name = 'tests';
 
 const initialState = {
   tests: [],
   isFetched: false,
-  meta: { totalCount: 0, totalPages: 0, currentPage: 0 },
+  meta: {
+    totalCount: 0,
+    totalPages: 0,
+    currentPage: 1,
+    sort: testsListSortTypes.default,
+  },
 };
 
 const testsSlice = createSlice({
@@ -21,6 +27,7 @@ const testsSlice = createSlice({
         totalCount: meta.total_count,
         totalPages: meta.total_pages,
         currentPage: meta.currentPage || 1,
+        sort: meta.sort,
       };
     },
   },

@@ -1,5 +1,16 @@
 @import 'shared/scssVariables.scss';
 
+.Title {
+  display: flex;
+  align-items: flex-end;
+}
+
+.CreatedAt {
+  font-size: 14px;
+  color: $darkBlue;
+  font-weight: 500;
+}
+
 .TestsListItem {
   display: flex;
   justify-content: space-between;
@@ -12,5 +23,6 @@
 
 .Actions {
   display: flex;
+  align-items: center;
   gap: 10px;
 }

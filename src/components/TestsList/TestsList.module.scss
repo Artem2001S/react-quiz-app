@@ -10,4 +10,11 @@
   color: $darkBlue;
   margin-bottom: 10px;
   text-align: right;
+
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

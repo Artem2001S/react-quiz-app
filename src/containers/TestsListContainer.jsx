@@ -5,6 +5,7 @@ import {
   getTestsCurrentPageSelector,
   getTestsIsFetchedSelector,
   getTestsListSelector,
+  getTestsSortTypeSelector,
   getTotalPagesSelector,
 } from 'redux/tests/selectors';
 import { validateInputs } from 'shared/helpers';
@@ -17,16 +18,21 @@ import TestsList from 'components/TestsList/TestsList';
 import Form from 'components/Form/Form';
 import Container from 'components/UI/Container/Container';
 import PaginationControl from 'components/PaginationControl/PaginationControl';
+import { testsListSortTypes } from 'shared/constants';
 
 const TestsListContainer = () => {
   const dispatch = useDispatch();
-  useComponentDidMount(() => dispatch(fetchTests()));
 
   const isFetched = useSelector(getTestsIsFetchedSelector);
   const tests = useSelector(getTestsListSelector);
   const testsCount = useSelector(getTestsCountSelector);
   const pagesCount = useSelector(getTotalPagesSelector);
   const currentPage = useSelector(getTestsCurrentPageSelector);
+  const sortType = useSelector(getTestsSortTypeSelector);
+
+  useComponentDidMount(() =>
+    dispatch(fetchTests({ sort: sortType, page: currentPage }))
+  );
 
   const { isAdmin } = useAuth();
   const [errors, setErrors] = useState([]);
@@ -40,7 +46,7 @@ const TestsListContainer = () => {
     },
   ]);
 
-  const newTodoFormSubmitHandler = useCallback(
+  const newTestFormSubmitHandler = useCallback(
     (e) => {
       e.preventDefault();
       const validationErrors = validateInputs(inputs);
@@ -49,26 +55,40 @@ const TestsListContainer = () => {
       } else {
         setErrors([]);
         const [{ value: testTitle }] = inputs;
-        dispatch(createNewTest({ title: testTitle, currentPage }));
+        dispatch(
+          createNewTest({ title: testTitle, currentPage, sort: sortType })
+        );
         resetInputs();
       }
     },
-    [currentPage, dispatch, inputs, resetInputs]
+    [currentPage, dispatch, inputs, resetInputs, sortType]
   );
 
   const handleDeleteTestBtnClick = useCallback(
     (id) => {
-      dispatch(deleteTest({ id, currentPage }));
+      dispatch(deleteTest({ id, currentPage, sort: sortType }));
     },
-    [dispatch, currentPage]
+    [dispatch, currentPage, sortType]
   );
 
   const handlePaginationChanged = useCallback(
     (pageNum) => {
-      dispatch(fetchTests({ page: pageNum }));
+      dispatch(fetchTests({ page: pageNum, sort: sortType }));
     },
-    [dispatch]
+    [dispatch, sortType]
   );
+
+  const handleToggleSortBtnClick = useCallback(() => {
+    dispatch(
+      fetchTests({
+        page: currentPage,
+        sort:
+          sortType === testsListSortTypes.createdAtAsc
+            ? testsListSortTypes.createdAtDesc
+            : testsListSortTypes.createdAtAsc,
+      })
+    );
+  }, [currentPage, dispatch, sortType]);
 
   return isFetched ? (
     <>
@@ -79,7 +99,7 @@ const TestsListContainer = () => {
             inputs={inputs}
             errors={errors}
             submitBtnText="Create test"
-            onSubmit={newTodoFormSubmitHandler}
+            onSubmit={newTestFormSubmitHandler}
           />
         )}
       </Container>
@@ -88,6 +108,7 @@ const TestsListContainer = () => {
         testsCount={testsCount}
         isAdmin={isAdmin}
         onDelete={handleDeleteTestBtnClick}
+        onSortChange={handleToggleSortBtnClick}
       />
       {tests.length > 0 && (
         <PaginationControl
