@@ -10,6 +10,13 @@ export const validateInputs = (inputs) => {
       if (isEmpty && validationData.isRequired) {
         errors.push(`Enter data on "${name}" field.`);
       }
+
+      if (validationData.minLength) {
+        value.length < validationData.minLength &&
+          errors.push([
+            `The '${name}' should contain at least ${validationData.minLength} letters`,
+          ]);
+      }
     }
   });
 

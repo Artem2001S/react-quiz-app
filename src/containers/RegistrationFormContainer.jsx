@@ -25,7 +25,7 @@ const RegistrationFormContainer = () => {
       autoComplete: 'off',
       value: '',
       type: 'password',
-      validationData: { isRequired: true },
+      validationData: { isRequired: true, minLength: 6 },
     },
     {
       id: nanoid(),
