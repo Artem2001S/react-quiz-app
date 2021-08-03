@@ -47,9 +47,14 @@ const TestContainer = ({ testId }) => {
   );
 
   const toggleAnswerIsRight = useCallback(
-    (answerId, answer) =>
+    (answerId, answer, questionId) =>
       dispatch(
-        patchAnswer({ answerId, is_right: !answer.is_right, text: answer.text })
+        patchAnswer({
+          answerId,
+          is_right: !answer.is_right,
+          text: answer.text,
+          questionId,
+        })
       ),
     [dispatch]
   );

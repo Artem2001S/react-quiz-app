@@ -26,8 +26,8 @@ const Answer = ({
   }, [answer, onAnswerDelete, questionId]);
 
   const handleToggleIsRightBtnClick = useCallback(() => {
-    onAnswerIsRightToggle(answer.id, answer);
-  }, [answer, onAnswerIsRightToggle]);
+    onAnswerIsRightToggle(answer.id, answer, questionId);
+  }, [answer, onAnswerIsRightToggle, questionId]);
 
   const toggleBtnClasses = classNames({
     [classes.RightAnswerToggleBtn]: answer.is_right,

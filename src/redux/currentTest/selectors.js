@@ -11,3 +11,13 @@ export const getCurrentTestSelector = createSelector(
 
 export const getIsCurrentTestFetchedSelector = (state) =>
   state.currentTest.isFetched;
+
+export const getQuestionByIdSelector = (state, id) =>
+  state.currentTest.entities?.questions[id];
+export const getAnswerByIdSelector = (state, id) =>
+  state.currentTest.entities?.answers[id];
+
+export const getQuestionRightAnswerSelector = (state, questionId) =>
+  getQuestionByIdSelector(state, questionId)?.answers.find(
+    (answer) => getAnswerByIdSelector(state, answer).is_right
+  );
