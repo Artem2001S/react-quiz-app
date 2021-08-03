@@ -1,14 +1,18 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
+import { getQuestionWarnings } from 'shared/helpers';
 import { questionTypes } from 'shared/constants';
 import Button from 'components/UI/Button/Button';
-import Title from 'components/UI/Title/Title';
 import Input from 'components/UI/Input/Input';
-import DropDown from 'components/UI/DropDown/DropDown';
+import AnswerInput from './AnswerInput/AnswerInput';
+import Title from 'components/UI/Title/Title';
+import Errors from 'components/UI/Errors/Errors';
 import classes from './NewQuestionForm.module.scss';
 
-const NewQuestionForm = ({ testId, onSubmit }) => {
-  const [selectedQuestionTypeIndex, setSelectedQuestionTypeIndex] = useState(0);
+const NewQuestionForm = ({ testId, questionType, onSubmit }) => {
+  const isNumberQuestion = questionType === questionTypes.number;
+  const isSingleQuestion = questionType === questionTypes.single;
+  const isMultipleQuestion = questionType === questionTypes.multiple;
 
   const [titleInput, setTitleInput] = useState({
     id: nanoid(),
@@ -16,23 +20,75 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
     value: '',
   });
 
-  const questionTypeNumberIndex = 2;
-  const [answerInput, setAnswerInput] = useState(null);
+  const [answerInputs, setAnswerInputs] = useState([
+    { id: nanoid(), text: 'Answer 1', isRight: true },
+    { id: nanoid(), text: 'Answer 2', isRight: false },
+  ]);
 
-  useEffect(() => {
-    selectedQuestionTypeIndex === questionTypeNumberIndex
-      ? setAnswerInput({
-          id: nanoid(),
-          type: 'number',
-          value: 0,
-        })
-      : setAnswerInput(null);
-  }, [selectedQuestionTypeIndex]);
+  const [validationErrors, setValidationErrors] = useState([]);
+
+  const changeAnswerInputText = useCallback(
+    (id, newText) => {
+      setAnswerInputs(
+        answerInputs.map((answerInput) =>
+          answerInput.id === id
+            ? { ...answerInput, text: newText }
+            : answerInput
+        )
+      );
+    },
+    [answerInputs]
+  );
+
+  const changeAnswerInputIsRight = useCallback(
+    (id, newIsRight) => {
+      if (isSingleQuestion) {
+        setAnswerInputs(
+          answerInputs.map((answerInput) =>
+            answerInput.isRight
+              ? { ...answerInput, isRight: false }
+              : answerInput.id === id
+              ? { ...answerInput, isRight: newIsRight }
+              : answerInput
+          )
+        );
+      } else {
+        setAnswerInputs(
+          answerInputs.map((answerInput) =>
+            answerInput.id === id
+              ? { ...answerInput, isRight: newIsRight }
+              : answerInput
+          )
+        );
+      }
+    },
+    [answerInputs, isSingleQuestion]
+  );
+
+  const deleteAnswerInputsItem = useCallback(
+    (id) =>
+      setAnswerInputs(
+        answerInputs.filter((answerInput) => answerInput.id !== id)
+      ),
+    [answerInputs]
+  );
+  const newAnswerBtnClickHandler = useCallback(() => {
+    setAnswerInputs([
+      { id: nanoid(), text: 'New answer', isRight: false },
+      ...answerInputs,
+    ]);
+  }, [answerInputs]);
+
+  const [answerInput, setAnswerInput] = useState(
+    isNumberQuestion && {
+      id: nanoid(),
+      type: 'number',
+      value: 0,
+    }
+  );
 
   const answerInputChangeHandler = useCallback(
-    (e) => {
-      setAnswerInput({ ...answerInput, value: e.target.value });
-    },
+    (e) => setAnswerInput({ ...answerInput, value: e.target.value }),
     [answerInput]
   );
 
@@ -43,37 +99,33 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
     [titleInput]
   );
 
-  const [questionTypesArray] = useState([
-    { title: questionTypes.single },
-    { title: questionTypes.multiple },
-    { title: questionTypes.number },
-  ]);
-
-  const selectedIndexChanged = useCallback((index) => {
-    setSelectedQuestionTypeIndex(index);
-  }, []);
-
-  const resetInputs = useCallback(() => {
-    setTitleInput({ ...titleInput, value: '' });
-    answerInput && setAnswerInput({ ...answerInput, value: 0 });
-  }, [answerInput, titleInput]);
-
   const submitFormHandler = useCallback(
     (e) => {
       e.preventDefault();
-      onSubmit(testId, {
+
+      const question = {
         title: titleInput.value,
-        question_type: questionTypesArray[selectedQuestionTypeIndex].title,
+        question_type: questionType,
         answer: answerInput ? Number(answerInput.value) : null,
-      });
-      resetInputs();
+        answers: !isNumberQuestion
+          ? answerInputs.map((answerInput) => ({
+              text: answerInput.text,
+              is_right: answerInput.isRight,
+            }))
+          : [],
+      };
+
+      const validationErrors = getQuestionWarnings(question);
+      setValidationErrors(validationErrors);
+
+      !validationErrors.length && onSubmit(testId, question);
     },
     [
       answerInput,
+      answerInputs,
+      isNumberQuestion,
       onSubmit,
-      questionTypesArray,
-      resetInputs,
-      selectedQuestionTypeIndex,
+      questionType,
       testId,
       titleInput,
     ]
@@ -81,18 +133,34 @@ const NewQuestionForm = ({ testId, onSubmit }) => {
 
   return (
     <div className={classes.NewQuestionFormContainer}>
-      <Title small>Create new question</Title>
       <form onSubmit={submitFormHandler}>
+        {validationErrors.length > 0 && <Errors errors={validationErrors} />}
         <Input {...titleInput} onChange={titleInputChangeHandler} />
-        {answerInput && (
+        {isNumberQuestion && (
           <Input {...answerInput} onChange={answerInputChangeHandler} />
         )}
-        <DropDown
-          label="Choose question type:"
-          items={questionTypesArray}
-          selectedItemIndex={selectedQuestionTypeIndex}
-          onSelectedItemChanged={selectedIndexChanged}
-        />
+        {!isNumberQuestion && (
+          <>
+            <div className={classes.AnswersTop}>
+              <Title small>Answers</Title>
+              <Button type="button" small onClick={newAnswerBtnClickHandler}>
+                New
+              </Button>
+            </div>
+            {answerInputs.map((answerInput) => (
+              <AnswerInput
+                key={answerInput.id}
+                id={answerInput.id}
+                text={answerInput.text}
+                isRight={answerInput.isRight}
+                isMultiple={isMultipleQuestion}
+                onTextChanged={changeAnswerInputText}
+                onIsRightChanged={changeAnswerInputIsRight}
+                onDelete={deleteAnswerInputsItem}
+              />
+            ))}
+          </>
+        )}
       </form>
 
       <Button onClick={submitFormHandler} className={classes.SubmitBtn}>

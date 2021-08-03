@@ -13,7 +13,6 @@ import {
   postQuestion,
 } from 'redux/currentTest/currentTestSlice';
 import { useComponentDidMount } from 'hooks/useComponentDidMount';
-import { messageReceived } from 'redux/userInterface/userInterfaceSlice';
 import {
   getCurrentTestSelector,
   getIsCurrentTestFetchedSelector,
@@ -94,10 +93,7 @@ const TestContainer = ({ testId }) => {
   );
 
   const createQuestion = useCallback(
-    (testId, question) =>
-      !question.title
-        ? dispatch(messageReceived({ message: 'Enter question title.' }))
-        : dispatch(postQuestion({ testId, question })),
+    (testId, question) => dispatch(postQuestion({ testId, question })),
     [dispatch]
   );
 

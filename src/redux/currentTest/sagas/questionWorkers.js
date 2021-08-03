@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import { all, call, put } from 'redux-saga/effects';
 import {
   loadingFinished,
   loadingStarted,
@@ -12,6 +12,7 @@ import {
 import {
   deleteQuestionRequest,
   patchQuestionRequest,
+  postAnswerRequest,
   postQuestionRequest,
 } from '../requests';
 
@@ -58,9 +59,22 @@ export function* postQuestionWorker({ payload }) {
   try {
     yield put(loadingStarted());
     const { testId, question } = payload;
-    const { data } = yield call(postQuestionRequest, testId, question);
 
-    yield put(questionCreated(data));
+    const { data: createdQuestion } = yield call(postQuestionRequest, testId, {
+      title: question.title,
+      question_type: question.question_type,
+      answer: question.answer,
+    });
+
+    if (question.answers) {
+      const calls = question.answers.map((answer) =>
+        call(postAnswerRequest, createdQuestion.id, answer)
+      );
+      const createdAnswers = yield all(calls);
+      createdQuestion.answers = createdAnswers.map(({ data }) => data);
+    }
+
+    yield put(questionCreated(createdQuestion));
   } catch (error) {
     yield put(messageReceived({ message: 'Question posting server error.' }));
   } finally {

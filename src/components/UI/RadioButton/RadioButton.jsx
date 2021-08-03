@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './RadioButton.module.scss';
 
-const RadioButton = ({ id, label, index, checked, onChange }) => (
+const RadioButton = ({ id, label, checked, onChange }) => (
   <div className={classes.RadioContainer}>
     <label htmlFor={id} className={classes.RadioContent}>
       <input
@@ -12,7 +12,7 @@ const RadioButton = ({ id, label, index, checked, onChange }) => (
         onChange={onChange}
       />
       <div className={classes.RadioIcon} />
-      <span className={classes.Label}>{label}</span>
+      {label && <span className={classes.Label}>{label}</span>}
     </label>
   </div>
 );

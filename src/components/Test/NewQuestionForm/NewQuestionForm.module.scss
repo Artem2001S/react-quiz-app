@@ -1,10 +1,17 @@
 .NewQuestionFormContainer {
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 20px;
   gap: 10px;
 }
 
 .SubmitBtn {
-    align-self: flex-start;
+  align-self: flex-start;
+}
+
+.AnswersTop {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  justify-content: space-between;
 }

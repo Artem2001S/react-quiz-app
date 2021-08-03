@@ -43,6 +43,8 @@ export const getValidQuestions = (questions) => {
 export const getQuestionWarnings = (question) => {
   const errors = [];
 
+  if (!question.title) return ['Empty question title'];
+
   if (question.question_type === questionTypes.number) return [];
 
   question.answers.length < 2 &&
@@ -57,6 +59,10 @@ export const getQuestionWarnings = (question) => {
   rightAnswersCount > 1 &&
     question.question_type === questionTypes.single &&
     errors.push('Single question should have only one right answer');
+
+  question.answers.forEach(
+    (answer) => !answer.text && errors.push('Empty answer text')
+  );
 
   return errors;
 };
