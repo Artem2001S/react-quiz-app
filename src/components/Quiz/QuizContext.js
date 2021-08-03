@@ -13,6 +13,7 @@ export const QuizContextProvider = ({ children, test }) => {
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isQuizFinished, setIsQuizFinished] = useState(false);
+  const finishQuiz = useCallback(() => setIsQuizFinished(true), []);
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -53,12 +54,6 @@ export const QuizContextProvider = ({ children, test }) => {
     [correctAnswersCount, currentQuestion, currentQuestionIndex, questionsCount]
   );
 
-  const reset = useCallback(() => {
-    setCorrectAnswersCount(0);
-    setCurrentQuestionIndex(0);
-    setIsQuizFinished(false);
-  }, []);
-
   return (
     <QuizContext.Provider
       value={{
@@ -71,7 +66,7 @@ export const QuizContextProvider = ({ children, test }) => {
         isQuizFinished,
         isLastQuestion: questionsCount - currentQuestionIndex === 1,
         nextQuestion,
-        reset,
+        finishQuiz,
       }}
     >
       {children}

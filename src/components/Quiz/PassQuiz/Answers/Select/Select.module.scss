@@ -6,6 +6,10 @@
   display: flex;
   flex-direction: column;
   gap: 9px;
+
+  border-radius: $borderRadius;
+  padding: 20px;
+  background-color: $clouds;
 }
 
 .NextBtn {

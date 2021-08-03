@@ -7,7 +7,13 @@ import {
 import Title from '../Title/Title';
 import classes from './Modal.module.scss';
 
-const Modal = ({ title, isVisible, hideModal, children }) => {
+const Modal = ({
+  title,
+  isVisible,
+  showCloseBtn = true,
+  children,
+  hideModal = () => {},
+}) => {
   const targetElement = useRef();
 
   useEffect(() => {
@@ -39,7 +45,7 @@ const Modal = ({ title, isVisible, hideModal, children }) => {
 
   return isVisible ? (
     <div className={classes.Modal} onClick={backgroundClickHandler}>
-      <div className={classes.CloseBtn}>&times;</div>
+      {showCloseBtn && <div className={classes.CloseBtn}>&times;</div>}
       <div className={classes.ModalContent} onClick={stopPropagation}>
         {title && (
           <Title small centered>

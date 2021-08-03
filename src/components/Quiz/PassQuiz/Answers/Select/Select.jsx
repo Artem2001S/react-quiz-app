@@ -1,5 +1,4 @@
-import React, { useState, useCallback } from 'react';
-import classNames from 'classnames';
+import React, { useState, useCallback, useEffect } from 'react';
 import { questionTypes } from 'shared/constants';
 import { useQuizCtx } from 'components/Quiz/QuizContext';
 import Button from 'components/UI/Button/Button';
@@ -11,6 +10,11 @@ const Select = () => {
   const questionType = currentQuestion.question_type;
   const isSingleSelect = questionType === questionTypes.single;
   const [selectedIndexes, setSelectedIndexes] = useState([]);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    setIsButtonDisabled(selectedIndexes.length === 0);
+  }, [selectedIndexes.length]);
 
   const selectItemClickHandler = useCallback(
     (index) => {
@@ -39,15 +43,18 @@ const Select = () => {
       {currentQuestion.answers.map((answer, index) => (
         <SelectItem
           key={answer.id}
-          className={classNames(classes.Selected, classes.SelectItem)}
+          text={answer.text}
           index={index}
+          isSingleSelect={isSingleSelect}
           isSelected={selectedIndexes.includes(index)}
           onClick={selectItemClickHandler}
-        >
-          {answer.text}
-        </SelectItem>
+        />
       ))}
-      <Button className={classes.NextBtn} onClick={nextQuestionBtnClickHandler}>
+      <Button
+        className={classes.NextBtn}
+        onClick={nextQuestionBtnClickHandler}
+        disabled={isButtonDisabled}
+      >
         {isLastQuestion ? 'Finish' : 'Next'}
       </Button>
     </div>

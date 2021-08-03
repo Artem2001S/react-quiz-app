@@ -1,20 +1,14 @@
 import React, { useCallback } from 'react';
-import classNames from 'classnames';
-import classes from './SelectItem.module.scss';
+import RadioButton from 'components/UI/RadioButton/RadioButton';
+import Checkbox from 'components/UI/Checkbox/Checkbox';
 
-const SelectItem = ({ isSelected, index, children, onClick }) => {
+const SelectItem = ({ isSelected, isSingleSelect, index, text, onClick }) => {
   const handleClick = useCallback(() => onClick(index), [index, onClick]);
 
-  return (
-    <div
-      className={classNames(
-        { [classes.Selected]: isSelected },
-        classes.SelectItem
-      )}
-      onClick={handleClick}
-    >
-      {children}
-    </div>
+  return isSingleSelect ? (
+    <RadioButton label={text} checked={isSelected} onChange={handleClick} />
+  ) : (
+    <Checkbox label={text} checked={isSelected} onChange={handleClick} />
   );
 };
 

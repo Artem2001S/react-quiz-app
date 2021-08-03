@@ -1,14 +1,14 @@
 import React from 'react';
 import classes from './RadioButton.module.scss';
 
-const RadioButton = ({ id, label, index, isChecked, onChange }) => (
+const RadioButton = ({ id, label, index, checked, onChange }) => (
   <div className={classes.RadioContainer}>
     <label htmlFor={id} className={classes.RadioContent}>
       <input
         id={id}
         className={classes.RadioButton}
         type="radio"
-        checked={isChecked}
+        checked={checked}
         onChange={onChange}
       />
       <div className={classes.RadioIcon} />
