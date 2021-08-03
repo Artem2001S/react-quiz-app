@@ -19,10 +19,21 @@
   border-radius: $borderRadius;
   padding: 10px 20px;
   user-select: none;
+
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: $clouds;
+  }
 }
 
 .Actions {
   display: flex;
   align-items: center;
+  gap: 10px;
+}
+
+.ModalContent {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }

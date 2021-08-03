@@ -1,0 +1,43 @@
+@import 'shared/scssVariables.scss';
+
+.Modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: $black, $alpha: 0.5);
+  z-index: 10;
+}
+
+.ModalContent {
+  padding: 20px;
+  cursor: initial;
+  min-height: 200px;
+  min-width: 200px;
+  max-width: 90vw;
+  max-height: 90vh;
+
+  background-color: $white;
+  border-radius: $borderRadius;
+}
+
+.CloseBtn {
+  position: absolute;
+  right: 1%;
+  top: 1%;
+  cursor: pointer;
+  color: $clouds;
+  font-size: 45px;
+}
+
+.Divider {
+  width: 100%;
+  border: 1px solid $wetasphalt;
+  margin: 10px 0;
+}
