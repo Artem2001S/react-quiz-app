@@ -1,34 +1,36 @@
-import React, { useMemo, useState, useCallback } from 'react';
-import { getQuestionWarnings } from 'shared/helpers';
+import React, { useState, useCallback } from 'react';
 import { useAuth } from 'hooks/useAuth';
 import NewAnswerForm from './NewAnswerForm/NewAnswerForm';
 import Answer from './Answer/Answer';
 import AnswerTypeNumber from './AnswerTypeNumber/AnswerTypeNumber';
-import Warnings from './Warnings/Warnings';
 import classes from './Answers.module.scss';
 import { useTestCtx } from 'components/Test/TestContext';
+import { questionTypes } from 'shared/constants';
 
 const Answers = ({ question }) => {
   const isQuestionTypeNumber = question.question_type === 'number';
   const { isAdmin } = useAuth();
   const { onAnswerPositionChanged } = useTestCtx();
 
-  const warnings = useMemo(() => getQuestionWarnings(question), [question]);
-
   const [currentAnswerData, setCurrentAnswerData] = useState();
+
+  const isDeletingAvailable = question.answers.length > 2;
+  const isSingleQuestion = question.question_type === questionTypes.single;
 
   const onDragStart = useCallback(
     (e, answer, index) => setCurrentAnswerData({ id: answer.id, index }),
     []
   );
 
-  const onDragLeave = useCallback((e) => {
-    e.currentTarget.classList.remove(classes.Grabbing);
-  }, []);
+  const onDragLeave = useCallback(
+    (e) => e.currentTarget.classList.remove(classes.Grabbing),
+    []
+  );
 
-  const onDragEnd = useCallback((e) => {
-    e.currentTarget.classList.remove(classes.Grabbing);
-  }, []);
+  const onDragEnd = useCallback(
+    (e) => e.currentTarget.classList.remove(classes.Grabbing),
+    []
+  );
 
   const onDragOver = useCallback((e) => {
     e.preventDefault();
@@ -53,8 +55,6 @@ const Answers = ({ question }) => {
         <NewAnswerForm questionId={question.id} />
       )}
 
-      {warnings.length > 0 && <Warnings warnings={warnings} />}
-
       {isQuestionTypeNumber ? (
         <AnswerTypeNumber question={question} answer={question.answer} />
       ) : (
@@ -62,8 +62,10 @@ const Answers = ({ question }) => {
           <Answer
             key={answer.id}
             answer={answer}
-            index={index}
+            isDeletingAvailable={isDeletingAvailable}
             questionId={question.id}
+            isSingleQuestion={isSingleQuestion}
+            index={index}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
             onDragLeave={onDragLeave}

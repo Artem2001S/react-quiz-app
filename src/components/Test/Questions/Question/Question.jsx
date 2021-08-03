@@ -1,6 +1,5 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useAuth } from 'hooks/useAuth';
-import { getQuestionWarnings } from 'shared/helpers';
 import { useTestCtx } from 'components/Test/TestContext';
 import EditableInput from 'components/UI/EditableInput/EditableInput';
 import Title from 'components/UI/Title/Title';
@@ -38,16 +37,6 @@ const Question = ({ question, testId }) => {
     [isAnswersVisible]
   );
 
-  const haveWarnings = useMemo(
-    () => getQuestionWarnings(question).length > 0,
-    [question]
-  );
-
-  const headerClasses = classNames(
-    { [classes.WithWarnings]: haveWarnings },
-    classes.Header
-  );
-
   const toggleBtnClasses = classNames(
     { [classes.Closed]: !isAnswersVisible },
     { [classes.Opened]: isAnswersVisible },
@@ -56,7 +45,7 @@ const Question = ({ question, testId }) => {
 
   return (
     <div className={classes.Question}>
-      <div className={headerClasses}>
+      <div className={classes.Header}>
         <div className={toggleBtnClasses} onClick={toggleAnswersVisible} />
 
         {isAdmin ? (

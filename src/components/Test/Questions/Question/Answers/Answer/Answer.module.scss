@@ -43,3 +43,9 @@
 .NotRightAnswerToggleBtn {
   opacity: 0.4;
 }
+
+.ModalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
