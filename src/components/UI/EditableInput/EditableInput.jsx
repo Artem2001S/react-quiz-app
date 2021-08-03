@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import classNames from 'classnames';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
+import Modal from '../Modal/Modal';
 import classes from './EditableInput.module.scss';
 
 const EditableInput = ({
@@ -14,6 +15,10 @@ const EditableInput = ({
 }) => {
   const [inputValue, setInputValue] = useState(initialValue);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const hideModal = useCallback(() => setIsModalVisible(false), []);
+  const showModal = useCallback(() => setIsModalVisible(true), []);
 
   const inputChangeHandler = useCallback(
     (e) => setInputValue(e.target.value),
@@ -30,20 +35,32 @@ const EditableInput = ({
     setInputValue(trimmedValue || initialValue);
   }, [initialValue, inputValue, onSubmit, type]);
 
-  const editBtnClickHandler = useCallback(() => {
-    setIsEditMode(!isEditMode);
-    isEditMode && submit();
-  }, [isEditMode, submit]);
+  const editBtnClickHandler = useCallback(
+    () =>
+      isEditMode
+        ? initialValue === inputValue
+          ? setIsEditMode(false)
+          : showModal()
+        : setIsEditMode(true),
+    [initialValue, inputValue, isEditMode, showModal]
+  );
 
   const inputKeyPressHandler = useCallback(
-    (e) => {
-      if (e.key === 'Enter') {
-        setIsEditMode(false);
-        submit();
-      }
-    },
-    [submit]
+    (e) => e.key === 'Enter' && showModal(),
+    [showModal]
   );
+
+  const saveBtnClickHandler = useCallback(() => {
+    hideModal();
+    setIsEditMode(false);
+    submit();
+  }, [hideModal, submit]);
+
+  const cancelBtnClickHandler = useCallback(() => {
+    setIsEditMode(false);
+    setInputValue(initialValue);
+    hideModal();
+  }, [hideModal, initialValue]);
 
   const inputClasses = classNames(classes.Input, className);
   const containerClasses = classNames(
@@ -63,7 +80,6 @@ const EditableInput = ({
           onChange={inputChangeHandler}
           readOnly={!isEditMode}
           onKeyPress={inputKeyPressHandler}
-          onBlur={editBtnClickHandler}
         />
       ) : (
         children
@@ -72,6 +88,16 @@ const EditableInput = ({
       <Button small onClick={editBtnClickHandler}>
         {isEditMode ? 'Save' : 'Edit'}
       </Button>
+      <Modal
+        isVisible={isModalVisible}
+        hideModal={hideModal}
+        title="Save new value ?"
+      >
+        <div className={classes.ModalContent}>
+          <Button onClick={saveBtnClickHandler}>Save</Button>
+          <Button onClick={cancelBtnClickHandler}>Cancel</Button>
+        </div>
+      </Modal>
     </div>
   );
 };
