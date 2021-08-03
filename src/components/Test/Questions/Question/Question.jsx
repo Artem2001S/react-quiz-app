@@ -8,9 +8,15 @@ import Answers from './Answers/Answers';
 import Button from 'components/UI/Button/Button';
 import classes from './Question.module.scss';
 import classNames from 'classnames';
+import Modal from 'components/UI/Modal/Modal';
 
 const Question = ({ question, testId }) => {
   const [isAnswersVisible, setIsAnswersVisible] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+
+  const hideDeleteModal = useCallback(() => setIsDeleteModalVisible(false), []);
+  const showDeleteModal = useCallback(() => setIsDeleteModalVisible(true), []);
+
   const { isAdmin } = useAuth();
 
   const { onQuestionTitleUpdate, onQuestionDelete } = useTestCtx();
@@ -23,8 +29,9 @@ const Question = ({ question, testId }) => {
   );
 
   const handleQuestionDelete = useCallback(() => {
+    hideDeleteModal();
     onQuestionDelete(question.id);
-  }, [onQuestionDelete, question]);
+  }, [hideDeleteModal, onQuestionDelete, question]);
 
   const toggleAnswersVisible = useCallback(
     () => setIsAnswersVisible(!isAnswersVisible),
@@ -66,7 +73,7 @@ const Question = ({ question, testId }) => {
                 </span>
               </Title>
             </EditableInput>
-            <Button small danger onClick={handleQuestionDelete}>
+            <Button small danger onClick={showDeleteModal}>
               &times;
             </Button>
           </div>
@@ -75,6 +82,18 @@ const Question = ({ question, testId }) => {
         )}
       </div>
       {isAnswersVisible && <Answers question={question} />}
+      <Modal
+        title="Delete question ?"
+        isVisible={isDeleteModalVisible}
+        hideModal={hideDeleteModal}
+      >
+        <div className={classes.ModalContent}>
+          <Button danger onClick={handleQuestionDelete}>
+            Delete
+          </Button>
+          <Button onClick={hideDeleteModal}>Cancel</Button>
+        </div>
+      </Modal>
     </div>
   );
 };

@@ -87,3 +87,9 @@
   user-select: none;
   word-break: initial;
 }
+
+.ModalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
