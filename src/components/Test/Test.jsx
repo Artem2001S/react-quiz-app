@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useAuth } from 'hooks/useAuth';
 import { TestContextProvider } from './TestContext';
 import Container from 'components/UI/Container/Container';
@@ -6,9 +6,10 @@ import Title from 'components/UI/Title/Title';
 import Questions from './Questions/Questions';
 import NewQuestionForm from './NewQuestionForm/NewQuestionForm';
 import EditableInput from 'components/UI/EditableInput/EditableInput';
-import classes from './Test.module.scss';
 import ButtonLink from 'components/UI/ButtonLink/ButtonLink';
 import Button from 'components/UI/Button/Button';
+import classes from './Test.module.scss';
+import Modal from 'components/UI/Modal/Modal';
 
 const Test = ({
   test,
@@ -25,6 +26,15 @@ const Test = ({
   onQuestionAnswerUpdate,
 }) => {
   const { isAdmin } = useAuth();
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+
+  const hideDeleteModal = useCallback(() => setIsDeleteModalVisible(false), []);
+  const showDeleteModal = useCallback(() => setIsDeleteModalVisible(true), []);
+
+  const handleDeleteTestBtnClick = useCallback(() => {
+    hideDeleteModal();
+    onDeleteTestBtnClick();
+  }, [hideDeleteModal, onDeleteTestBtnClick]);
 
   return (
     <TestContextProvider
@@ -53,13 +63,25 @@ const Test = ({
                 </Title>
               </EditableInput>
               <Button
-                onClick={onDeleteTestBtnClick}
+                onClick={showDeleteModal}
                 className={classes.Delete}
                 danger
                 small
               >
                 Delete
               </Button>
+              <Modal
+                title="Delete test ?"
+                isVisible={isDeleteModalVisible}
+                hideModal={hideDeleteModal}
+              >
+                <div className={classes.ModalContent}>
+                  <Button danger onClick={handleDeleteTestBtnClick}>
+                    Delete
+                  </Button>
+                  <Button onClick={hideDeleteModal}>Cancel</Button>
+                </div>
+              </Modal>
             </>
           ) : (
             <Title large centered>
@@ -67,9 +89,6 @@ const Test = ({
             </Title>
           )}
         </div>
-        <ButtonLink className={classes.StartQuizBtn} to={`/quiz/${test.id}`}>
-          Start quiz
-        </ButtonLink>
         {isAdmin && (
           <NewQuestionForm
             testId={test.id}

@@ -13,3 +13,8 @@
   display: inline-block;
 }
 
+.ModalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
