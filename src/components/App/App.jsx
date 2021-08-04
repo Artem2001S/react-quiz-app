@@ -10,7 +10,7 @@ import { useComponentDidMount } from 'hooks/useComponentDidMount';
 import { messageReceived } from 'redux/userInterface/userInterfaceSlice';
 import { getIsUserAuthorizationCheckedSelector } from 'redux/userData/selectors';
 import Loader from 'components/UI/Loader/Loader';
-import Login from 'pages/LoginPage';
+import LoginPage from 'pages/LoginPage';
 import PrivateRoute from 'shared/components/PrivateRoute';
 import HelloPage from 'pages/HelloPage/HelloPage';
 import NotFoundPage from 'pages/NotFoundPage';
@@ -21,6 +21,7 @@ import Alert from 'components/UI/Alert/Alert';
 import Header from 'components/Header/Header';
 import TestPage from 'pages/TestPage';
 import QuizPage from 'pages/QuizPage';
+import AdminRoute from 'shared/components/AdminRoute';
 
 function App() {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ function App() {
               redirectTo="/tests"
               exact
             >
-              <Login />
+              <LoginPage />
             </RedirectAuthorizedUserRoute>
             <RedirectAuthorizedUserRoute
               path="/signup"
@@ -63,9 +64,9 @@ function App() {
             <PrivateRoute path="/tests" exact>
               <TestsPage />
             </PrivateRoute>
-            <PrivateRoute path="/tests/:testId" exact>
+            <AdminRoute path="/tests/:testId" exact>
               <TestPage />
-            </PrivateRoute>
+            </AdminRoute>
 
             <PrivateRoute path="/quiz/:testId" exact>
               <QuizPage />

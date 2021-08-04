@@ -25,6 +25,17 @@
 
   background-color: $white;
   border-radius: $borderRadius;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    opacity: 0;
+  }
+
+  scrollbar-width: none;
+
+  @include mediaTablet {
+    padding: 0px;
+  }
 }
 
 .CloseBtn {

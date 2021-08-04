@@ -4,12 +4,15 @@ import ButtonLink from 'components/UI/ButtonLink/ButtonLink';
 import Modal from 'components/UI/Modal/Modal';
 import classes from './TestsListItem.module.scss';
 import Button from 'components/UI/Button/Button';
+import { useAuth } from 'hooks/useAuth';
 
 const TestsListItem = ({ id, title, created_at }) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
 
   const hideModal = useCallback(() => setIsModalOpened(false), []);
   const showModal = useCallback(() => setIsModalOpened(true), []);
+
+  const { isAdmin } = useAuth();
 
   return (
     <div className={classes.TestsListItem} onClick={showModal}>
@@ -19,9 +22,12 @@ const TestsListItem = ({ id, title, created_at }) => {
           {new Date(created_at).toLocaleDateString()}
         </span>
       </div>
-      <div className={classes.Actions}>
-        <ButtonLink to={`/tests/${id}`}>Open</ButtonLink>
-      </div>
+      {isAdmin && (
+        <div className={classes.Actions}>
+          <ButtonLink to={`/tests/${id}`}>Go to edit</ButtonLink>
+        </div>
+      )}
+
       <Modal
         isVisible={isModalOpened}
         title="Open quiz page ?"

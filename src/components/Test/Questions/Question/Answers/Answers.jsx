@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { useAuth } from 'hooks/useAuth';
 import { useTestCtx } from 'components/Test/TestContext';
 import { questionTypes } from 'shared/constants';
 import NewAnswerForm from './NewAnswerForm/NewAnswerForm';
@@ -10,7 +9,6 @@ import classes from './Answers.module.scss';
 
 const Answers = ({ question }) => {
   const isQuestionTypeNumber = question.question_type === 'number';
-  const { isAdmin } = useAuth();
   const { onAnswerPositionChanged } = useTestCtx();
 
   const isDeletingAvailable = question.answers.length > 2;
@@ -27,9 +25,7 @@ const Answers = ({ question }) => {
 
   return (
     <div className={classes.Answers}>
-      {!isQuestionTypeNumber && isAdmin && (
-        <NewAnswerForm questionId={question.id} />
-      )}
+      {!isQuestionTypeNumber && <NewAnswerForm questionId={question.id} />}
 
       {isQuestionTypeNumber ? (
         <AnswerTypeNumber question={question} answer={question.answer} />
