@@ -1,0 +1,31 @@
+@import 'shared/scssVariables.scss';
+
+.DragIcon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: (translateY(-50%));
+  display: flex;
+  flex-wrap: wrap;
+  width: 18px;
+  height: 30px;
+  gap: 1px;
+  cursor: grab;
+}
+
+.Point {
+  width: 6px;
+  height: 6px;
+  background-color: $wetasphalt;
+  border-radius: 50%;
+}
+
+.Draggable {
+  position: relative;
+  padding-left: 25px;
+}
+
+.Dragging {
+  background-color: $clouds;
+  border-radius: $borderRadius;
+}

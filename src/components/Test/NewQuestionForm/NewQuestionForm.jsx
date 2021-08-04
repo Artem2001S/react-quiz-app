@@ -7,6 +7,7 @@ import Input from 'components/UI/Input/Input';
 import AnswerInput from './AnswerInput/AnswerInput';
 import Title from 'components/UI/Title/Title';
 import Errors from 'components/UI/Errors/Errors';
+import DragList from 'components/DragList/DragList';
 import classes from './NewQuestionForm.module.scss';
 
 const NewQuestionForm = ({ testId, questionType, onSubmit }) => {
@@ -26,6 +27,16 @@ const NewQuestionForm = ({ testId, questionType, onSubmit }) => {
   ]);
 
   const [validationErrors, setValidationErrors] = useState([]);
+
+  const moveAnswerInput = useCallback(
+    (from, to) => {
+      const answers = [...answerInputs];
+      const [item] = answers.splice(from, 1);
+      answers.splice(to, 0, item);
+      setAnswerInputs(answers);
+    },
+    [answerInputs]
+  );
 
   const changeAnswerInputText = useCallback(
     (id, newText) => {
@@ -147,18 +158,20 @@ const NewQuestionForm = ({ testId, questionType, onSubmit }) => {
                 New
               </Button>
             </div>
-            {answerInputs.map((answerInput) => (
-              <AnswerInput
-                key={answerInput.id}
-                id={answerInput.id}
-                text={answerInput.text}
-                isRight={answerInput.isRight}
-                isMultiple={isMultipleQuestion}
-                onTextChanged={changeAnswerInputText}
-                onIsRightChanged={changeAnswerInputIsRight}
-                onDelete={deleteAnswerInputsItem}
-              />
-            ))}
+            <DragList onItemDrop={moveAnswerInput}>
+              {answerInputs.map((answerInput) => (
+                <AnswerInput
+                  key={answerInput.id}
+                  id={answerInput.id}
+                  text={answerInput.text}
+                  isRight={answerInput.isRight}
+                  isMultiple={isMultipleQuestion}
+                  onTextChanged={changeAnswerInputText}
+                  onIsRightChanged={changeAnswerInputIsRight}
+                  onDelete={deleteAnswerInputsItem}
+                />
+              ))}
+            </DragList>
           </>
         )}
       </form>
