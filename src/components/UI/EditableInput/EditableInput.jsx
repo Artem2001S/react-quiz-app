@@ -77,8 +77,9 @@ const EditableInput = ({
           type={type}
           value={inputValue}
           autoFocus={true}
-          onChange={inputChangeHandler}
           readOnly={!isEditMode}
+          onChange={inputChangeHandler}
+          onBlur={editBtnClickHandler}
           onKeyPress={inputKeyPressHandler}
         />
       ) : (
