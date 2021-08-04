@@ -11,13 +11,7 @@ const Answer = ({
   answer,
   isDeletingAvailable,
   isSingleQuestion,
-  index,
   questionId,
-  onDragStart,
-  onDragEnd,
-  onDragLeave,
-  onDragOver,
-  onDrop,
 }) => {
   const { isAdmin } = useAuth();
   const { onAnswerDelete, onAnswerIsRightToggle, onAnswerTextChanged } =
@@ -47,23 +41,8 @@ const Answer = ({
     [answer, onAnswerTextChanged]
   );
 
-  const handleDragStart = useCallback(
-    (e) => onDragStart(e, answer, index),
-    [answer, index, onDragStart]
-  );
-
-  const handleDrop = useCallback((e) => onDrop(e, index), [index, onDrop]);
-
   return (
-    <div
-      className={classes.Answer}
-      draggable={true}
-      onDragStart={handleDragStart}
-      onDragLeave={onDragLeave}
-      onDragOver={onDragOver}
-      onDragEnd={onDragEnd}
-      onDrop={handleDrop}
-    >
+    <div className={classes.Answer}>
       {isAdmin ? (
         <EditableInput
           initialValue={answer.text}
