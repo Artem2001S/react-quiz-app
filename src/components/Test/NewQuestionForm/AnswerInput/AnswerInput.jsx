@@ -35,7 +35,7 @@ const AnswerInput = ({
       )}
 
       <Input value={text} onChange={handleTextChanged} />
-      <Button small danger onClick={deleteBtnClickHandler}>
+      <Button type="button" small danger onClick={deleteBtnClickHandler}>
         &times;
       </Button>
     </div>
