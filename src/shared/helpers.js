@@ -32,14 +32,6 @@ export const isArraysEqual = (arr1, arr2) => {
   return matchesCount === arr1.length;
 };
 
-export const getValidQuestions = (questions) => {
-  return questions.filter(
-    (question) =>
-      question.answers.length >= 2 ||
-      question.question_type === questionTypes.number
-  );
-};
-
 export const getQuestionWarnings = (question) => {
   const errors = [];
 

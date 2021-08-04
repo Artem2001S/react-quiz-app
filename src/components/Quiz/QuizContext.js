@@ -1,12 +1,11 @@
-import React, { useContext, useState, useCallback, useMemo } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import { questionTypes } from 'shared/constants';
-import { getValidQuestions, isArraysEqual } from 'shared/helpers';
+import { isArraysEqual } from 'shared/helpers';
 
 const QuizContext = React.createContext();
 
 export const QuizContextProvider = ({ children, test }) => {
-  // select questions which have 2 or more answers
-  const questions = useMemo(() => getValidQuestions(test.questions), [test]);
+  const { questions } = test;
 
   const questionsCount = questions.length;
 
