@@ -12,21 +12,17 @@ const PassQuiz = () => {
 
   return isQuizFinished ? (
     <Modal isVisible={true} showCloseBtn={false}>
-      <PassQuiz.Result />
+      <Result />
     </Modal>
   ) : (
     <>
-      <PassQuiz.Question />
-      <PassQuiz.Answers />
+      <Question />
+      <Answers />
       <Button className={classes.FinishQuizBtn} onClick={finishQuiz}>
         Finish Quiz
       </Button>
     </>
   );
 };
-
-PassQuiz.Question = Question;
-PassQuiz.Answers = Answers;
-PassQuiz.Result = Result;
 
 export default React.memo(PassQuiz);

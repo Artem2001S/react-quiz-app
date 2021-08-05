@@ -9,7 +9,7 @@ const NewTestForm = ({ onSubmit }) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = useCallback(
-    (e) => setInputValue(e.target.value),
+    (e) => setInputValue(e.currentTarget.value),
     []
   );
 

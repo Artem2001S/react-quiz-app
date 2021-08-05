@@ -9,7 +9,7 @@ const Number = () => {
   const { isLastQuestion, nextQuestion } = useQuizCtx();
   const [inputValue, setInputValue] = useState(0);
   const inputChangeHandler = useCallback(
-    (e) => setInputValue(e.target.value),
+    (e) => setInputValue(e.currentTarget.value),
     []
   );
 

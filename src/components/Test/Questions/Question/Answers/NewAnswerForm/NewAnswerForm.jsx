@@ -15,7 +15,7 @@ const NewAnswerForm = ({ questionId }) => {
   });
 
   const inputChangeHandler = useCallback(
-    (e) => setInput({ ...input, value: e.target.value }),
+    (e) => setInput({ ...input, value: e.currentTarget.value }),
     [input]
   );
 

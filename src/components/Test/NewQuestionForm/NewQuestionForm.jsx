@@ -99,13 +99,13 @@ const NewQuestionForm = ({ testId, questionType, onSubmit }) => {
   );
 
   const answerInputChangeHandler = useCallback(
-    (e) => setAnswerInput({ ...answerInput, value: e.target.value }),
+    (e) => setAnswerInput({ ...answerInput, value: e.currentTarget.value }),
     [answerInput]
   );
 
   const titleInputChangeHandler = useCallback(
     (e) => {
-      setTitleInput({ ...titleInput, value: e.target.value });
+      setTitleInput({ ...titleInput, value: e.currentTarget.value });
     },
     [titleInput]
   );

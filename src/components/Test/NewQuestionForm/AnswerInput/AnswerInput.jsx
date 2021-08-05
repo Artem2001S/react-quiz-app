@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import Input from 'components/UI/Input/Input';
-import classes from './AnswerInput.module.scss';
 import RadioButton from 'components/UI/RadioButton/RadioButton';
 import Checkbox from 'components/UI/Checkbox/Checkbox';
 import Button from 'components/UI/Button/Button';
+import classes from './AnswerInput.module.scss';
 
 const AnswerInput = ({
   id,
@@ -15,7 +15,7 @@ const AnswerInput = ({
   onDelete,
 }) => {
   const handleTextChanged = useCallback(
-    (e) => onTextChanged(id, e.target.value),
+    (e) => onTextChanged(id, e.currentTarget.value),
     [id, onTextChanged]
   );
 

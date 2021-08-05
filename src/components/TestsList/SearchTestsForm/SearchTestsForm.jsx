@@ -15,7 +15,7 @@ const SearchTestsForm = ({ onSubmit }) => {
   );
 
   const handleInputChange = useCallback((e) => {
-    setInputValue(e.target.value);
+    setInputValue(e.currentTarget.value);
   }, []);
 
   return (

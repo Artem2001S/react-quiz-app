@@ -5,15 +5,15 @@ export const useInputs = (inputsArray) => {
 
   const changeInputValue = useCallback(
     (id, e) => {
-      e.target.type === 'checkbox'
+      e.currentTarget.type === 'checkbox'
         ? setInputs(
             inputs.map((input) =>
-              input.id === id ? { ...input, checked: e.target.checked } : input
+              input.id === id ? { ...input, checked: e.currentTarget.checked } : input
             )
           )
         : setInputs(
             inputs.map((input) =>
-              input.id === id ? { ...input, value: e.target.value } : input
+              input.id === id ? { ...input, value: e.currentTarget.value } : input
             )
           );
     },
