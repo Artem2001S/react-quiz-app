@@ -9,5 +9,5 @@ export const getIsLoadingSelector = createSelector(
 
 export const getMessageSelector = createSelector(
   getUserInterfaceState,
-  (userInterfaceState) => userInterfaceState.messageF
+  (userInterfaceState) => userInterfaceState.message
 );
