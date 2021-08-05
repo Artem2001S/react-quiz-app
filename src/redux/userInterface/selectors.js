@@ -1,2 +1,13 @@
-export const getIsLoadingSelector = (state) => state.userInterface.isLoading;
-export const getMessageSelector = (state) => state.userInterface.message;
+import { createSelector } from 'reselect';
+
+const getUserInterfaceState = (state) => state.userInterface;
+
+export const getIsLoadingSelector = createSelector(
+  getUserInterfaceState,
+  (userInterfaceState) => userInterfaceState.isLoading
+);
+
+export const getMessageSelector = createSelector(
+  getUserInterfaceState,
+  (userInterfaceState) => userInterfaceState.messageF
+);

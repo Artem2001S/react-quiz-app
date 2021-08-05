@@ -87,7 +87,7 @@ const TestsListContainer = () => {
         onSearchFormSubmit={onSearchFormSubmit}
         onNewTestFormSubmit={newTestFormSubmitHandler}
       />
-      {tests.length > 0 && (
+      {tests.length && (
         <PaginationControl
           currentPage={currentPage}
           pagesCount={pagesCount}

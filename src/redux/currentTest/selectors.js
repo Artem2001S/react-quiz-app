@@ -1,21 +1,37 @@
 import { createSelector } from 'reselect';
 import { denormalizeTest } from './normalize/normalizing';
 
-const getCurrentTestEntities = (state) => state.currentTest.entities;
-const getCurrentTestResult = (state) => state.currentTest.result;
+const getCurrentTestState = (state) => state.currentTest;
+
+const getCurrentTestEntities = createSelector(
+  getCurrentTestState,
+  (state) => state.entities
+);
+
+const getCurrentTestResult = createSelector(
+  getCurrentTestState,
+  (state) => state.result
+);
 
 export const getCurrentTestSelector = createSelector(
   [getCurrentTestEntities, getCurrentTestResult],
   (entities, result) => denormalizeTest(result, entities)
 );
 
-export const getIsCurrentTestFetchedSelector = (state) =>
-  state.currentTest.isFetched;
+export const getIsCurrentTestFetchedSelector = createSelector(
+  getCurrentTestState,
+  (state) => state.isFetched
+);
 
-export const getQuestionByIdSelector = (state, id) =>
-  state.currentTest.entities?.questions[id];
-export const getAnswerByIdSelector = (state, id) =>
-  state.currentTest.entities?.answers[id];
+export const getQuestionByIdSelector = createSelector(
+  getCurrentTestState,
+  (state, id) => state.entities?.questions[id]
+);
+
+export const getAnswerByIdSelector = createSelector(
+  getCurrentTestState,
+  (state, id) => state.entities?.answers[id]
+);
 
 export const getQuestionRightAnswerSelector = (state, questionId) =>
   getQuestionByIdSelector(state, questionId)?.answers.find(

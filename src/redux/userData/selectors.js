@@ -1,6 +1,12 @@
 import { createSelector } from 'reselect';
 
-export const getUserDataSelector = (state) => state.userData.user;
+const getUserDataState = (state) => state.userData;
+
+export const getUserDataSelector = createSelector(
+  getUserDataState,
+  (userDataState) => userDataState.user
+);
+
 export const getIsAuthorizedSelector = createSelector(
   getUserDataSelector,
   (user) => user !== null
@@ -11,5 +17,8 @@ export const getIsUserAdminSelector = createSelector(
   (user) => user?.is_admin
 );
 
-export const getIsUserAuthorizationCheckedSelector = (state) =>
-  state.userData.isUserAuthorizationChecked;
+export const getIsUserAuthorizationCheckedSelector =
+  createSelector(
+    getUserDataState,
+    (userDataState) => userDataState.isUserAuthorizationChecked
+  );

@@ -1,4 +1,4 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const name = 'userData';
 const initialState = {
@@ -19,14 +19,21 @@ const userDataSlice = createSlice({
     userExited: (state) => {
       state.user = null;
     },
+
+    userLogin: () => {},
+    userSignUp: () => {},
+    checkIsAuthorized: () => {},
+    userLogout: () => {},
   },
 });
 
-export const userLogin = createAction(`${name}/userLogin`);
-export const userSignUp = createAction(`${name}/userSignUp`);
-export const checkIsAuthorized = createAction(`${name}/checkIsAuthorized`);
-export const userLogout = createAction(`${name}/userLogout`);
-
-export const { userAuthorized, userExited, userAuthorizationChecked } =
-  userDataSlice.actions;
+export const {
+  userAuthorized,
+  userExited,
+  userAuthorizationChecked,
+  userLogin,
+  userSignUp,
+  checkIsAuthorized,
+  userLogout,
+} = userDataSlice.actions;
 export default userDataSlice.reducer;

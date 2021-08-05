@@ -1,4 +1,4 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { testsListSortTypes } from 'shared/constants';
 
 const name = 'tests';
@@ -32,11 +32,10 @@ const testsSlice = createSlice({
         searchValue: meta.searchValue,
       };
     },
+    fetchTests: () => {},
+    createNewTest: () => {},
   },
 });
 
-export const fetchTests = createAction(`${name}/fetchTests`);
-export const createNewTest = createAction(`${name}/createNewTest`);
-
-export const { testsLoaded } = testsSlice.actions;
+export const { testsLoaded, createNewTest, fetchTests } = testsSlice.actions;
 export default testsSlice.reducer;

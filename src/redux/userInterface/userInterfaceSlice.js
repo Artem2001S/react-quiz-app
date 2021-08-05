@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const name = 'userInterface';
 const initialState = {
   isLoading: false,
-  message: undefined,
+  message: '',
 };
 
 const userInterfaceSlice = createSlice({
@@ -12,7 +12,7 @@ const userInterfaceSlice = createSlice({
   reducers: {
     loadingStarted: (state) => {
       state.isLoading = true;
-      state.message = undefined;
+      state.message = '';
     },
 
     loadingFinished: (state) => {
@@ -24,7 +24,7 @@ const userInterfaceSlice = createSlice({
     },
 
     messageDeleted: (state) => {
-      state.message = undefined;
+      state.message = '';
     },
   },
 });

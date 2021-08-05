@@ -1,10 +1,10 @@
-const { createSlice, createAction } = require('@reduxjs/toolkit');
+const { createSlice } = require('@reduxjs/toolkit');
 
 const name = 'currentTest';
 const initialState = {
   isFetched: false,
-  entities: null,
-  result: undefined,
+  entities: {},
+  result: {},
 };
 
 const currentTestSlice = createSlice({
@@ -97,23 +97,18 @@ const currentTestSlice = createSlice({
       answers.splice(fromIndex, 1);
       answers.splice(newPosition, 0, answerId);
     },
+    fetchTest: () => {},
+    patchTest: () => {},
+    deleteTest: () => {},
+    patchQuestion: () => {},
+    deleteQuestion: () => {},
+    postQuestion: () => {},
+    deleteAnswer: () => {},
+    postAnswer: () => {},
+    patchAnswer: () => {},
+    changeAnswerPosition: () => {},
   },
 });
-
-export const fetchTest = createAction(`${name}/fetchTest`);
-export const patchTest = createAction(`${name}/patchTest`);
-export const deleteTest = createAction(`${name}/deleteTest`);
-
-export const patchQuestion = createAction(`${name}/patchQuestion`);
-export const deleteQuestion = createAction(`${name}/deleteQuestion`);
-export const postQuestion = createAction(`${name}/postQuestion`);
-
-export const deleteAnswer = createAction(`${name}/deleteAnswer`);
-export const patchAnswer = createAction(`${name}/patchAnswer`);
-export const postAnswer = createAction(`${name}/postAnswer`);
-export const changeAnswerPosition = createAction(
-  `${name}/changeAnswerPosition`
-);
 
 export const {
   testFetched,
@@ -126,5 +121,15 @@ export const {
   answerUpdated,
   answerCreated,
   answerMoved,
+  fetchTest,
+  patchTest,
+  deleteTest,
+  patchQuestion,
+  deleteQuestion,
+  postQuestion,
+  deleteAnswer,
+  postAnswer,
+  patchAnswer,
+  changeAnswerPosition,
 } = currentTestSlice.actions;
 export default currentTestSlice.reducer;

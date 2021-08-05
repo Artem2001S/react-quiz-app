@@ -1,10 +1,42 @@
-export const getTestsListSelector = (state) => state.tests.tests;
-export const getTestsIsFetchedSelector = (state) => state.tests.isFetched;
+import { createSelector } from 'reselect';
 
-export const getTotalPagesSelector = (state) => state.tests.meta.totalPages;
-export const getTestsCountSelector = (state) => state.tests.meta.totalCount;
-export const getTestsCurrentPageSelector = (state) =>
-  state.tests.meta.currentPage;
+const getTestsState = (state) => state.tests;
+export const getTestsListSelector = createSelector(
+  getTestsState,
+  (testsState) => testsState.tests
+);
 
-export const getTestsSortTypeSelector = (state) => state.tests.meta.sort;
-export const getTestsSearchValue = (state) => state.tests.meta.searchValue;
+export const getTestsIsFetchedSelector = createSelector(
+  getTestsState,
+  (testsState) => testsState.isFetched
+);
+
+const getTestsMeta = createSelector(
+  getTestsState,
+  (testsState) => testsState.meta
+);
+
+export const getTotalPagesSelector = createSelector(
+  getTestsMeta,
+  (meta) => meta.totalPages
+);
+
+export const getTestsCountSelector = createSelector(
+  getTestsMeta,
+  (meta) => meta.totalCount
+);
+
+export const getTestsCurrentPageSelector = createSelector(
+  getTestsMeta,
+  (meta) => meta.currentPage
+);
+
+export const getTestsSortTypeSelector = createSelector(
+  getTestsMeta,
+  (meta) => meta.sort
+);
+
+export const getTestsSearchValue = createSelector(
+  getTestsMeta,
+  (meta) => meta.searchValue
+);
