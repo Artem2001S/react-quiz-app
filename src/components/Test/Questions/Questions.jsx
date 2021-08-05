@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Title from 'components/UI/Title/Title';
 import Question from './Question/Question';
 import classes from './Questions.module.scss';
@@ -13,5 +14,10 @@ const Questions = ({ testId, questions }) => (
     </div>
   </div>
 );
+
+Questions.propTypes = {
+  testId: PropTypes.number,
+  questions: PropTypes.array,
+};
 
 export default React.memo(Questions);

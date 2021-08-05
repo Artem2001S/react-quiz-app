@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classes from './Checkbox.module.scss';
 
 const Checkbox = ({ id, label, ...props }) => (
@@ -13,5 +14,10 @@ const Checkbox = ({ id, label, ...props }) => (
     <span className={classes.Label}>{label}</span>
   </label>
 );
+
+Checkbox.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  label: PropTypes.string,
+};
 
 export default React.memo(Checkbox);

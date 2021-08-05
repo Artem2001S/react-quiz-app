@@ -21,7 +21,7 @@ const Input = ({ id, label, className, ...props }) => (
 Input.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
-  onChange: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default React.memo(Input);

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classes from './RadioButton.module.scss';
 
 const RadioButton = ({ id, label, checked, onChange }) => (
@@ -16,5 +17,12 @@ const RadioButton = ({ id, label, checked, onChange }) => (
     </label>
   </div>
 );
+
+RadioButton.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  label: PropTypes.string,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
+};
 
 export default React.memo(RadioButton);

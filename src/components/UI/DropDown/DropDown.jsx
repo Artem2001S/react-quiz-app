@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import DropDownItem from './DropDownItem/DropDownItem';
 import classes from './DropDown.module.scss';
 
@@ -59,6 +60,13 @@ const DropDown = ({
       )}
     </div>
   );
+};
+
+DropDown.propTypes = {
+  label: PropTypes.string,
+  items: PropTypes.array,
+  selectedItemIndex: PropTypes.number,
+  onSelectedItemChanged: PropTypes.func,
 };
 
 export default React.memo(DropDown);

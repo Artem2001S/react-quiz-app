@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Container from 'components/UI/Container/Container';
 import Title from 'components/UI/Title/Title';
 import TestsListItem from './TestsListItem/TestsListItem';
-import classes from './TestsList.module.scss';
 import sortIconSrc from './sort.svg';
 import Button from 'components/UI/Button/Button';
 import SearchTestsForm from './SearchTestsForm/SearchTestsForm';
 import NewTestForm from './NewTestForm/NewTestForm';
+import classes from './TestsList.module.scss';
 
 const TestsList = ({
   tests,
@@ -44,6 +45,15 @@ const TestsList = ({
       </div>
     </Container>
   );
+};
+
+TestsList.propTypes = {
+  tests: PropTypes.array,
+  isAdmin: PropTypes.bool,
+  testsCount: PropTypes.number,
+  onSortChange: PropTypes.func,
+  onSearchFormSubmit: PropTypes.func,
+  onNewTestFormSubmit: PropTypes.func,
 };
 
 export default React.memo(TestsList);

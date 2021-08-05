@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { useTestCtx } from 'components/Test/TestContext';
 import { nanoid } from 'nanoid';
 import Input from 'components/UI/Input/Input';
@@ -43,6 +44,10 @@ const NewAnswerForm = ({ questionId }) => {
       </Button>
     </form>
   );
+};
+
+NewAnswerForm.propTypes = {
+  questionId: PropTypes.number.isRequired,
 };
 
 export default React.memo(NewAnswerForm);

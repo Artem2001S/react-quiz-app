@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 import { TestContextProvider } from './TestContext';
 import { questionTypes } from 'shared/constants';
 import Container from 'components/UI/Container/Container';
@@ -134,6 +135,21 @@ const Test = ({
       </Container>
     </TestContextProvider>
   );
+};
+
+Test.propTypes = {
+  test: PropTypes.object,
+  onTestTitleUpdate: PropTypes.func.isRequired,
+  onAnswerDelete: PropTypes.func.isRequired,
+  onAnswerIsRightToggle: PropTypes.func.isRequired,
+  onQuestionTitleUpdate: PropTypes.func.isRequired,
+  onQuestionDelete: PropTypes.func.isRequired,
+  onNewQuestionFormSubmit: PropTypes.func.isRequired,
+  onNewAnswerFormSubmit: PropTypes.func.isRequired,
+  onAnswerTextChanged: PropTypes.func.isRequired,
+  onAnswerPositionChanged: PropTypes.func.isRequired,
+  onDeleteTestBtnClick: PropTypes.func.isRequired,
+  onQuestionAnswerUpdate: PropTypes.func.isRequired,
 };
 
 export default React.memo(Test);

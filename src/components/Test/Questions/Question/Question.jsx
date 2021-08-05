@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTestCtx } from 'components/Test/TestContext';
 import EditableInput from 'components/UI/EditableInput/EditableInput';
@@ -77,6 +78,11 @@ const Question = ({ question, testId }) => {
       </Modal>
     </div>
   );
+};
+
+Question.propTypes = {
+  question: PropTypes.object,
+  testId: PropTypes.number,
 };
 
 export default React.memo(Question);

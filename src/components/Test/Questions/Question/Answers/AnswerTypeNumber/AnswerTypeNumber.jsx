@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { useTestCtx } from 'components/Test/TestContext';
 import Title from 'components/UI/Title/Title';
 import EditableInput from 'components/UI/EditableInput/EditableInput';
@@ -30,6 +31,11 @@ const AnswerTypeNumber = ({ question, answer }) => {
       </EditableInput>
     </div>
   );
+};
+
+AnswerTypeNumber.propTypes = {
+  question: PropTypes.object,
+  answer: PropTypes.number,
 };
 
 export default React.memo(AnswerTypeNumber);

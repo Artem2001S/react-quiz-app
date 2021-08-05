@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { useTestCtx } from 'components/Test/TestContext';
 import { questionTypes } from 'shared/constants';
 import NewAnswerForm from './NewAnswerForm/NewAnswerForm';
@@ -44,6 +45,10 @@ const Answers = ({ question }) => {
       )}
     </div>
   );
+};
+
+Answers.propTypes = {
+  question: PropTypes.object,
 };
 
 export default React.memo(Answers);

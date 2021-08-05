@@ -1,5 +1,6 @@
-import Button from 'components/UI/Button/Button';
 import React from 'react';
+import PropTypes from 'prop-types';
+import Button from 'components/UI/Button/Button';
 import classes from './UserBar.module.scss';
 
 const UserBar = ({ userName, isAdmin, onLogout }) => (
@@ -11,5 +12,11 @@ const UserBar = ({ userName, isAdmin, onLogout }) => (
     <Button onClick={onLogout}>Logout</Button>
   </div>
 );
+
+UserBar.propTypes = {
+  userName: PropTypes.string,
+  isAdmin: PropTypes.bool,
+  onLogout: PropTypes.func,
+};
 
 export default React.memo(UserBar);

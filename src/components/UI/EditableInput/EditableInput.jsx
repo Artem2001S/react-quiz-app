@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
@@ -101,6 +102,15 @@ const EditableInput = ({
       </Modal>
     </div>
   );
+};
+
+EditableInput.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.string,
+  initialValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  type: PropTypes.string,
+  children: PropTypes.node,
+  onSubmit: PropTypes.func,
 };
 
 export default React.memo(EditableInput);

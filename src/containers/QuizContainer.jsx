@@ -6,6 +6,7 @@ import {
   getCurrentTestSelector,
   getIsCurrentTestFetchedSelector,
 } from 'redux/currentTest/selectors';
+import PropTypes from 'prop-types';
 import Quiz from 'components/Quiz/Quiz';
 
 const QuizContainer = ({ testId }) => {
@@ -18,6 +19,10 @@ const QuizContainer = ({ testId }) => {
   });
 
   return isTestFetched ? <Quiz test={currentTest} /> : null;
+};
+
+QuizContainer.propTypes = {
+  testId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export default React.memo(QuizContainer);

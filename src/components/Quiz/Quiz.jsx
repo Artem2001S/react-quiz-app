@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { QuizContextProvider } from './QuizContext';
 import Container from 'components/UI/Container/Container';
 import Title from 'components/UI/Title/Title';
@@ -42,5 +43,9 @@ const Quiz = ({ test }) => {
 
 Quiz.Info = Info;
 Quiz.PassQuiz = PassQuiz;
+
+Quiz.propTypes = {
+  test: PropTypes.object,
+};
 
 export default React.memo(Quiz);

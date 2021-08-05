@@ -1,5 +1,6 @@
-import classNames from 'classnames';
 import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import classes from './Draggable.module.scss';
 
 const Draggable = ({
@@ -48,6 +49,17 @@ const Draggable = ({
       {children}
     </div>
   );
+};
+
+Draggable.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number,
+  isDragging: PropTypes.bool,
+  onDragStart: PropTypes.func,
+  onDragEnd: PropTypes.func,
+  onDragLeave: PropTypes.func,
+  onDragOver: PropTypes.func,
+  onDrop: PropTypes.func,
 };
 
 export default React.memo(Draggable);

@@ -19,6 +19,7 @@ const Title = ({ small, medium, large, children, centered, className }) => {
 };
 
 Title.propTypes = {
+  className: PropTypes.string,
   small: PropTypes.bool,
   medium: PropTypes.bool,
   centered: PropTypes.bool,

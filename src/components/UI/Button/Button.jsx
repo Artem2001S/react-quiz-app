@@ -3,15 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import classes from './Button.module.scss';
 
-const Button = ({
-  to,
-  className,
-  children,
-  danger,
-  green,
-  small,
-  ...props
-}) => {
+const Button = ({ className, children, danger, green, small, ...props }) => {
   const cls = classNames(
     { [classes.Danger]: danger },
     { [classes.Green]: green },
@@ -27,6 +19,12 @@ const Button = ({
   );
 };
 
-Button.propTypes = { children: PropTypes.node, className: PropTypes.string };
+Button.propTypes = {
+  danger: PropTypes.bool,
+  green: PropTypes.bool,
+  small: PropTypes.bool,
+  children: PropTypes.node,
+  className: PropTypes.string,
+};
 
 export default React.memo(Button);

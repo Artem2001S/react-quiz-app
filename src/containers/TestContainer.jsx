@@ -17,6 +17,7 @@ import {
   getCurrentTestSelector,
   getIsCurrentTestFetchedSelector,
 } from 'redux/currentTest/selectors';
+import PropTypes from 'prop-types';
 import Test from 'components/Test/Test';
 import Title from 'components/UI/Title/Title';
 import Container from 'components/UI/Container/Container';
@@ -139,6 +140,10 @@ const TestContainer = ({ testId }) => {
       )}
     </>
   ) : null;
+};
+
+TestContainer.propTypes = {
+  testId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export default React.memo(TestContainer);

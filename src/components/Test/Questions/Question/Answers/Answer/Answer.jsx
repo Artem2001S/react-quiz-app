@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTestCtx } from 'components/Test/TestContext';
 import Button from 'components/UI/Button/Button';
@@ -83,6 +84,12 @@ const Answer = ({
       </div>
     </div>
   );
+};
+Answer.propTypes = {
+  answer: PropTypes.object,
+  isDeletingAvailable: PropTypes.bool,
+  isSingleQuestion: PropTypes.bool,
+  questionId: PropTypes.number,
 };
 
 export default React.memo(Answer);

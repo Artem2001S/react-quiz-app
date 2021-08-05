@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import Draggable from './Draggable/Draggable';
+import PropTypes from 'prop-types';
 
 const DragList = ({ children, onItemDrop }) => {
   const [dragFrom, setDragFrom] = useState(-1);
@@ -42,6 +43,11 @@ const DragList = ({ children, onItemDrop }) => {
       {node}
     </Draggable>
   ));
+};
+
+DragList.propTypes = {
+  children: PropTypes.node,
+  onItemDrop: PropTypes.func,
 };
 
 export default React.memo(DragList);

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import {
   clearAllBodyScrollLocks,
   disableBodyScroll,
@@ -57,6 +58,14 @@ const Modal = ({
       </div>
     </div>
   ) : null;
+};
+
+Modal.propTypes = {
+  title: PropTypes.string,
+  isVisible: PropTypes.bool,
+  showCloseBtn: PropTypes.bool,
+  children: PropTypes.node,
+  hideModal: PropTypes.func,
 };
 
 export default React.memo(Modal);
