@@ -18,9 +18,9 @@ import {
   postAnswerRequest,
 } from '../requests';
 import {
-  getAnswerByIdSelector,
-  getQuestionByIdSelector,
   getQuestionRightAnswerSelector,
+  makeGetAnswerByIdSelector,
+  makeGetQuestionByIdSelector,
 } from '../selectors';
 
 export function* deleteAnswerWorker({ payload }) {
@@ -41,9 +41,13 @@ export function* patchAnswerWorker({ payload }) {
   try {
     yield put(loadingStarted());
     const { answerId, is_right, text, questionId } = payload;
-    const question = yield select(getQuestionByIdSelector, questionId);
+    const questionSelector = makeGetQuestionByIdSelector(questionId);
+    const question = yield select(questionSelector);
 
-    const answerFromState = yield select(getAnswerByIdSelector, answerId);
+    const answerSelector = makeGetAnswerByIdSelector(answerId);
+
+    const answerFromState = yield select(answerSelector, answerId);
+
     if (question) {
       // if patching is_right
       if (
@@ -57,10 +61,9 @@ export function* patchAnswerWorker({ payload }) {
 
         if (oldRightAnswerId === answerId) return;
 
-        const oldRightAnswer = yield select(
-          getAnswerByIdSelector,
-          oldRightAnswerId
-        );
+        const answerSelector = makeGetAnswerByIdSelector(oldRightAnswerId);
+
+        const oldRightAnswer = yield select(answerSelector, oldRightAnswerId);
 
         yield call(patchAnswerRequest, oldRightAnswer.id, {
           is_right: false,
@@ -80,6 +83,7 @@ export function* patchAnswerWorker({ payload }) {
 
     yield put(answerUpdated({ answerId, changes: { is_right, text } }));
   } catch (error) {
+    console.log(error);
     yield put(messageReceived({ message: 'Answer patching server error' }));
   } finally {
     yield put(loadingFinished());

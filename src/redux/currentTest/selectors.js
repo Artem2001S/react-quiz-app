@@ -23,17 +23,18 @@ export const getIsCurrentTestFetchedSelector = createSelector(
   (state) => state.isFetched
 );
 
-export const getQuestionByIdSelector = createSelector(
-  getCurrentTestState,
-  (state, id) => state.entities?.questions[id]
-);
+export const makeGetQuestionByIdSelector = (id) =>
+  createSelector(getCurrentTestState, (state) => state.entities?.questions[id]);
 
-export const getAnswerByIdSelector = createSelector(
-  getCurrentTestState,
-  (state, id) => state.entities?.answers[id]
-);
+export const makeGetAnswerByIdSelector = (id) =>
+  createSelector(getCurrentTestState, (state) => state.entities?.answers[id]);
 
-export const getQuestionRightAnswerSelector = (state, questionId) =>
-  getQuestionByIdSelector(state, questionId)?.answers.find(
-    (answer) => getAnswerByIdSelector(state, answer).is_right
-  );
+export const getQuestionRightAnswerSelector = (state, questionId) => {
+  const questionSelector = makeGetQuestionByIdSelector(questionId);
+  const question = questionSelector(state);
+
+  return question?.answers.find((answer) => {
+    const answerSelector = makeGetAnswerByIdSelector(answer);
+    return answerSelector(state).is_right;
+  });
+};
