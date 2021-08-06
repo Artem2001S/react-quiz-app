@@ -34,20 +34,14 @@ const Modal = ({
     return () => document.removeEventListener('keyup', handleKeyPress);
   }, [handleKeyPress, isVisible]);
 
-  const backgroundClickHandler = useCallback(
-    (e) => {
-      e.stopPropagation();
-      hideModal();
-    },
-    [hideModal]
-  );
-
-  const stopPropagation = useCallback((e) => e.stopPropagation(), []);
+  const backgroundClickHandler = useCallback(hideModal, [hideModal]);
 
   return isVisible ? (
-    <div className={classes.Modal} onClick={backgroundClickHandler}>
-      {showCloseBtn && <div className={classes.CloseBtn}>&times;</div>}
-      <div className={classes.ModalContent} onClick={stopPropagation}>
+    <div className={classes.Modal}>
+      <div className={classes.ModalBackground} onClick={backgroundClickHandler}>
+        {showCloseBtn && <div className={classes.CloseBtn}>&times;</div>}
+      </div>
+      <div className={classes.ModalContent}>
         {title && (
           <Title small centered>
             {title}

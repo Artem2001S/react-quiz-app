@@ -11,13 +11,26 @@
 
   width: 100vw;
   height: 100vh;
-  background-color: rgba($color: $black, $alpha: 0.5);
   z-index: 10;
 }
 
+.ModalBackground {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba($color: $black, $alpha: 0.5);
+  z-index: 1;
+}
+
 .ModalContent {
+  position: relative;
+  z-index: 2;
+
   padding: 40px;
-  cursor: initial;
   min-height: 200px;
   min-width: 200px;
   max-width: 90vw;
