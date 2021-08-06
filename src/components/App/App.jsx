@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -6,7 +6,6 @@ import {
   getMessageSelector,
 } from 'redux/userInterface/selectors';
 import { checkIsAuthorized } from 'redux/userData/userDataSlice';
-import { useComponentDidMount } from 'hooks/useComponentDidMount';
 import { messageReceived } from 'redux/userInterface/userInterfaceSlice';
 import { getIsUserAuthorizationCheckedSelector } from 'redux/userData/selectors';
 import Loader from 'components/UI/Loader/Loader';
@@ -25,7 +24,7 @@ import AdminRoute from 'shared/components/AdminRoute';
 
 function App() {
   const dispatch = useDispatch();
-  useComponentDidMount(() => dispatch(checkIsAuthorized()));
+  useEffect(() => dispatch(checkIsAuthorized()), [dispatch]);
 
   const isLoading = useSelector(getIsLoadingSelector);
   const isUserAuthorizationChecked = useSelector(

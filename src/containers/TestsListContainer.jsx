@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getTestsCountSelector,
@@ -9,7 +9,6 @@ import {
   getTestsSortTypeSelector,
   getTotalPagesSelector,
 } from 'redux/tests/selectors';
-import { useComponentDidMount } from 'hooks/useComponentDidMount';
 import { createNewTest, fetchTests } from 'redux/tests/testsSlice';
 import { useAuth } from 'hooks/useAuth';
 import { testsListSortTypes } from 'shared/constants';
@@ -27,8 +26,10 @@ const TestsListContainer = () => {
   const sortType = useSelector(getTestsSortTypeSelector);
   const searchValue = useSelector(getTestsSearchValue);
 
-  useComponentDidMount(() =>
-    dispatch(fetchTests({ sort: sortType, page: currentPage, searchValue }))
+  useEffect(
+    () =>
+      dispatch(fetchTests({ sort: sortType, page: currentPage, searchValue })),
+    [currentPage, dispatch, searchValue, sortType]
   );
 
   const { isAdmin } = useAuth();

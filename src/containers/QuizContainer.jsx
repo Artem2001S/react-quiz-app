@@ -1,5 +1,4 @@
-import React from 'react';
-import { useComponentDidMount } from 'hooks/useComponentDidMount';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTest } from 'redux/currentTest/currentTestSlice';
 import {
@@ -14,9 +13,9 @@ const QuizContainer = ({ testId }) => {
   const currentTest = useSelector(getCurrentTestSelector);
   const isTestFetched = useSelector(getIsCurrentTestFetchedSelector);
 
-  useComponentDidMount(() => {
+  useEffect(() => {
     dispatch(fetchTest({ testId }));
-  });
+  }, [dispatch, testId]);
 
   return isTestFetched ? <Quiz test={currentTest} /> : null;
 };

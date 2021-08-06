@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeAnswerPosition,
@@ -12,7 +12,6 @@ import {
   postAnswer,
   postQuestion,
 } from 'redux/currentTest/currentTestSlice';
-import { useComponentDidMount } from 'hooks/useComponentDidMount';
 import {
   getCurrentTestSelector,
   getIsCurrentTestFetchedSelector,
@@ -28,7 +27,7 @@ const TestContainer = ({ testId }) => {
   const currentTest = useSelector(getCurrentTestSelector);
   const isTestFetched = useSelector(getIsCurrentTestFetchedSelector);
 
-  useComponentDidMount(() => dispatch(fetchTest({ testId })));
+  useEffect(() => dispatch(fetchTest({ testId })), [dispatch, testId]);
 
   const handleDeleteTestBtnClick = useCallback(
     () => dispatch(deleteTest({ id: testId })),
